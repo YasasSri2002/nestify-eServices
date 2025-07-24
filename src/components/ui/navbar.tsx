@@ -8,7 +8,7 @@ export default function NavBar(){
 
         return (
             <>
-                <div id="mynavbar" className="navbar flex items-center justify-between text-white p-2 relative bg-[hsla(0,0%,97%,1)] drop-shadow-2xl">
+                <div id="mynavbar" className="navbar flex items-center justify-between text-white p-2 relative bg-[hsla(0,0%,97%,1)] drop-shadow-2xl sm:px-6 lg:px-8">
                 <div>
                     <Image
                         src="/logo.png"
@@ -19,7 +19,7 @@ export default function NavBar(){
                     />
                 </div>
                 
-                <ul className="hidden md:flex gap-4 text-black">
+                <ul className="hidden  md:flex gap-4 text-black">
                     <li><Link href="/">Home</Link></li>
                     <li><Link href="/services">Services</Link></li>
                     <li><Link href="/about">Service provice</Link></li>
