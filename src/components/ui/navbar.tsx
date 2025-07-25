@@ -2,9 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import {  AlignJustify, X } from 'lucide-react'
 import { useEffect } from "react";
 
 export default function NavBar(){
+
+    function sideMenue(){
+        const menue = document.getElementById("mobile-first");
+        if(menue) menue.classList.toggle('hidden');
+    }
 
         return (
             <>
@@ -19,43 +25,53 @@ export default function NavBar(){
                     />
                 </div>
                 
-                <ul className="hidden  md:flex gap-4 text-black">
+                <ul className="hidden md:flex gap-4 text-black">
                     <li><Link href="/">Home</Link></li>
                     <li><Link href="/services">Services</Link></li>
                     <li><Link href="/about">Service provice</Link></li>
                     <li><Link href="/about">Contatct Us</Link></li>
                 </ul>
-                <div id="controls" className="space-x-4 md:flex text-black">
-                    <button className="btn mx-2 rounded-2xl underline w-fit p-2">register</button>
-                    <button className="btn mx-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-[6em] p-2 
+                <div id="controls" className="space-x-4 hidden md:flex text-black ">
+                    <button className="mx-2 rounded-2xl underline w-fit p-2">register</button>
+                    <button className="mx-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-[6em] p-2 
                     hover:bg-[hsla(0,0%,67%,1)]"><a href="">login</a></button>
-                    <button className="btn mx-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-[15em] p-2
+                    <button className="mx-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-[15em] p-2
                     hover:bg-[hsla(0,0%,71%,1)]"> join as a provider</button>
                 </div>
-                <button
-                    className="md:hidden flex flex-col justify-between items-between"
-                    onClick={() => {
-                        const menu = document.getElementById("mobile-menu");
-                        if (menu) menu.classList.toggle("hidden");
-                        const buttons = document.getElementById("controls");
-                        if (buttons) buttons.classList.toggle("hidden");
-                        
-                    }}
-                    aria-label="Toggle menu"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu-icon lucide-menu"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg>
+                <button onClick={sideMenue} className="md:hidden">
+                    <AlignJustify size={34} stroke="black"/>
                 </button>
-                </div>
-                {/* Mobile menu */}
-                <ul
-                    id="mobile-menu"
-                    className="hidden bg-[#0a0a0a] absolute top-full right-0 text-black 
-                    flex-col items-center gap-5 p-4 md:hidden min-w-[150px] rounded shadow-amber-50-lg z-50 h-screen ]"
-                >
-                    <li className="py-6"><Link href="/">Home</Link></li>
-                    <li className="py-6"><Link href="/services">Services</Link></li>
-                    <li className="py-6"><Link href="/about">AboutUs</Link></li>
-                </ul>
+            </div>
+            
+            <div id="mobile-first"className="hidden grid absolute z-50 -top-0 right-0">
+                <div className="bg-[hsla(0,0%,97%,1)] drop-shadow-2xl rounded-l-2xl grid w-50 h-dvh shadow-2xl">
+                    <div className="justify-self-end max-h-5 mt-5">
+                        <button onClick={sideMenue}>
+                        <X size={24} stroke="black"/>
+                        </button>
+                    </div>
+                    <div className="absolute mt-20 ml-5">
+                        <ul className="mt-0">
+                        <li className="pb-5"><a href="">Home</a></li>
+                        <li className="py-5"><a href="">Services</a></li>
+                        <li className="py-5"><a href="">Service providers</a></li>
+                        <li className="py-5"><a href="">Contact us</a></li>
+                    </ul>
+                    </div>
+                    
+                    <div className="content-end-safe">
+                    <div id="mobile-controls" className="space-x-4 grid justify-items-center h-1/2
+                    content-center text-black ">
+                    <button className="m-2 rounded-2xl underline w-fit p-2">Register</button>
+                    <button className="m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
+                    hover:bg-[hsla(0,0%,67%,1)]"><a href="">Log in</a></button>
+                    <button className="m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
+                    hover:bg-[hsla(0,0%,71%,1)]">Join as a provider</button>
+                    </div>
+                    </div>
+                    </div>
+            </div>
+
             </>
             
         );  
