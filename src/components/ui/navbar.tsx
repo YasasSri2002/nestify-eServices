@@ -25,20 +25,20 @@ export default function NavBar(){
                     />
                 </div>
                 
-                <ul className="hidden md:flex gap-4 text-black">
+                <ul className="hidden xl:flex gap-4 text-black">
                     <li><Link href="/">Home</Link></li>
                     <li><Link href="/services">Services</Link></li>
                     <li><Link href="/about">Service provice</Link></li>
                     <li><Link href="/about">Contatct Us</Link></li>
                 </ul>
-                <div id="controls" className="space-x-4 hidden md:flex text-black ">
+                <div id="controls" className="space-x-4 hidden xl:flex text-black ">
                     <button className="mx-2 rounded-2xl underline w-fit p-2">register</button>
                     <button className="mx-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-[6em] p-2 
                     hover:bg-[hsla(0,0%,67%,1)]"><a href="">login</a></button>
                     <button className="mx-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-[15em] p-2
                     hover:bg-[hsla(0,0%,71%,1)]"> join as a provider</button>
                 </div>
-                <button onClick={sideMenue} className="md:hidden">
+                <button onClick={sideMenue} className="xl:hidden">
                     <AlignJustify size={34} stroke="black"/>
                 </button>
             </div>
@@ -52,20 +52,20 @@ export default function NavBar(){
                     </div>
                     <div className="absolute mt-20 ml-5">
                         <ul className="mt-0">
-                        <li className="pb-5"><a href="">Home</a></li>
-                        <li className="py-5"><a href="">Services</a></li>
-                        <li className="py-5"><a href="">Service providers</a></li>
-                        <li className="py-5"><a href="">Contact us</a></li>
+                        <li className="pb-2"><a href="">Home</a></li>
+                        <li className="py-2"><a href="">Services</a></li>
+                        <li className="py-2"><a href="">Service providers</a></li>
+                        <li className="py-2"><a href="">Contact us</a></li>
                     </ul>
                     </div>
                     
-                    <div className="content-end-safe">
-                    <div id="mobile-controls" className="space-x-4 grid justify-items-center h-1/2
-                    content-center text-black ">
-                    <button className="m-2 rounded-2xl underline w-fit p-2">Register</button>
-                    <button className="m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
+                    <div className="content-end mb-2 mt-25 lg:mt-0">
+                    <div id="mobile-controls" className="space-x-4 grid  justify-items-center h-full
+                     md:h-1/2  content-end text-black ">
+                    <button className="mb-2 md:m-2 lg:m-2 rounded-2xl underline w-fit p-2">Register</button>
+                    <button className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
                     hover:bg-[hsla(0,0%,67%,1)]"><a href="">Log in</a></button>
-                    <button className="m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
+                    <button className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
                     hover:bg-[hsla(0,0%,71%,1)]">Join as a provider</button>
                     </div>
                     </div>
