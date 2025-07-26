@@ -14,7 +14,7 @@ export default function NavBar(){
 
         return (
             <>
-                <div id="mynavbar" className="navbar flex items-center justify-between text-white p-2 relative bg-[hsla(0,0%,97%,1)] drop-shadow-2xl sm:px-6 lg:px-8">
+                <div id="mynavbar" className="navbar flex items-center justify-between text-white p-2 relative bg-[hsla(0,0%,97%,1)] drop-shadow-xl sm:px-6 lg:px-8 w-full">
                 <div>
                     <Image
                         src="/logo.png"

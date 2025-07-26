@@ -1,10 +1,10 @@
 import Image from "next/image";
-import SearchBar from "@/components/ui/searchBar";
+import HeroSection from "./Hero";
 
 export default function Home() {
   return (
-    <div>
-      <SearchBar/>
-    </div>
+    <>
+      <HeroSection/>
+    </>
   );
 }
