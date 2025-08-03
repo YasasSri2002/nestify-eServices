@@ -1,16 +1,18 @@
-import Image from "next/image";
 import HeroSection from "./Hero";
 import ServiceComponent from "./ServiceListComponent";
-import ProviderCard from "@/components/ui/providerCard";
 import ProvidersList from "./ProvidersList";
+import NavBar from "@/components/ui/navbar";
+import Footer from "@/components/ui/footer";
 
 
 export default function Home() {
   return (
     <>
+      <NavBar/>
       <HeroSection/>
       <ServiceComponent/>
       <ProvidersList/>
+      <Footer/>
     </>
   );
 }
