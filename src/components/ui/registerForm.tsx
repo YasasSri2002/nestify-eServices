@@ -4,18 +4,18 @@ import {EyeClosed, Eye , X ,User ,Key} from 'lucide-react';
 export default function registerForm(){
     return(
         <>
-          <div className="grid sm:grid-cols-2 justify-items-center content-center h-dvh">
+          <div className="grid justify-items-center items-center h-dvh">
 
-              <div className="grid col-1 justify-items-center relative top-25 w-[500px] h-[400px] bg-gray-200 rounded-4xl drop-shadow-2xl">
-                <div className='absolute top-5 left-5'>
+              <div className="grid justify-items-center w-full md:w-1/2 h-2/3 bg-gray-200 rounded-4xl drop-shadow-2xl">
+                <div className='absolute left-5 top-5'>
                     <button>
                         <X/>
                     </button>
                 </div>
-                <div className="flex-col justify-items-center space-x-5 w-full px-10 pt-5 my-6">
+                <div className="justify-items-center content-center space-x-5 w-full mt-3">
 
-                   <div className="space-x-6 py-5">
-                        <span className='relative top-7 -left-8'>
+                   <div className="flex items-center">
+                        <span>
                             <User/>
                         </span>
                         <input type="text" name="userName" 
@@ -23,8 +23,8 @@ export default function registerForm(){
                         py-1 px-2 w-[250px] ml-7 rounded-2xl"/>
                    </div>
 
-                    <div className="space-x-8 py-5 relative left-4 flex content-center">
-                        <span className='relative top-2 -left-6'>
+                    <div className="space-x-8 py-5 relative left-4 flex items-center">
+                        <span>
                             <Key/>
                         </span>
                         <input type="password" name="password" 
@@ -35,11 +35,14 @@ export default function registerForm(){
                     </div>
                 </div>
 
-                <div className="flex justify-center space-x-4 mb-5">
-                    <button className="bg-white h-[60px] w-[8em] rounded-2xl">Login</button>
+                <button className="bg-white h-2/3 w-[8em] rounded-2xl">Login</button>
+                
+                <div className="grid grid-cols-2 gap-2 content-center">
+                    <div className="col-1 bg-red-200 w-full h-full">provider</div>
+                    <div className="col-2 bg-red-200 w-full h-full">client</div>
                 </div>
 
-                <div className="grid text-center my-2 text-sky-700">
+                <div className="grid text-center items-center  text-sky-700">
                     <a href="#">Don't have an account? Sign Up</a>
                     <a href="#">Forgot Password?</a>
                 </div>
@@ -49,11 +52,6 @@ export default function registerForm(){
                     <span className="px-4 text-sm font-medium whitespace-nowrap">Or</span>
                     <hr className="flex-grow border-t  bg-gray-500" />
                 </div>
-
-            </div>
-
-            <div className='col-2 w-full h-screen bg-amber-300'>
-            
 
             </div>
 
