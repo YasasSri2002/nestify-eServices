@@ -1,6 +1,6 @@
-import RegisterForm from "@/components/ui/registerForm"
+import LoginForm from "@/components/ui/loginForm"
 
-export default function AboutPage() {
+export default function LoginPage() {
 
-    return <RegisterForm/>
+    return <LoginForm/>
 }
