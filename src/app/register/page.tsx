@@ -1,46 +1,51 @@
 "use client";
-import { useRef } from "react";
-export default function RegisterPage(){
+import { useState, useEffect } from 'react';
+import ClientForm from './Client'; 
+import ProviderForm from './Provider'; 
 
-    const checkedRef= useRef(false);
+export default function RegisterPage() {
+  const [role, setRole] = useState('client'); 
 
-    const handleClick = () =>{
-       const el = document.getElementById("providerRadio") as HTMLInputElement | null;
-        if (el) {
-            el.checked = true;
-        }
-        
-        console.log(el?.value);
-        console.log(checkedRef);
-    }
+  useEffect(() => { 
+    console.log("Selected role:", role);
+  }, [role]);
 
-    return(
-        <>
-            <div className="flex justify-center">
-                 <div className="m-15 w-full bg-red-200 h-fit rounded-4xl p-5 grid
-                grid-cols-2 space-x-6">
-                    <div className="col-1 grid justify-items-center">
-                        
-                    </div>
-                    <div className="col-2 grid  justify-items-center">
-                        <div className="grid">
-                            <div className="flex">
-                                <input type="radio" name="provider" id="providerRadio" 
-                                className="sr-only"
-                                checked = {false}
-                                value="provider"
-                                onChange={(e)=> checkedRef.current = e.target.checked}
-                                
-                                    />
-                                    <label htmlFor="provider" onClick={handleClick}>fk</label>
-                            </div>
+  return (
+    <div className="flex flex-col items-center m-10 p-5">
+      {/* Role Selection Toggle */}
+      <div className="w-full rounded-4xl p-5 grid grid-cols-2 gap-4">
+        <div className="grid justify-items-center">
+          <button
+            onClick={() => setRole('provider')}
+            className={`w-1/2 max-w-m  px-4 py-2 rounded-md transition-all ${
+              role === 'provider'
+                ? "border-2 border-green-500 shadow-md shadow-green-200 bg-white font-medium rounded-2xl" 
+                : " hover:bg-gray-100"
+            }`}
+          >
+            Provider
+          </button>
+        </div>
 
-                            <input type="radio" name="client" id="clientRadio" />
-                        </div>
-                    </div>
+        <div className="grid justify-items-center">
+          <button
+            onClick={() => setRole('client')}
+            className={`w-1/2 px-4 py-2 rounded-md transition-all ${
+              role === 'client'
+                ? "border-2 border-green-500 shadow-md shadow-green-200 bg-white font-medium rounded-2xl" 
+                : " hover:bg-gray-100"
+            }`}
+          >
+            Client
+          </button>
+        </div>
+      </div>
 
-                </div> 
-               </div>
-        </>
-    );
-} 
+      {/* Conditionally Render Imported Forms */}
+      <div className="w-full mt-8 bg-amber-200">
+        {role === 'client' && <ClientForm />}
+        {role === 'provider' && <ProviderForm />}
+      </div>
+    </div>
+  );
+}
