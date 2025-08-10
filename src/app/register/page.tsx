@@ -11,9 +11,10 @@ export default function RegisterPage() {
   }, [role]);
 
   return (
+    <>
     <div className="flex flex-col items-center m-10 p-5">
       {/* Role Selection Toggle */}
-      <div className="w-full rounded-4xl p-5 grid grid-cols-2 gap-4">
+      <div className="w-dvw rounded-4xl p-5 grid sm:grid-cols-2 gap-4">
         <div className="grid justify-items-center">
           <button
             onClick={() => setRole('provider')}
@@ -42,10 +43,13 @@ export default function RegisterPage() {
       </div>
 
       {/* Conditionally Render Imported Forms */}
-      <div className="w-full mt-8 bg-amber-200">
+     
+    </div>
+
+    
         {role === 'client' && <ClientForm />}
         {role === 'provider' && <ProviderForm />}
-      </div>
-    </div>
+      
+    </>
   );
 }
