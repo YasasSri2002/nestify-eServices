@@ -24,7 +24,7 @@ export default function RegisterPage() {
                 : " hover:bg-gray-100"
             }`}
           >
-            Provider
+            Service Provider
           </button>
         </div>
 

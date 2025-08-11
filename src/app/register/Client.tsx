@@ -6,16 +6,16 @@ import { LiaWindowCloseSolid } from "react-icons/lia";
 export default function ClientForm() {
   return(
           <>
-          <div className="flex-col sm:grid sm:grid-cols-2 justify-items-center w-dvw ">
-                <div className="col-1  bg-red-300 w-fit">
+          <div className="flex-col sm:grid sm:grid-cols-2 justify-items-center w-dvw h-[25em] ">
+                <div className="col-1  bg-white w-fit">
                    <DotLottieReact
                         src="/animation/real estate.lottie"
                         loop
                         autoplay
                        />
                 </div>
-                <div className="col-2 justify-items-center content-center bg-violet-300 w-full ">
-                  <div className="w-full flex justify-end">
+                <div className="col-2 justify-items-center content-center bg-gray-200 rounded-3xl w-full ">
+                  <div className="w-full flex justify-end relative -top-15 right-5" >
                       <LiaWindowCloseSolid size={34} />
                   </div>
                   <div className="flex justify-evenly my-6 w-full ">

@@ -32,11 +32,11 @@ export default function NavBar(){
                     <li><Link href="/about">Contatct Us</Link></li>
                 </ul>
                 <div id="controls" className="space-x-4 hidden xl:flex text-black ">
-                    <button className="mx-2 rounded-2xl underline w-fit p-2">register</button>
-                    <button className="mx-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-[6em] p-2 
+                    
+                    <button className="mx-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-[10em] p-2 
                     hover:bg-[hsla(0,0%,67%,1)]"><a href="">login</a></button>
-                    <button className="mx-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-[15em] p-2
-                    hover:bg-[hsla(0,0%,71%,1)]"> join as a provider</button>
+                    <button className="mx-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-[10em] p-2
+                    hover:bg-[hsla(0,0%,71%,1)]"> Register</button>
                 </div>
                 <button onClick={sideMenue} className="xl:hidden">
                     <AlignJustify size={34} stroke="black"/>
@@ -45,7 +45,7 @@ export default function NavBar(){
             
             <div id="mobile-first"className="hidden grid absolute z-50 -top-0 right-0">
                 <div className="bg-[hsla(0,0%,97%,1)] drop-shadow-2xl rounded-l-2xl grid w-50 h-dvh shadow-2xl">
-                    <div className="justify-self-end max-h-5 mt-5">
+                    <div className="justify-self-end max-h-5 mt-5 relative right-5">
                         <button onClick={sideMenue}>
                         <X size={24} stroke="black"/>
                         </button>
@@ -59,14 +59,13 @@ export default function NavBar(){
                     </ul>
                     </div>
                     
-                    <div className="content-end mb-2 mt-25 lg:mt-0">
+                    <div className="content-end mb-2 mt-25 lg:mt-0 relative bottom-5">
                     <div id="mobile-controls" className="space-x-4 grid  justify-items-center h-full
                      md:h-1/2  content-end text-black ">
-                    <button className="mb-2 md:m-2 lg:m-2 rounded-2xl underline w-fit p-2">Register</button>
                     <button className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
                     hover:bg-[hsla(0,0%,67%,1)]"><a href="">Log in</a></button>
                     <button className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
-                    hover:bg-[hsla(0,0%,71%,1)]">Join as a provider</button>
+                    hover:bg-[hsla(0,0%,71%,1)]">Register</button>
                     </div>
                     </div>
                     </div>
