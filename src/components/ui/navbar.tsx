@@ -34,9 +34,9 @@ export default function NavBar(){
                 <div id="controls" className="space-x-4 hidden xl:flex text-black ">
                     
                     <button className="mx-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-[10em] p-2 
-                    hover:bg-[hsla(0,0%,67%,1)]"><a href="">login</a></button>
+                    hover:bg-[hsla(0,0%,67%,1)]"><Link href="/login">login</Link></button>
                     <button className="mx-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-[10em] p-2
-                    hover:bg-[hsla(0,0%,71%,1)]"> Register</button>
+                    hover:bg-[hsla(0,0%,71%,1)]"><Link href="/register">Register</Link> </button>
                 </div>
                 <button onClick={sideMenue} className="xl:hidden">
                     <AlignJustify size={34} stroke="black"/>
@@ -63,9 +63,9 @@ export default function NavBar(){
                     <div id="mobile-controls" className="space-x-4 grid  justify-items-center h-full
                      md:h-1/2  content-end text-black ">
                     <button className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
-                    hover:bg-[hsla(0,0%,67%,1)]"><a href="">Log in</a></button>
+                    hover:bg-[hsla(0,0%,67%,1)]"><Link href="/login">Log in</Link></button>
                     <button className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
-                    hover:bg-[hsla(0,0%,71%,1)]">Register</button>
+                    hover:bg-[hsla(0,0%,71%,1)]"><Link href="/register">Register</Link></button>
                     </div>
                     </div>
                     </div>

@@ -8,6 +8,7 @@ export default function RegisterPage() {
 
   useEffect(() => { 
     console.log("Selected role:", role);
+    
   }, [role]);
 
   return (
@@ -47,8 +48,8 @@ export default function RegisterPage() {
     </div>
 
     
-        {role === 'client' && <ClientForm />}
-        {role === 'provider' && <ProviderForm />}
+        {role === 'client' && <ClientForm  key="client-form"/>}
+        {role === 'provider' && <ProviderForm key="provider-form" />}
       
     </>
   );
