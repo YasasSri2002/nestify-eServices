@@ -10,24 +10,22 @@ export default function ServiceComponent(){
             <p className="text-lg lg:text-xl text-center text-gray-500">Browse our most requested household services and find the perfect professional for your needs.</p>
             <div className="flex-col justify-items-center sm:justify-center sm:flex sm:flex-row flex-wrap">
           <div className="m-5">
-              <ServiceCard imageUrl="#" serviceName="electric"/>
+              <ServiceCard name="GiElectric" serviceName="Electrical"/>
 
           </div>
           <div className="m-5">
-               <ServiceCard imageUrl="https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg" serviceName="wada"/>
+               <ServiceCard name="MdOutlineCleaningServices" serviceName="Cleaning"/>
           </div>
           <div className="m-5">
-               <ServiceCard imageUrl="https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg" serviceName="wada"/>
+               <ServiceCard name="MdPlumbing" serviceName="Plumbing"/>
           </div>
           <div className="m-5">
-                 <ServiceCard imageUrl="https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg" serviceName="wada"/>
+                 <ServiceCard name="TbGardenCart" serviceName="Gradening"/>
           </div>
           <div className="m-5">
-                 <ServiceCard imageUrl="https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg" serviceName="wada"/>
+                 <ServiceCard name="MdOutlineCarpenter" serviceName="Carpenter"/>
           </div>
-          <div className="m-5">
-                 <ServiceCard imageUrl="https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg" serviceName="wada"/>
-          </div>
+          
       </div>
         </div>
         </>

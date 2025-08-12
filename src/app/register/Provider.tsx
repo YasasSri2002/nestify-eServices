@@ -33,7 +33,7 @@ export default function ProviderForm() {
             </div>
             
             <div className="mt-4 text-center w-full">
-              <p className="mt-2">This additional content won't cause overflow</p>
+              <p className="mt-2">Ready to shine? Register as a service provider today!</p>
             </div>
           </div>
         </div>

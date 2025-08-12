@@ -1,5 +1,19 @@
+"use client"
 import ProviderCard from "@/components/ui/providerCard";
+import DynamicIcon from "@/components/utill/DynamicIcons";
+import Link from "next/link";
+import { useRef } from "react";
 export default function ProvidersList(){
+
+    const providerRef = useRef({
+        name: "",
+        profilePic: "",
+        experties: "",
+        address: "",
+        services:[""],
+        hourlyRate: ""
+    });
+
     return(
         <>
            <div className="h-full">
@@ -17,11 +31,13 @@ export default function ProvidersList(){
                 <div>
                     <ProviderCard/>
                 </div>
-                <div>
-                    <ProviderCard/>
-                </div>
-                <div>
-                    <ProviderCard/>
+                <div className="flex justify-center items-center w-full  text-gray-500 mt-10 my-2 text-2xl space-x-4">
+                    <Link href="" className="flex items-center " >
+                    
+                    See more
+                    <DynamicIcon name="HiArrowSmRight" />
+                    </Link>
+                    
                 </div>
             </div>
            </div>

@@ -2,8 +2,11 @@
 import {BadgeCheck ,Star, MapPin ,Phone} from 'lucide-react'
 export default function ProviderCard(){
     return(
+        
         <>
-            <div className="bg-white shadow-black shadow-2xl w-[20em] h-100 rounded-2xl"> 
+            <div className='[transform-style:preserve-3d] '>
+                <div className="bg-white shadow-black shadow-2xl w-[20em] h-90 py-2 rounded-2xl
+            hover:[transform:scale3d(1,1.1,2)]"> 
                 <div className="flex space-x-5 py-6 items-center justify-center">
                     <div>
                         <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" className="rounded-full" width={50} height={50}  alt="" />
@@ -27,9 +30,9 @@ export default function ProviderCard(){
                         <MapPin width={25} stroke='hsla(0,0%,61%,1)' strokeWidth={2.5}/>
                         <h2>New York, America</h2>
                     </div>
-                    <div className='space-y-3'> 
+                    <div className='space-y-3 flex'> 
                         <h2>Services:</h2>
-                        <div className='flex space-x-3 flex-wrap space-y-3'>
+                        <div className='flex justify-end space-x-3 flex-wrap space-y-3'>
                             <h2 className='bg-[hsla(0,1%,79%,1)] rounded-2xl px-2'>Wiring</h2>
                             <h2 className='bg-[hsla(0,1%,79%,1)] rounded-2xl px-2'>Light Installation</h2>
                             <h2 className='bg-[hsla(0,1%,79%,1)] rounded-2xl px-2'>Electrical Repairs</h2>
@@ -62,6 +65,7 @@ export default function ProviderCard(){
                     </div>
                 </div>
 
+            </div>
             </div>
         </>
     );

@@ -22,6 +22,7 @@ export default function ClientForm() {
         <div className="flex flex-col sm:grid sm:grid-cols-[1fr_1fr] items-center w-full">
           <div className="w-full flex justify-center bg-white p-4">
             <div className="max-w-full flex flex-col items-center">
+              <h2 className="text-xl font-bold">Register as a client</h2>
               <div className="w-full max-w-[750px]">
                 <DotLottieReact
                   key={animationKey} // Key forces remount
@@ -32,8 +33,8 @@ export default function ClientForm() {
                 />
               </div>
               <div className="mt-4 text-center w-full">
-              <h2 className="text-xl font-bold">More Content</h2>
-              <p className="mt-2">This additional content won't cause overflow</p>
+              
+              <p className="mt-2">Get things done. Connect with trusted experts instantly.</p>
             </div>
             </div>
           </div>
