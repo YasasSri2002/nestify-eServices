@@ -28,7 +28,7 @@ export default function NavBar(){
                 <ul className="hidden xl:flex gap-4 text-black">
                     <li><Link href="/">Home</Link></li>
                     <li><Link href="/services">Services</Link></li>
-                    <li><Link href="/about">Service provice</Link></li>
+                    <li><Link href="/providers">Service provice</Link></li>
                     <li><Link href="/about">Contatct Us</Link></li>
                 </ul>
                 <div id="controls" className="space-x-4 hidden xl:flex text-black ">

@@ -50,15 +50,15 @@ export default function ProviderCard(){
                 </div>
 
                 <div className='grid grid-cols-2 mt-5 mx-4 space-x-5'>
-                    <div className="col-1 bg-white border-1 rounded-2xl">
+                    <div className="col-1 bg-white hover:bg-gray-200 border-1 rounded-2xl">
                         <div className="flex justify-center items-center pt-1">
                             <button>Book</button>
                         </div>
                     </div>
-                    <div className="col-2 bg-[hsla(240,81%,8%,1)] rounded-2xl text-amber-50 px-2 py-1">
+                    <div className="col-2 bg-[hsla(240,81%,8%,1)] hover:bg-[hsla(240,81%,45%,1)] rounded-2xl text-amber-50 px-2 py-1">
                         <div className='flex justify-center space-x-3'>
                             <button>Contact </button>
-                            <Phone width={24} fill='white' stroke='white' strokeWidth={1}/> 
+                            <Phone width={24}  fill='white' stroke='white' strokeWidth={1}/> 
                         </div>
                         
                             

@@ -13,8 +13,10 @@ export default function HeroSection(){
             Connect with skilled professionals for all your household needs. From cleaning to repairs, we've got you covered.
           </p>
         </div>
-        <div className="bg-white shadow-xl my-4 xl:mx-30 md:px-10 pt-2 sm:py-2 rounded-2xl">
-            <SearchBar/>
+        <div className="bg-white shadow-xl my-4 xl:mx-30 rounded-2xl">
+            <div className="xl:relative xl:left-13">
+              <SearchBar/>
+            </div>
         </div>
         <div className="mt-1 text-sm text-gray-500 text-center">
             Popular searches: House cleaning, Plumber, Electrician, Garden maintenance
