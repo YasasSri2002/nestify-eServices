@@ -3,6 +3,7 @@ import ServiceComponent from "./ServiceListComponent";
 import ProvidersList from "./ProvidersList";
 import NavBar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
+import ProviderPage from "./provider";
 
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <ServiceComponent/>
       <ProvidersList/>
       <Footer/>
+      <ProviderPage/>
     </>
   );
 }

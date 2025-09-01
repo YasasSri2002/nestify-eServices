@@ -5,7 +5,7 @@ export default function ProviderCard(){
         
         <>
             <div className='[transform-style:preserve-3d] '>
-                <div className="bg-white shadow-black shadow-2xl w-[20em] h-90 py-2 rounded-2xl
+                <div className="bg-white  shadow-2xl w-[20em] h-90 py-2 rounded-2xl
             hover:[transform:scale3d(1,1.1,2)]"> 
                 <div className="flex space-x-5 py-6 items-center justify-center">
                     <div>
