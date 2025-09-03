@@ -1,6 +1,10 @@
 "use client"
 import {BadgeCheck ,Star, MapPin ,Phone} from 'lucide-react'
-export default function ProviderCard(){
+import { useRef } from 'react';
+import { ProviderDto } from '@/dto/ProviderDto';
+
+export default function ProviderCard({ provider }: { provider: ProviderDto }){
+    
     return(
         
         <>
@@ -13,10 +17,10 @@ export default function ProviderCard(){
                     </div>
                     <div className='space-y-1' >
                         <div className='flex space-x-4'>
-                            <h1>Emma rodiguaz</h1>
+                            <h1>{provider.email}</h1>
                             <BadgeCheck stroke='green' />
                         </div>
-                        <h2>Certifited Electrician</h2>
+                        <h2>{provider.expertise}</h2>
                         <div className='flex space-x-2 items-center'>
                             <Star fill='gold' stroke='gold' width={16}/>
                             <h2 className='font-bold text-[0.8em]'>4.9</h2>
@@ -41,7 +45,7 @@ export default function ProviderCard(){
                     <div className='flex justify-between'>
                         <div className='flex space-x-2'>
                             <h1>Starting at:</h1>
-                            <span>25$</span>
+                            <span>$ {provider.hourlyRate}/hr</span>
                         </div>
                         <div>
                             <span>5+ years</span>

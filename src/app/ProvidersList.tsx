@@ -1,46 +1,52 @@
-"use client"
+"use client";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { ProviderDto } from "@/dto/ProviderDto";
 import ProviderCard from "@/components/ui/providerCard";
-import DynamicIcon from "@/components/utill/DynamicIcons";
-import Link from "next/link";
-import { useRef } from "react";
-export default function ProvidersList(){
 
-    const providerRef = useRef({
-        name: "",
-        profilePic: "",
-        experties: "",
-        address: "",
-        services:[""],
-        hourlyRate: ""
-    });
+export default function ProvidersList() {
+  const [providers, setProviders] = useState<ProviderDto[]>([]);
 
-    return(
-        <>
-           <div className="h-full">
-             <h1 className="text-gray-900 text-4xl lg:text-6xl text-center my-10">Popluar Providers</h1>
-            <div className="flex flex-row flex-wrap justify-center gap-5">
-                <div>
-                    <ProviderCard/>
-                </div>
-                <div>
-                    <ProviderCard/>
-                </div>
-                <div>
-                    <ProviderCard/>
-                </div>
-                <div>
-                    <ProviderCard/>
-                </div>
-                <div className="flex justify-center items-center w-full  text-gray-500 mt-10 my-2 text-2xl space-x-4">
-                    <Link href="" className="flex items-center " >
-                    
-                    See more
-                    <DynamicIcon name="HiArrowSmRight" />
-                    </Link>
-                    
-                </div>
-            </div>
-           </div>
-        </>
-    );
+  useEffect(() => {
+    const fetchProviders = async () => {
+      try {
+        // Login request
+        const login = await axios.post("http://localhost:8080/admin/login", {
+          username: "superadmin@gmail.com",
+          password: "superadmin123$",
+        });
+
+        const token = login.data.jwtToken;
+
+        // Fetch providers once
+        const response = await axios.get<ProviderDto[]>(
+          "http://localhost:8080/api/v1/providers/all",
+          {
+            headers: { Authorization: token },
+          }
+        );
+
+        // ✅ Replace state (not append in a loop)
+        setProviders(response.data);
+      } catch (error) {
+        console.error("Error fetching providers:", error);
+      }
+    };
+
+    fetchProviders();
+  }, []); // ✅ empty dependency array ensures it runs once
+
+  return (
+    <div className="h-full">
+      <h1 className="text-gray-900 text-4xl lg:text-6xl text-center my-10">
+        Popular Providers
+      </h1>
+
+      <div className="flex flex-row flex-wrap justify-center gap-5">
+        {providers.map((provider) => (
+          <ProviderCard key={provider.email} provider={provider} />
+        ))}
+      </div>
+    </div>
+  );
 }
