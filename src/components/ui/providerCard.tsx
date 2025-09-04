@@ -1,9 +1,9 @@
 "use client"
 import {BadgeCheck ,Star, MapPin ,Phone} from 'lucide-react'
-import { useRef } from 'react';
-import { ProviderDto } from '@/dto/ProviderDto';
 
-export default function ProviderCard({ provider }: { provider: ProviderDto }){
+import { ProviderWithJobs } from '@/dto/response/ProviderJob';
+
+export default function ProviderCard({ provider }: { provider: ProviderWithJobs }){
     
     return(
         
@@ -17,10 +17,10 @@ export default function ProviderCard({ provider }: { provider: ProviderDto }){
                     </div>
                     <div className='space-y-1' >
                         <div className='flex space-x-4'>
-                            <h1>{provider.email}</h1>
+                            <h1>{provider.providerDto.email}</h1>
                             <BadgeCheck stroke='green' />
                         </div>
-                        <h2>{provider.expertise}</h2>
+                        <h2>{provider.providerDto.expertise}</h2>
                         <div className='flex space-x-2 items-center'>
                             <Star fill='gold' stroke='gold' width={16}/>
                             <h2 className='font-bold text-[0.8em]'>4.9</h2>
@@ -37,15 +37,20 @@ export default function ProviderCard({ provider }: { provider: ProviderDto }){
                     <div className='space-y-3 flex'> 
                         <h2>Services:</h2>
                         <div className='flex justify-end space-x-3 flex-wrap space-y-3'>
-                            <h2 className='bg-[hsla(0,1%,79%,1)] rounded-2xl px-2'>Wiring</h2>
-                            <h2 className='bg-[hsla(0,1%,79%,1)] rounded-2xl px-2'>Light Installation</h2>
-                            <h2 className='bg-[hsla(0,1%,79%,1)] rounded-2xl px-2'>Electrical Repairs</h2>
+                            {
+                                provider.job.map((job)=>(
+                                    <h2 key={job.id}
+                                     className='bg-[hsla(0,1%,79%,1)] rounded-2xl px-2'>
+                                        {job.name}
+                                        </h2>
+                                ))
+                            }
                         </div>
                     </div>
                     <div className='flex justify-between'>
                         <div className='flex space-x-2'>
                             <h1>Starting at:</h1>
-                            <span>$ {provider.hourlyRate}/hr</span>
+                            <span>$ {provider.providerDto.hourlyRate}/hr</span>
                         </div>
                         <div>
                             <span>5+ years</span>

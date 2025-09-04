@@ -3,27 +3,18 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { ProviderDto } from "@/dto/ProviderDto";
 import ProviderCard from "@/components/ui/providerCard";
+import {ProviderWithJobs} from "@/dto/response/ProviderJob"
 
 export default function ProvidersList() {
-  const [providers, setProviders] = useState<ProviderDto[]>([]);
+  const [providers, setProviders] = useState<ProviderWithJobs[]>([]);
 
   useEffect(() => {
     const fetchProviders = async () => {
       try {
-        // Login request
-        const login = await axios.post("http://localhost:8080/admin/login", {
-          username: "superadmin@gmail.com",
-          password: "superadmin123$",
-        });
-
-        const token = login.data.jwtToken;
-
+      
         // Fetch providers once
-        const response = await axios.get<ProviderDto[]>(
-          "http://localhost:8080/api/v1/providers/all",
-          {
-            headers: { Authorization: token },
-          }
+        const response = await axios.get<ProviderWithJobs[]>(
+          "http://localhost:8080/api/v1/providers/top5"
         );
 
         // ✅ Replace state (not append in a loop)
@@ -44,7 +35,7 @@ export default function ProvidersList() {
 
       <div className="flex flex-row flex-wrap justify-center gap-5">
         {providers.map((provider) => (
-          <ProviderCard key={provider.email} provider={provider} />
+          <ProviderCard key={provider.providerDto.email} provider={provider} />
         ))}
       </div>
     </div>
