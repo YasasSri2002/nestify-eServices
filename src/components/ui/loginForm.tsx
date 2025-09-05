@@ -1,14 +1,44 @@
 
 "use client";
-import {EyeClosed, Eye , X ,User ,Key,} from 'lucide-react';
+import {EyeClosed, Eye , X ,User ,Key, Target,} from 'lucide-react';
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareFacebook ,FaUserTie ,FaUser } from "react-icons/fa6";
 import Swal from 'sweetalert2'
 import { title } from 'process';
 import Link from 'next/link';
+import axios from 'axios';
+import { useState,useEffect } from 'react';
 
 
 export default function loginForm(){
+
+
+        const [email,setEmail]=useState("");
+        const [password,setPassword] = useState("");
+      
+      
+  
+          const requestlogin = async(email:string, password:string)=>{
+            const login = await axios.post("http://localhost:8080/admin/login", {
+            username: email,
+            password: password
+          });
+  
+          const token = login.data.jwtToken;
+  
+          if(token){
+            localStorage.setItem("token",token);
+          }}
+           
+
+      function handleEmailChange(event: any){
+        setEmail(prev=> event.target.value)
+        console.log(email)
+      }
+      function handlePasswordChange(event: any){
+        setPassword(prev=> event.target.value)
+        console.log(email)
+      }
 
 
     return(
@@ -41,6 +71,8 @@ export default function loginForm(){
                             <User/>
                         </span>
                         <input type="text" name="userName" 
+                        value={email}
+                        onChange={handleEmailChange}
                         className="bg-white  border-none drop-shadow-2xl focus:bg-gray-100 
                         py-1 px-2 w-[250px] ml-7 rounded-2xl"/>
                    </div>
@@ -50,6 +82,8 @@ export default function loginForm(){
                             <Key/>
                         </span>
                         <input type="password" name="password" 
+                                value={password}
+                                onChange={handlePasswordChange}
                                 className="bg-white border-none drop-shadow-2xl focus:bg-gray-100 py-1 px-2 w-[250px] rounded-2xl"/>
                         <button className='relative top-0.5 -left-18'> 
                                 <EyeClosed/>
@@ -58,7 +92,9 @@ export default function loginForm(){
 
                 </div>
 
-                <button className="bg-white h-full w-[8em] rounded-2xl cursor-pointer">
+                <button onClick={()=>requestlogin(email,password)} 
+                className="bg-white h-full w-[8em] rounded-2xl cursor-pointer">
+                    
                     Login
                 </button>
 

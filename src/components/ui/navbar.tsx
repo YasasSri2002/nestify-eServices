@@ -8,27 +8,6 @@ import axios  from "axios";
 
 export default function NavBar(){
 
-    const email = "superadmin@gmail.com";
-    const password = "superadmin123$";
-    
-    useEffect(()=>{
-
-        const requestlogin = async()=>{
-          const login = await axios.post("http://localhost:8080/admin/login", {
-          username: "superadmin@gmail.com",
-          password: "superadmin123$",
-        });
-
-        const token = login.data.jwtToken;
-
-        if(token){
-          localStorage.setItem("token",token);
-        }}
-         requestlogin();
-    },[])
-    
-    
-
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
