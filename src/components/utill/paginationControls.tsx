@@ -6,12 +6,14 @@ import { useRouter, useSearchParams } from 'next/navigation'
 interface PaginationControlsProps {
   hasNextPage: boolean
   hasPrevPage: boolean
+  endPage: number
 }
 
 const PaginationControls: FC<PaginationControlsProps> = (
   {
     hasNextPage,
     hasPrevPage,
+    endPage
   }
 ) => {
   const router = useRouter()
@@ -19,6 +21,7 @@ const PaginationControls: FC<PaginationControlsProps> = (
 
   const page = searchParams.get('page') ?? '1'
   const per_page = searchParams.get('per_page') ?? '5'
+
 
   return (
     <div className='flex items-center gap-2'>
@@ -32,7 +35,7 @@ const PaginationControls: FC<PaginationControlsProps> = (
       </button>
 
       <div>
-        {page} / {Math.ceil(10 / Number(per_page))}
+        {page} / {Math.ceil(endPage / Number(per_page))}
       </div>
 
       <button
