@@ -8,6 +8,7 @@ import axios from "axios";
 import { useEffect,useState } from "react";
 import ProviderCard from "@/components/ui/providerCard";
 import { ProviderDto } from "@/dto/ProviderDto";
+import BookingProvidersCard  from "@/components/ui/bookingProvidersCard";
 
 
 
@@ -39,26 +40,30 @@ export default function AllProviders() {
   return (
     <>
       <NavBar />
-      <div className="grid grid-cols-4">
-        <div className="col-1 bg-sky-300 w-full h-dvh">
-          <div>
+      <div className="grid justify-items-center sm:justify-items-normal">
+        <div className="sm:grid sm:grid-cols-4">
+        <div className="sm:col-1 bg-sky-300 w-dvw sm:w-full h-[10em] sm:h-full ">
+          <div className="sm:mx-6 my-2 pt-5">
             <h1>Search service providers</h1>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex justify-center sm:justify-normal items-center space-x-2">
             <DynamicIcon name="CiSearch" className="relative left-10" />
             <input
               type="text"
               placeholder="search"
-              className="bg-white rounded-2xl px-10"
+              className="bg-white rounded-2xl px-10 w-40 sm:w-fit"
             />
           </div>
         </div>
-        <div className="col-span-3 bg-red-200 w-full h-dvh">
-          <div>
+        <div className="sm:col-span-3 bg-red-200 w-dvw sm:w-full  p-10">
+          <div className="grid justify-items-center w-full gap-5">
             {
               entries.map((provider)=>(
-                 <h1 key={provider.email}>{provider.email}</h1>
+                //  <h1 key={provider.email}>{provider.email}</h1>
+                <BookingProvidersCard key={provider.email} providers={provider}/>
               ))}
+              {/* <BookingProvidersCard/> */}
+              
           </div>
         </div>
 
@@ -67,9 +72,10 @@ export default function AllProviders() {
           <PaginationControls
             hasNextPage={end < providers.length}
             hasPrevPage={start > 0}
-            endPage={end}
+            endPage={providers.length}
           />
         </div>
+      </div>
       </div>
       <Footer />
     </>
