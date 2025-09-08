@@ -10,6 +10,16 @@ import ProviderCard from "@/components/ui/providerCard";
 import { ProviderDto } from "@/dto/ProviderDto";
 import BookingProvidersCard  from "@/components/ui/bookingProvidersCard";
 
+const images =[
+  "https://avatar.iran.liara.run/public/girl",
+  "https://avatar.iran.liara.run/public/boy",
+  "https://avatar.iran.liara.run/public/boy?username=Scott",
+  "https://avatar.iran.liara.run/public/boy?username=Maria",
+  "https://avatar.iran.liara.run/username?username=nayanja+nipunsara",
+  "https://avatar.iran.liara.run/username?username=[firstname+lastname]",
+  "https://avatar.iran.liara.run/username?username=[firstname+lastname]",
+  "https://avatar.iran.liara.run/username?username=[firstname+lastname]"
+]
 
 
 export default function AllProviders() { 
@@ -42,7 +52,7 @@ export default function AllProviders() {
       <NavBar />
       <div className="grid justify-items-center sm:justify-items-normal">
         <div className="sm:grid sm:grid-cols-4">
-        <div className="sm:col-1 bg-sky-300 w-dvw sm:w-full h-[10em] sm:h-full ">
+        <div className="sm:col-1 bg-gradient-to-t from-white from-10% via-gray-100 via-30% to-gray-200 to-90% w-dvw sm:w-full h-[10em] sm:h-full rounded-b-2xl ">
           <div className="sm:mx-6 my-2 pt-5">
             <h1>Search service providers</h1>
           </div>
@@ -55,12 +65,15 @@ export default function AllProviders() {
             />
           </div>
         </div>
-        <div className="sm:col-span-3 bg-red-200 w-dvw sm:w-full  p-10">
+        <div className="sm:col-span-3 bg-white w-dvw sm:w-full  p-10">
           <div className="grid justify-items-center w-full gap-5">
             {
-              entries.map((provider)=>(
+              entries.map((provider, index)=>(
                 //  <h1 key={provider.email}>{provider.email}</h1>
-                <BookingProvidersCard key={provider.email} providers={provider}/>
+                <BookingProvidersCard key={provider.email} 
+                providers={provider}
+                images={images[index % images.length]}
+                />
               ))}
               {/* <BookingProvidersCard/> */}
               

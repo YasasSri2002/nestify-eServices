@@ -12,12 +12,12 @@ export default function ProviderCard({ provider }: { provider: ProviderWithJobs 
                 <div className="bg-white  shadow-2xl w-[20em] h-90 py-2 rounded-2xl
             hover:[transform:scale3d(1,1.1,2)]"> 
                 <div className="flex space-x-5 py-6 items-center justify-center">
-                    <div>
+                    <div className='flex justify-normal'>
                         <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" className="rounded-full" width={50} height={50}  alt="" />
                     </div>
-                    <div className='space-y-1' >
+                    <div className='space-y-1 ml-5' >
                         <div className='flex space-x-4'>
-                            <h1>{provider.providerDto.email}</h1>
+                            <h1 className='capitalize'>{provider.providerDto.userName}</h1>
                             <BadgeCheck stroke='green' />
                         </div>
                         <h2>{provider.providerDto.expertise}</h2>
