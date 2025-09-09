@@ -3,7 +3,7 @@ import {BadgeCheck ,Star, MapPin ,Phone} from 'lucide-react'
 
 import { ProviderWithJobs } from '@/dto/response/ProviderJob';
 
-export default function ProviderCard({ provider }: { provider: ProviderWithJobs }){
+export default function ProviderCard({ provider ,images }: { provider: ProviderWithJobs ,images: string }){
     
     return(
         
@@ -13,14 +13,14 @@ export default function ProviderCard({ provider }: { provider: ProviderWithJobs 
             hover:[transform:scale3d(1,1.1,2)]"> 
                 <div className="flex space-x-5 py-6 items-center justify-center">
                     <div className='flex justify-normal'>
-                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" className="rounded-full" width={50} height={50}  alt="" />
+                        <img src={images} className="rounded-full" width={50} height={50}  alt="" />
                     </div>
                     <div className='space-y-1 ml-5' >
                         <div className='flex space-x-4'>
                             <h1 className='capitalize'>{provider.providerDto.userName}</h1>
                             <BadgeCheck stroke='green' />
                         </div>
-                        <h2>{provider.providerDto.expertise}</h2>
+                        <h2 className='capitalize'>{provider.providerDto.expertise}</h2>
                         <div className='flex space-x-2 items-center'>
                             <Star fill='gold' stroke='gold' width={16}/>
                             <h2 className='font-bold text-[0.8em]'>4.9</h2>
@@ -32,7 +32,7 @@ export default function ProviderCard({ provider }: { provider: ProviderWithJobs 
                 <div className='px-3 space-y-4' >
                     <div className='flex space-x-3'>
                         <MapPin width={25} stroke='hsla(0,0%,61%,1)' strokeWidth={2.5}/>
-                        <h2>New York, America</h2>
+                        <h2>{provider.providerDto.address}</h2>
                     </div>
                     <div className='space-y-3 flex'> 
                         <h2>Services:</h2>
@@ -40,7 +40,7 @@ export default function ProviderCard({ provider }: { provider: ProviderWithJobs 
                             {
                                 provider.job.map((job)=>(
                                     <h2 key={job.id}
-                                     className='bg-[hsla(0,1%,79%,1)] rounded-2xl px-2'>
+                                     className='bg-[hsla(0,1%,79%,1)] rounded-2xl px-2 capitalize'>
                                         {job.name}
                                         </h2>
                                 ))
@@ -53,7 +53,7 @@ export default function ProviderCard({ provider }: { provider: ProviderWithJobs 
                             <span>$ {provider.providerDto.hourlyRate}/hr</span>
                         </div>
                         <div>
-                            <span>5+ years</span>
+                            <span>{provider.providerDto.experience}</span>
                         </div>
                     </div>
                 </div>

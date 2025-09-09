@@ -5,6 +5,17 @@ import { ProviderDto } from "@/dto/ProviderDto";
 import ProviderCard from "@/components/ui/providerCard";
 import {ProviderWithJobs} from "@/dto/response/ProviderJob"
 
+const images =[
+  "https://avatar.iran.liara.run/public/girl",
+  "https://avatar.iran.liara.run/public/boy",
+  "https://avatar.iran.liara.run/public/boy?username=Scott",
+  "https://avatar.iran.liara.run/public/boy?username=Maria",
+  "https://avatar.iran.liara.run/username?username=nayanja+nipunsara",
+  "https://avatar.iran.liara.run/username?username=[firstname+lastname]",
+  "https://avatar.iran.liara.run/username?username=[firstname+lastname]",
+  "https://avatar.iran.liara.run/username?username=[firstname+lastname]"
+]
+
 export default function ProvidersList() {
   const [providers, setProviders] = useState<ProviderWithJobs[]>([]);
 
@@ -34,8 +45,8 @@ export default function ProvidersList() {
       </h1>
 
       <div className="flex flex-row flex-wrap justify-center gap-5">
-        {providers.map((provider) => (
-          <ProviderCard key={provider.providerDto.email} provider={provider} />
+        {providers.map((provider,index) => (
+          <ProviderCard key={provider.providerDto.email} provider={provider}  images={images[index % images.length]}/>
         ))}
       </div>
     </div>

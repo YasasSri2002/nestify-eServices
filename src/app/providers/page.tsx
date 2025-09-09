@@ -10,7 +10,12 @@ import ProviderCard from "@/components/ui/providerCard";
 import { ProviderDto } from "@/dto/ProviderDto";
 import BookingProvidersCard  from "@/components/ui/bookingProvidersCard";
 
-const images =[
+
+
+
+export default function AllProviders() { 
+
+  const images =[
   "https://avatar.iran.liara.run/public/girl",
   "https://avatar.iran.liara.run/public/boy",
   "https://avatar.iran.liara.run/public/boy?username=Scott",
@@ -19,10 +24,8 @@ const images =[
   "https://avatar.iran.liara.run/username?username=[firstname+lastname]",
   "https://avatar.iran.liara.run/username?username=[firstname+lastname]",
   "https://avatar.iran.liara.run/username?username=[firstname+lastname]"
-]
+  ]
 
-
-export default function AllProviders() { 
   const [providers, setProviders] = useState<ProviderDto[]>([])
   useEffect(()=>{
     
