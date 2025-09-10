@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Footer(){
     return(
         <>
-        <div className="flex flex-col md:flex-row bg-[#121212e1] text-[hsla(0,0%,90%,1)] mt-5">
+        <div className="flex flex-col md:flex-row bg-[#121212e1] text-[hsla(0,0%,90%,1)] ">
             <div className="basis-full md:basis-1/3">
                 <h1 className="text-center sm:text-1.5xl my-3 font-bold text-white">Nestify</h1>
                 <p className="m-4 text-[0.9em]">Connecting homeowners with trusted service providers for all household needs.</p>

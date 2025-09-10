@@ -26,7 +26,7 @@ export default function NavBar(){
           <>
             <div
               id="mynavbar"
-              className="navbar flex items-center justify-between text-white p-2 relative bg-[hsla(0,0%,97%,1)] drop-shadow-xl sm:px-6 lg:px-8 w-full"
+              className="navbar flex items-center justify-between text-white p-2 relative bg-[hsla(0,0%,97%,1)] drop-shadow-xl sm:px-6 lg:px-8 w-full "
             >
               <div>
                 <Image
@@ -46,10 +46,10 @@ export default function NavBar(){
                   <Link href="/services">Services</Link>
                 </li>
                 <li>
-                  <Link href="/providers">Service provice</Link>
+                  <Link href="/providers">Service providers</Link>
                 </li>
                 <li>
-                  <Link href="/about">Contatct Us</Link>
+                  <Link href="/about">About Us</Link>
                 </li>
               </ul>
               <div
@@ -108,16 +108,16 @@ export default function NavBar(){
                 <div className="absolute mt-20 ml-5">
                   <ul className="mt-0">
                     <li className="pb-2">
-                      <a href="">Home</a>
+                      <Link href="/">Home</Link>
                     </li>
                     <li className="py-2">
-                      <a href="">Services</a>
+                      <Link href="/services">Services</Link>
                     </li>
                     <li className="py-2">
-                      <a href="">Service providers</a>
+                      <Link href="/providers">Service providers</Link>
                     </li>
                     <li className="py-2">
-                      <a href="">Contact us</a>
+                      <Link href="/about">About us</Link>
                     </li>
                   </ul>
                 </div>
