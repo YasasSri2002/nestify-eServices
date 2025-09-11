@@ -5,7 +5,7 @@ export default function AboutHeroSction(){
           <div className="absolute inset-0 z-0">
             <div
               id="heroSection"
-              className="h-dvh w-full bg-[url(https://images.unsplash.com/photo-1682973441491-6b41b7af1c6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob21lJTIwc2VydmljZSUyMHJlcGFpciUyMG1vZGVybnxlbnwxfHx8fDE3NTc1MTg0Mzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral)] bg-center bg-no-repeat bg-cover flex justify-center items-center"
+              className="h-dvh w-full bg-[url(https://images.unsplash.com/photo-1682973441491-6b41b7af1c6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob21lJTIwc2VydmljZSUyMHJlcGFpciUyMG1vZGVybnxlbnwxfHx8fDE3NTc1MTg0Mzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral)] bg-center bg-no-repeat bg-cover flex justify-center items-center "
             >
               <div className="absolute inset-0 bg-black/50" />
             </div>      

@@ -34,7 +34,7 @@ export default function NavBar(){
                   alt="Logo"
                   width={150}
                   height={10}
-                  className="mx-0 max-h-[7rem]"
+                  className="mx-0 w-auto h-auto max-h-[7rem]"
                 />
               </div>
 
