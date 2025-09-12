@@ -1,12 +1,12 @@
 export default function JourneySection(){
     return(
         <>
-        <div className="h-dvh">
-            <div className="grid justify-items-center gap-5 p-10 ">
+        <div className="sm:mb-10 sm:h-dvh">
+            <div className="grid justify-items-center gap-5 p-10">
                 <h1 className="text-2xl">Our Journey</h1>
                 <p className="text-xl text-center text-gray-800/90">From a small startup to a trusted national platform, here's how we've grown to serve millions of homeowners and thousands of service providers.</p>
             </div>
-            <div className="grid sm:grid sm:grid-cols-2">
+            <div className="sm:grid sm:grid-cols-2">
                 <div className="col-1">
                     <div className="grid justify-items-center content-center p-10 gap-4">
                         <div className="flex">

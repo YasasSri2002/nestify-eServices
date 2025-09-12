@@ -3,6 +3,7 @@ import Footer from "@/components/ui/footer";
 import AboutHeroSction from "@/components/ui/aboutHeroSection";
 import MissionPage from "./mission";
 import JourneySection from "./journey";
+import HowWeWork from './howWeWork'
 
 export default function AboutPage(){
     return(
@@ -14,9 +15,10 @@ export default function AboutPage(){
         <div className="z-50">
             <MissionPage/>
         </div>
-        <div>
-            <JourneySection/>
-        </div>
+    
+        <JourneySection/>
+
+        <HowWeWork/>
         <Footer/>
         </>
     );

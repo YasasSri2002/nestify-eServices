@@ -8,6 +8,7 @@ import * as MdIcons from 'react-icons/md';
 import * as TbIcons from "react-icons/tb";
 import * as HiIcons from "react-icons/hi";
 import * as CiIcons from "react-icons/ci";
+import * as ioIcons from "react-icons/io";
 
 type IconLibrary = {
   [key: string]: IconType;
@@ -20,7 +21,8 @@ const ICON_LIBRARY: IconLibrary = {
   ...GiIcons,
   ...TbIcons,
   ...HiIcons,
-  ...CiIcons
+  ...CiIcons,
+  ...ioIcons
 
 };
 
