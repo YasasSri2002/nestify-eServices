@@ -4,6 +4,7 @@ import AboutHeroSction from "@/components/ui/aboutHeroSection";
 import MissionPage from "./mission";
 import JourneySection from "./journey";
 import HowWeWork from './howWeWork'
+import ChooseUs from "./choosingUs";
 
 export default function AboutPage(){
     return(
@@ -19,6 +20,8 @@ export default function AboutPage(){
         <JourneySection/>
 
         <HowWeWork/>
+
+        <ChooseUs/>
         <Footer/>
         </>
     );
