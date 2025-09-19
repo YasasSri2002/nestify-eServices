@@ -2,10 +2,33 @@
 import { useState, useEffect } from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { LiaWindowCloseSolid } from "react-icons/lia";
+import axios from "axios";
 
 export default function ProviderForm() {
   // Use state to force remount when switching
   const [animationKey, setAnimationKey] = useState(Date.now());
+  const [registerProvider, setRegisterPrvider] =useState({
+    email:"",
+    username:"",
+    contactNo: "",
+    expertiese: "",
+    hourlyRate: "",
+    password: "",
+    confirmPassword: "",
+
+  });
+
+  const registerApi = async(registerProvider:any)=>{
+    await axios.post('http://localhost:8090/admin/realms/market-realm/users',{
+      email:"",
+      username:"",
+      contactNo: "",
+      expertiese: "",
+      hourlyRate: "",
+      password: "",
+      confirmPassword: ""
+    })
+  }
 
   // Reset animation when component mounts
   useEffect(() => {

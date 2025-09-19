@@ -3,7 +3,7 @@ import { ChooseCardDetails } from "./chooseCardsDetails"
 export default function ChooseCards({details} :{details: ChooseCardDetails}){
     return(
         <>
-        <div className="w-[25em] h-[10em] hover:border-1 p-5 rounded-2xl bg-white/80 shadow-xl hover:-translate-y-3">
+        <div className="w-full md:w-[25em] h-[10em] hover:border-1 p-5 rounded-2xl bg-white/80 shadow-xl hover:-translate-y-3">
             <div className="flex">
                 <div className="bg-gray-600/65  rounded-2xl h-[4em] w-[8em] flex items-center justify-center">
                     <DynamicIcon name={details.iconName} className="text-2xl text-white"/>
