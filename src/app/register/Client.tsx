@@ -19,7 +19,6 @@ export default function ClientForm() {
   }, []);
 
   return (
-    <>
       <div className="w-full max-w-[100vw]">
         <div className="flex flex-col sm:grid sm:grid-cols-[1fr_1fr] items-center w-full">
           <div className="w-full flex justify-center bg-white p-4">
@@ -84,6 +83,5 @@ export default function ClientForm() {
           </div>
         </div>
       </div>
-    </>
   );
 }
