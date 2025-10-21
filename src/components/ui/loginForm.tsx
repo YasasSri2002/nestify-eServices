@@ -1,13 +1,12 @@
 
 "use client";
-import {EyeClosed, Eye , X ,User ,Key, Target,} from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
+
+import axios from 'axios';
+import {EyeClosed,X ,User ,Key} from 'lucide-react';
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareFacebook ,FaUserTie ,FaUser } from "react-icons/fa6";
-import Swal from 'sweetalert2'
-import { title } from 'process';
-import Link from 'next/link';
-import axios from 'axios';
-import { useState,useEffect } from 'react';
 
 
 export default function loginForm(){

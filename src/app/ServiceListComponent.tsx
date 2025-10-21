@@ -3,7 +3,7 @@ import ServiceCard from "@/components/ui/serviceCard";
 
 export default function ServiceComponent(){
     return(
-        <>
+        
         <div className="my-5">
             
             <h1 className="text-4xl lg:text-5xl text-center text-gray-900">Popular Services</h1>
@@ -28,6 +28,6 @@ export default function ServiceComponent(){
           
       </div>
         </div>
-        </>
+        
     );
 }

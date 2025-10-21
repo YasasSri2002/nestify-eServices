@@ -1,8 +1,8 @@
-import DynamicIcon from "@/components/utill/DynamicIcons"
-import { ChooseCardDetails } from "./chooseCardsDetails"
-export default function ChooseCards({details} :{details: ChooseCardDetails}){
+import DynamicIcon from "@/components/utill/DynamicIcons";
+import { ChooseCardDetails } from "./chooseCardsDetails";
+
+export default function ChooseCards({details} :{ readonly details: ChooseCardDetails}){
     return(
-        <>
         <div className="w-full md:w-[25em] h-[10em] hover:border-1 p-5 rounded-2xl bg-white/80 shadow-xl hover:-translate-y-3">
             <div className="flex">
                 <div className="bg-gray-600/65  rounded-2xl h-[4em] w-[8em] flex items-center justify-center">
@@ -14,6 +14,6 @@ export default function ChooseCards({details} :{details: ChooseCardDetails}){
                 </div>
             </div>
         </div>
-        </>
+        
     )
 }

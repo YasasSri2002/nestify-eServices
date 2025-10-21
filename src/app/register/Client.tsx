@@ -1,5 +1,7 @@
 "use client";
 import { useState,useEffect } from "react";
+
+
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { LiaWindowCloseSolid } from "react-icons/lia";
 

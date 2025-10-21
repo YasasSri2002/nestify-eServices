@@ -1,10 +1,11 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import {  AlignJustify, X } from 'lucide-react'
 import { useEffect,useState } from "react";
-import axios  from "axios";
+
+
+import {  AlignJustify, X } from 'lucide-react'
+
 
 export default function NavBar(){
 

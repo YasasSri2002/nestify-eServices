@@ -1,5 +1,6 @@
-import ChooseCards from "./chooseCards"
-import { ChooseCardDetails } from "./chooseCardsDetails"
+import ChooseCards from "./chooseCards";
+import { ChooseCardDetails } from "./chooseCardsDetails";
+
 export default function ChooseUs(){
 
     const data : ChooseCardDetails[] =   [
@@ -41,7 +42,7 @@ export default function ChooseUs(){
     ]
 
     return(
-        <>
+        
         <div>
             <div className="p-10 grid justify-items-center gap-5">
                 <h1 className="text-2xl text-black/80">Why Choose Us!</h1>
@@ -53,6 +54,6 @@ export default function ChooseUs(){
                 )}
             </div>
         </div>
-        </>
+        
     )
 }

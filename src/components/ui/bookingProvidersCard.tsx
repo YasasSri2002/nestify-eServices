@@ -1,10 +1,10 @@
 import { ProviderDto } from "@/dto/ProviderDto";
 
 export default function BookingProvidersCard(
-    {providers, images}:{providers: ProviderDto , images:string} 
+    {providers, images}:{ readonly providers: ProviderDto , readonly images:string} 
 ){
     return(
-        <>
+        
        
             <div className="grid md:flex justify-between bg-white shadow-2xl rounded-2xl w-[18em] md:w-[20em] lg:w-[50em] p-5">
                 <div >
@@ -27,6 +27,5 @@ export default function BookingProvidersCard(
                 </div>
             </div>
         
-        </>
 );
 }

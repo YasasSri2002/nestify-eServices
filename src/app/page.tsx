@@ -1,11 +1,14 @@
 "use client";
+import { useEffect } from "react";
+
 import HeroSection from "./Hero";
 import ServiceComponent from "./ServiceListComponent";
 import ProvidersList from "./ProvidersList";
 import NavBar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
+
 import axios from "axios";
-import { useEffect } from "react";
+
 
 
 
@@ -25,7 +28,7 @@ export default function Home() {
   ){
     try{
      const response= await axios.post(
-      'http://localhost:8090/auth/realms/myrealm/protocol/openid-connect/token', 
+      'http://localhost:8090/realms/market-realm/protocol/openid-connect/auth', 
       {
         client_id: clientId,
         client_secret: clientSecert, 

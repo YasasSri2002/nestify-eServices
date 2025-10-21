@@ -1,6 +1,6 @@
 export default function AboutHeroSction(){
     return (
-      <>
+      
         <div className="relative min-h-[600px] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <div
@@ -28,6 +28,6 @@ export default function AboutHeroSction(){
               </div>
             </div>
         </div>
-      </>
+      
     );
 }

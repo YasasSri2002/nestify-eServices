@@ -2,7 +2,7 @@ import DynamicIcon from "@/components/utill/DynamicIcons";
 
 export default function HowWeWork(){
     return(
-        <>
+    
         <div className="h-full">
             <div className="p-10 grid justify-items-center gap-5">
                 <h1 className="text-2xl">How We Work</h1>
@@ -48,6 +48,6 @@ export default function HowWeWork(){
                 
             </div>
         </div>
-        </>
+        
     )
 }

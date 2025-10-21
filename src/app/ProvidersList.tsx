@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { ProviderDto } from "@/dto/ProviderDto";
+
 import ProviderCard from "@/components/ui/providerCard";
-import {ProviderWithJobs} from "@/dto/response/ProviderJob"
+import {ProviderWithJobs} from "@/dto/response/ProviderJob";
+
+import axios from "axios";
 
 const images =[
   "https://avatar.iran.liara.run/public/girl",

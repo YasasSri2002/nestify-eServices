@@ -1,6 +1,6 @@
 export default function JourneySection(){
     return(
-        <>
+
         <div className="sm:mb-10 sm:h-dvh">
             <div className="grid justify-items-center gap-5 p-10">
                 <h1 className="text-2xl">Our Journey</h1>
@@ -39,6 +39,6 @@ export default function JourneySection(){
                 </div>
             </div>
         </div>
-        </>
+        
     )
 }

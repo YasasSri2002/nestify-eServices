@@ -1,14 +1,15 @@
 'use client'
+import { useSearchParams } from "next/navigation"; // Add this import
+import { useEffect,useState } from "react";
+
+import { ProviderDto } from "@/dto/ProviderDto";
+import BookingProvidersCard  from "@/components/ui/bookingProvidersCard";
 import Footer from "@/components/ui/footer";
 import NavBar from "@/components/ui/navbar";
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import PaginationControls from "@/components/utill/paginationControls";
-import { useSearchParams } from "next/navigation"; // Add this import
+
 import axios from "axios";
-import { useEffect,useState } from "react";
-import ProviderCard from "@/components/ui/providerCard";
-import { ProviderDto } from "@/dto/ProviderDto";
-import BookingProvidersCard  from "@/components/ui/bookingProvidersCard";
 
 
 
@@ -42,7 +43,7 @@ export default function AllProviders() {
     
   },[])
 
-  const searchParams = useSearchParams(); // Using client-side hook
+    const searchParams = useSearchParams(); // Using client-side hook
     const page = searchParams.get('page') ?? '1';
     const per_page = searchParams.get('per_page') ?? '5';
   
