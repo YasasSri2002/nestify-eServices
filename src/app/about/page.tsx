@@ -1,6 +1,6 @@
 import NavBar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
-import AboutHeroSction from "@/components/ui/aboutHeroSection";
+import AboutHeroSction from "@/components/ui/about-hero-section/aboutHeroSection";
 import MissionPage from "./mission";
 import JourneySection from "./journey";
 import HowWeWork from './howWeWork'

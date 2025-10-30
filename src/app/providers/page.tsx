@@ -1,15 +1,16 @@
 'use client'
 import { useSearchParams } from "next/navigation"; // Add this import
-import { useEffect,useState } from "react";
+import {use, useEffect, useState } from "react";
 
 import { ProviderDto } from "@/dto/ProviderDto";
-import BookingProvidersCard  from "@/components/ui/bookingProvidersCard";
+import BookingProvidersCard  from "@/components/ui/provider-section/bookingProvidersCard";
 import Footer from "@/components/ui/footer";
 import NavBar from "@/components/ui/navbar";
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import PaginationControls from "@/components/utill/paginationControls";
 
-import axios from "axios";
+
+import { getAllProviders } from "@/api-calls/provider-api";
 
 
 
@@ -28,19 +29,23 @@ export default function AllProviders() {
   ]
 
   const [providers, setProviders] = useState<ProviderDto[]>([])
+  const [loadProviders,setLoadProviders] =useState(true);
+
   useEffect(()=>{
-    
+    async function fetchProivders(){
+      try{
+        const data = await getAllProviders();
+        if(data){
+          setProviders(data);
+        }
+      }catch(err:any){
+          alert("error"+err);
+      }finally{
+        setLoadProviders(false);
+      }
+    }
+    fetchProivders();
 
-    const getProviders = async()=>{
-    const response = await axios.get<ProviderDto[]>(
-      "http://localhost:8080/api/v1/providers/all"
-    )
-    setProviders(response.data);
-    console.log(response.data)
-  }
-
-  getProviders();
-    
   },[])
 
     const searchParams = useSearchParams(); // Using client-side hook
@@ -50,6 +55,8 @@ export default function AllProviders() {
     const start = (Number(page) - 1) * Number(per_page);
     const end = start + Number(per_page);
     const entries = providers.slice(start, end);
+
+    if(loadProviders) return( <div className="grid w-full h-dvh justify-items-center content-center lg:text-6xl">Loading..........</div> )
   
   return (
     <>

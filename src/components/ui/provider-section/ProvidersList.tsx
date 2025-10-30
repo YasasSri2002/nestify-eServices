@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import ProviderCard from "@/components/ui/providerCard";
+import ProviderCard from "@/components/ui/provider-section/providerCard";
 import {ProviderWithJobs} from "@/dto/response/ProviderJob";
 
 import axios from "axios";

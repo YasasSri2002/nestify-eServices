@@ -1,6 +1,6 @@
 "use client"
 
-import DynamicIcon from "../utill/DynamicIcons"
+import DynamicIcon from "../../utill/DynamicIcons"
 
 export default function ServiceCard(props:any){
 

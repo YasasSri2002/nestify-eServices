@@ -17,11 +17,7 @@ export default function NavBar(){
         if(menue) menue.classList.toggle('hidden');
     }
 
-    useEffect(()=>{
-        const token = localStorage.getItem("token");
-        setIsLoggedIn(!!token);
-            
-    },[])
+   
 
         return (
           <>

@@ -114,7 +114,7 @@ export default function ProviderForm() {
               />
             </div>
             <div className="flex mb-2">
-              <button className="bg-white rounded-2xl p-2 w-[10em]">
+              <button onClick={registerApi} className="bg-white rounded-2xl p-2 w-[10em]">
                 Register
               </button>
             </div>

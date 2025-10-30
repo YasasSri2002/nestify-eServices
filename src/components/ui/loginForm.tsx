@@ -41,7 +41,7 @@ export default function loginForm(){
 
 
     return(
-        <>
+        
           <div className="grid justify-items-center items-center w-dvw h-dvh">
 
               <div className="grid justify-items-center lg:w-1/2 w-screen bg-gray-200 rounded-4xl drop-shadow-2xl">
@@ -128,6 +128,6 @@ export default function loginForm(){
            
 
           </div>
-        </>
+       
     );
 }

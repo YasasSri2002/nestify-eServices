@@ -10,7 +10,7 @@ export default function ProviderCard({ provider ,images }: { readonly provider: 
       <div className="[transform-style:preserve-3d] ">
         <div
           className="bg-white  shadow-2xl w-[20em] h-90 py-2 rounded-2xl
-            hover:[transform:scale3d(1,1.1,2)]"
+            hover:scale-105 hover:translate-1"
         >
           <div className="flex space-x-5 py-6 items-center justify-center">
             <div className="flex justify-normal">
