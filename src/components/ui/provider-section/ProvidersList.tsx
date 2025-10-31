@@ -39,6 +39,7 @@ export default function ProvidersList() {
     fetchProviders();
   }, []); // ✅ empty dependency array ensures it runs once
 
+
   return (
     <div className="h-full">
       <h1 className="text-gray-900 text-4xl lg:text-6xl text-center my-10">

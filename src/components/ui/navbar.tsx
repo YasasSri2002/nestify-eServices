@@ -9,15 +9,13 @@ import {  AlignJustify, X } from 'lucide-react'
 
 export default function NavBar(){
 
-
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const loginUrl = process.env.NEXT_PUBLIC_AUTH_URL
 
     function sideMenue(){
         const menue = document.getElementById("mobile-first");
         if(menue) menue.classList.toggle('hidden');
     }
 
-   
 
         return (
           <>
@@ -53,13 +51,11 @@ export default function NavBar(){
                 id="controls"
                 className="space-x-4 hidden xl:flex text-black "
               >
-                {!isLoggedIn ? (
-                  <>
                     <button
                       className="mx-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-[10em] p-2 
                     hover:bg-[hsla(0,0%,67%,1)]"
                     >
-                      <Link href="/login">login</Link>
+                      <Link href={loginUrl!}>login</Link>
                     </button>
                     <button
                       className="mx-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-[10em] p-2
@@ -67,25 +63,7 @@ export default function NavBar(){
                     >
                       <Link href="/register">Register</Link>{" "}
                     </button>
-                  </>
-                ) : (
-                  <>
-                    <Link href="/profile">
-                      <button className="mx-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-[10em] p-2 
-                        hover:bg-[hsla(0,0%,71%,1)]">
-                        Profile
-                      </button>
-                    </Link>
-                    <button className="mx-2 rounded-2xl bg-red-400 w-[10em] p-2 hover:bg-red-500"
-                      onClick={() => {
-                        localStorage.removeItem("token");
-                        setIsLoggedIn(false);
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </>
-                )}
+                    
               </div>
               <button onClick={sideMenue} className="xl:hidden">
                 <AlignJustify size={34} stroke="black" />
@@ -125,8 +103,8 @@ export default function NavBar(){
                     className="space-x-4 grid  justify-items-center h-full
                      md:h-1/2  content-end text-black "
                   >
-                     {!isLoggedIn ? (
-                  <>
+                 
+                 
                    <button
                       className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
                     hover:bg-[hsla(0,0%,67%,1)]"
@@ -139,26 +117,6 @@ export default function NavBar(){
                     >
                       <Link href="/register">Register</Link>
                     </button>
-                  </>
-                ) : (
-                  <>
-                    <Link href="/profile">
-                      <button className="mb-2 ml-2.5 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-10
-                    hover:bg-[hsla(0,0%,67%,1)]">
-                        Profile
-                      </button>
-                    </Link>
-                    <button className="mb-2 md:m-2 m-0 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-10
-                    hover:bg-[hsla(0,0%,67%,1)]"
-                      onClick={() => {
-                        localStorage.removeItem("token");
-                        setIsLoggedIn(false);
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </>
-                )}
                   </div>
                 </div>
               </div>

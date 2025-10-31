@@ -1,8 +1,10 @@
 "use client"
 
 import { ProviderWithJobs } from '@/dto/response/ProviderJob';
+import DynamicIcon from '@/components/utill/DynamicIcons';
 
-import {BadgeCheck ,Star, MapPin ,Phone} from 'lucide-react'
+import {BadgeCheck ,Star, MapPin } from 'lucide-react';
+
 
 export default function ProviderCard({ provider ,images }: { readonly provider: ProviderWithJobs , readonly images: string }){
     
@@ -71,10 +73,13 @@ export default function ProviderCard({ provider ,images }: { readonly provider: 
                 <button>Book</button>
               </div>
             </div>
-            <div className="col-2 bg-[hsla(240,81%,8%,1)] hover:bg-[hsla(240,81%,45%,1)] rounded-2xl text-amber-50 px-2 py-1">
-              <div className="flex justify-center space-x-3">
-                <button>Contact </button>
-                <Phone width={24} fill="white" stroke="white" strokeWidth={1} />
+            <div className="col-2  rounded-2xl bg-black/80 hover:bg-white/90 text-amber-50 hover:text-black/80 px-2 py-1 hover:border-1 hover:boder-black/80">
+              <div className='flex justify-center items-center space-x-2'>
+                <button>
+                  Contact 
+                </button>
+                 <DynamicIcon name="FaPhone" className="text-[14px]" />
+                 
               </div>
             </div>
           </div>
