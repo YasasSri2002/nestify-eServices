@@ -2,9 +2,10 @@
 import { useEffect, useState } from "react";
 
 import ProviderCard from "@/components/ui/provider-section/providerCard";
-import {ProviderWithJobs} from "@/dto/response/ProviderJob";
 
-import axios from "axios";
+
+import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
+import { getPopularProviders } from "@/api-calls/provider-api";
 
 const images =[
   "https://avatar.iran.liara.run/public/girl",
@@ -18,27 +19,22 @@ const images =[
 ]
 
 export default function ProvidersList() {
-  const [providers, setProviders] = useState<ProviderWithJobs[]>([]);
+  const [providers, setProviders] = useState<ProviderWithCategory[]>([]);
 
-  useEffect(() => {
-    const fetchProviders = async () => {
-      try {
-      
-        // Fetch providers once
-        const response = await axios.get<ProviderWithJobs[]>(
-          "http://localhost:8080/api/v1/providers/top5"
-        );
-
-        // ✅ Replace state (not append in a loop)
-        setProviders(response.data);
-      } catch (error) {
-        console.error("Error fetching providers:", error);
+  useEffect(()=>{
+      async function fetchPopularProivders(){
+        try{
+          const data = await getPopularProviders();
+          if(data){
+            setProviders(data);
+          }
+        }catch(err:any){
+            alert("error"+err);
+        }
       }
-    };
-
-    fetchProviders();
-  }, []); // ✅ empty dependency array ensures it runs once
-
+      fetchPopularProivders();
+  
+    },[])
 
   return (
     <div className="h-full">

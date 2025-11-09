@@ -1,17 +1,18 @@
 "use client"
 
-import { ProviderWithJobs } from '@/dto/response/ProviderJob';
 import DynamicIcon from '@/components/utill/DynamicIcons';
 
 import {BadgeCheck ,Star, MapPin } from 'lucide-react';
 
+import { ProviderWithCategory } from '@/dto/response/ProviderWithCategoryDto';
 
-export default function ProviderCard({ provider ,images }: { readonly provider: ProviderWithJobs , readonly images: string }){
+
+export default function ProviderCard({ provider ,images }: { readonly provider: ProviderWithCategory , readonly images: string }){
     
     return (
       <div className="[transform-style:preserve-3d] ">
         <div
-          className="bg-white  shadow-2xl w-[20em] h-90 py-2 rounded-2xl
+          className="bg-white  shadow-2xl w-[20em] h-80 py-2 rounded-2xl
             hover:scale-105 hover:translate-1"
         >
           <div className="flex space-x-5 py-6 items-center justify-center">
@@ -43,31 +44,27 @@ export default function ProviderCard({ provider ,images }: { readonly provider: 
               <MapPin width={25} stroke="hsla(0,0%,61%,1)" strokeWidth={2.5} />
               <h2>{provider.providerDto.address}</h2>
             </div>
-            <div className="space-y-3 flex">
-              <h2>Services:</h2>
+             <div className="space-y-3 flex space-x-4">
+              <h2>Services Categories:</h2>
               <div className="flex justify-end space-x-3 flex-wrap space-y-3">
-                {provider.job.map((job) => (
+                {provider.categoriesSet.map((category) => (
                   <h2
-                    key={job.id}
-                    className="bg-[hsla(0,1%,79%,1)] rounded-2xl px-2 capitalize"
+                    key={category.id}
+                    className="bg-[hsla(0,1%,79%,1)] rounded-xl px-2 capitalize flex justify-center items-center  py-1"
                   >
-                    {job.name}
+                    {category.name}
                   </h2>
                 ))}
               </div>
-            </div>
+            </div> 
             <div className="flex justify-between">
-              <div className="flex space-x-2">
-                <h1>Starting at:</h1>
-                <span>$ {provider.providerDto.hourlyRate}/hr</span>
-              </div>
               <div>
                 <span>{provider.providerDto.experience}</span>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 mt-5 mx-4 space-x-5">
+          <div className="grid grid-cols-2 mt-5 mx-4 space-x-5 content-end">
             <div className="col-1 bg-white hover:bg-gray-200 border-1 rounded-2xl">
               <div className="flex justify-center items-center pt-1">
                 <button>Book</button>
@@ -79,7 +76,6 @@ export default function ProviderCard({ provider ,images }: { readonly provider: 
                   Contact 
                 </button>
                  <DynamicIcon name="FaPhone" className="text-[14px]" />
-                 
               </div>
             </div>
           </div>
