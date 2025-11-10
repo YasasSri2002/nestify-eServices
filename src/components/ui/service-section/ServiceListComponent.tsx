@@ -1,11 +1,22 @@
 "use client"
+import { getAllCategories } from "@/api-calls/category-api";
 import ServiceCard from "@/components/ui/service-section/serviceCard";
-import { useState } from "react";
+import { CategoryResponseDto } from "@/dto/CategoryDto";
+import { useEffect, useState } from "react";
 
 export default function ServiceComponent(){
     
-    const [serviesList,setServicesList] = useState(["Cleaning","Plumbing"]);
+    const [serviesList,setServiesList] = useState<CategoryResponseDto[]>([]);
     const [serviceIconList,setServiceIconList]= useState(["GiVacuumCleaner","MdPlumbing"]);
+    
+
+    useEffect(()=>{
+        const serviceData= getAllCategories();
+
+        serviceData.then(data=>{
+            setServiesList(data);
+        })
+    },[])
 
     return(
         
@@ -17,8 +28,8 @@ export default function ServiceComponent(){
         <div className="grid justify-items-center sm:justify-center sm:flex sm:flex-row flex-wrap">
           {
             serviesList.map((servicesName,index)=>(
-                <div className="m-5" key={servicesName}>
-                    <ServiceCard name={serviceIconList[index % serviceIconList.length]} serviceName={servicesName}/>
+                <div className="m-5" key={servicesName.id}>
+                    <ServiceCard name={serviceIconList[index % serviceIconList.length]} serviceName={servicesName.name}/>
                 </div>  
             ))
           }       
