@@ -4,5 +4,5 @@ import { ProviderDto } from "../ProviderDto";
 
 export interface ProviderWithCategory {
   providerDto: ProviderDto;
-  categoriesSet: CategoryDto[];
+  categoriesSet: CategoryResponseDto[];
 }

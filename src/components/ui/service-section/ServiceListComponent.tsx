@@ -1,31 +1,27 @@
 "use client"
 import ServiceCard from "@/components/ui/service-section/serviceCard";
+import { useState } from "react";
 
 export default function ServiceComponent(){
+    
+    const [serviesList,setServicesList] = useState(["Cleaning","Plumbing"]);
+    const [serviceIconList,setServiceIconList]= useState(["GiVacuumCleaner","MdPlumbing"]);
+
     return(
         
+
         <div className="my-5">
             
             <h1 className="text-4xl lg:text-5xl text-center text-gray-900">Popular Services</h1>
             <p className="text-lg lg:text-xl text-center text-gray-500">Browse our most requested household services and find the perfect professional for your needs.</p>
         <div className="grid justify-items-center sm:justify-center sm:flex sm:flex-row flex-wrap">
-          <div className="m-5">
-              <ServiceCard name="GiElectric" serviceName="Electrical"/>
-
-          </div>
-          <div className="m-5">
-               <ServiceCard name="MdOutlineCleaningServices" serviceName="Cleaning"/>
-          </div>
-          <div className="m-5">
-               <ServiceCard name="MdPlumbing" serviceName="Plumbing"/>
-          </div>
-          <div className="m-5">
-                 <ServiceCard name="TbGardenCart" serviceName="Gradening"/>
-          </div>
-          <div className="m-5">
-                 <ServiceCard name="MdOutlineCarpenter" serviceName="Carpenter"/>
-          </div>
-          
+          {
+            serviesList.map((servicesName,index)=>(
+                <div className="m-5" key={servicesName}>
+                    <ServiceCard name={serviceIconList[index % serviceIconList.length]} serviceName={servicesName}/>
+                </div>  
+            ))
+          }       
       </div>
         </div>
         
