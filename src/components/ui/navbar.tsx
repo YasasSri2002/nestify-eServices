@@ -38,7 +38,7 @@ export default function NavBar(){
                   <Link href="/">Home</Link>
                 </li>
                 <li>
-                  <Link href="/services">Services</Link>
+                  <Link href="/service-gigs">Services</Link>
                 </li>
                 <li>
                   <Link href="/providers">Service providers</Link>
@@ -86,7 +86,7 @@ export default function NavBar(){
                       <Link href="/">Home</Link>
                     </li>
                     <li className="py-2">
-                      <Link href="/services">Services</Link>
+                      <Link href="/service-gigs">Services</Link>
                     </li>
                     <li className="py-2">
                       <Link href="/providers">Service providers</Link>
