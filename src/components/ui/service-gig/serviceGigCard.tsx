@@ -3,7 +3,7 @@ export default function ServiceGigCard(
     {serviceGig}:{ readonly serviceGig:ServiceGigWithProviderDto} 
 ){
     return(
-            <div className="p-5 grid gap-5">
+            <div className="sm:p-5 grid gap-5">
                 <div>
                     <img src="/user.jpg" alt="" className="w-full h-60 rounded-xl"/>
                 </div>

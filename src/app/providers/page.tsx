@@ -80,13 +80,11 @@ export default function AllProviders() {
           <div className="grid justify-items-center w-full gap-5">
             {
               entries.map((provider, index)=>(
-                //  <h1 key={provider.email}>{provider.email}</h1>
                 <BookingProvidersCard key={provider.email} 
                 providers={provider}
                 images={images[index % images.length]}
                 />
               ))}
-              {/* <BookingProvidersCard/> */}
               
           </div>
         </div>
@@ -97,6 +95,8 @@ export default function AllProviders() {
             hasNextPage={end < providers.length}
             hasPrevPage={start > 0}
             endPage={providers.length}
+            perPageNumber='5'
+            routerPath="providers"
           />
         </div>
       </div>
