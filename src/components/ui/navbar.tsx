@@ -1,20 +1,20 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect,useState } from "react";
 
 
 import {  AlignJustify, X } from 'lucide-react'
 
+function sideMenue(){
+        const menue = document.getElementById("mobile-first");
+        if(menue) menue.classList.toggle('hidden');
+    }
 
 export default function NavBar(){
 
   const loginUrl = process.env.NEXT_PUBLIC_AUTH_URL
 
-    function sideMenue(){
-        const menue = document.getElementById("mobile-first");
-        if(menue) menue.classList.toggle('hidden');
-    }
+  const registrationUrl =  process.env.NEXT_PUBLIC_REGISTRATION_URL
 
 
         return (
@@ -61,7 +61,7 @@ export default function NavBar(){
                       className="mx-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-[10em] p-2
                     hover:bg-[hsla(0,0%,71%,1)]"
                     >
-                      <Link href="/register">Register</Link>{" "}
+                      <Link href={registrationUrl!}>Register</Link>
                     </button>
                     
               </div>
@@ -109,13 +109,13 @@ export default function NavBar(){
                       className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
                     hover:bg-[hsla(0,0%,67%,1)]"
                     >
-                      <Link href="/login">Log in</Link>
+                      <Link href={loginUrl!}>Log in</Link>
                     </button>
                     <button
                       className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
                     hover:bg-[hsla(0,0%,71%,1)]"
                     >
-                      <Link href="/register">Register</Link>
+                      <Link href={registrationUrl!}>Register</Link>
                     </button>
                   </div>
                 </div>

@@ -2,7 +2,6 @@
 
 import { getAllCategories } from '@/api-calls/category-api';
 import { CategoryResponseDto } from '@/dto/CategoryDto';
-import { ProviderWithCategory } from '@/dto/response/ProviderWithCategoryDto';
 import { Search} from 'lucide-react';
 import { useEffect,useState } from 'react';
 

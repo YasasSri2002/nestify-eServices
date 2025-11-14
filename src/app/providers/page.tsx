@@ -75,6 +75,7 @@ export default function AllProviders() {
               className="bg-white rounded-2xl px-10 w-40 sm:w-fit"
             />
           </div>
+          
         </div>
         <div className="sm:col-span-3 bg-white w-dvw sm:w-full  p-10">
           <div className="grid justify-items-center w-full gap-5">
@@ -90,7 +91,7 @@ export default function AllProviders() {
         </div>
 
         {/* Moved pagination to inside content area */}
-        <div className="col-span-4 justify-items-center">
+        <div className="grid col-span-4 justify-items-center">
           <PaginationControls
             hasNextPage={end < providers.length}
             hasPrevPage={start > 0}
