@@ -1,8 +1,24 @@
 "use client";
 
+import { getAllCategories } from '@/api-calls/category-api';
+import { CategoryResponseDto } from '@/dto/CategoryDto';
+import { ProviderWithCategory } from '@/dto/response/ProviderWithCategoryDto';
 import { Search} from 'lucide-react';
+import { useEffect,useState } from 'react';
+
 
 export default function Searchbar() {
+
+  const[category,setCategory] = useState<CategoryResponseDto[]>([]);
+
+  useEffect(()=>{
+      const response = getAllCategories();
+
+      response.then(data=> setCategory(data));
+
+
+  },[])
+
   return (
     <div className='flex flex-col xl:flex-row justify-center items-center gap-4 sm:gap-5 my-5'>
       <div className='w-full relative flex justify-center items-center'>
@@ -19,6 +35,11 @@ export default function Searchbar() {
         <select name="categories" className='h-10 sm:h-12 w-1/2 pl-3 bg-[#f1f1f1] rounded-xl
         '>
           <option value="">All Categories</option>
+          {
+            category.map(category=>(
+              <option value={category.name} key={category.id}>{category.name}</option>
+            ))
+          }
         </select>
         
         <button className="flex items-center justify-center p-2 sm:p-4 text-white text-base sm:text-lg bg-[hsla(0,0%,7%,1)] rounded-2xl h-10 sm:h-12 w-25em sm:w-auto min-w-[120px]">
