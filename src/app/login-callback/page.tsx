@@ -10,6 +10,7 @@ export default function LoginCallback() {
     const handleCallback = async () => {
       const code = searchParams.get('code');
       const error = searchParams.get('error');
+      const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
 
       // Handle login error from OAuth provider
       if (error) {
@@ -20,7 +21,7 @@ export default function LoginCallback() {
 
       // No code provided, redirect to login
       if (!code) {
-        router.push('/login-callback');
+        router.replace(loginUrl!);
         return;
       }
 
@@ -33,7 +34,7 @@ export default function LoginCallback() {
         });
 
         if (response.ok) {
-          // Successful authentication, redirect to admin page
+          // Successful authentication, redirect to home page
           router.push('/');
         } else {
           // Safely handle non-JSON responses
