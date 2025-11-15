@@ -1,5 +1,5 @@
 "use client";
-import { getAllPosters } from "@/api-calls/gig-api";
+import { getAllPosters } from "@/app/api-calls/gig-api";
 import ServiceGigCard from "@/components/ui/service-gig/serviceGigCard";
 import { ServiceGigWithProviderDto } from "@/dto/response/ServiceGigsWithProviderDto";
 import { useEffect, useState } from "react";

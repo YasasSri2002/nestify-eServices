@@ -1,6 +1,6 @@
 'use client'
 import { useSearchParams } from "next/navigation"; // Add this import
-import {use, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 
 import { ProviderDto } from "@/dto/ProviderDto";
 import BookingProvidersCard  from "@/components/ui/provider-section/bookingProvidersCard";
@@ -10,7 +10,7 @@ import DynamicIcon from "@/components/utill/DynamicIcons";
 import PaginationControls from "@/components/utill/paginationControls";
 
 
-import { getAllProviders } from "@/api-calls/provider-api";
+import { getAllProviders } from "@/app/api-calls/provider-api";
 
 
 

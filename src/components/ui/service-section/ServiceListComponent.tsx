@@ -1,5 +1,5 @@
 "use client"
-import { getAllCategories } from "@/api-calls/category-api";
+import { getAllCategories } from "@/app/api-calls/category-api";
 import ServiceCard from "@/components/ui/service-section/serviceCard";
 import { CategoryResponseDto } from "@/dto/CategoryDto";
 import { useEffect, useState } from "react";

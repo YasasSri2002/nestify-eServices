@@ -12,9 +12,9 @@ function sideMenue(){
 
 export default function NavBar(){
 
-  const loginUrl = process.env.NEXT_PUBLIC_AUTH_URL
+  const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
 
-  const registrationUrl =  process.env.NEXT_PUBLIC_REGISTRATION_URL
+  const registrationUrl =  process.env.NEXT_PUBLIC_REGISTRATION_URL;
 
 
         return (

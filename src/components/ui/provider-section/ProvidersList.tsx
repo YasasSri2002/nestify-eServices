@@ -5,7 +5,7 @@ import ProviderCard from "@/components/ui/provider-section/providerCard";
 
 
 import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
-import { getPopularProviders } from "@/api-calls/provider-api";
+import { getPopularProviders } from "@/app/api-calls/provider-api";
 
 const images =[
   "https://avatar.iran.liara.run/public/girl",
