@@ -72,7 +72,7 @@ export default function AllProviders() {
             <input
               type="text"
               placeholder="search"
-              className="bg-white rounded-2xl px-10 w-40 sm:w-fit"
+              className="bg-white rounded-2xl px-10 w-40 md:w-50 lg:w-fit"
             />
           </div>
           
