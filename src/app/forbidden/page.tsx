@@ -2,9 +2,9 @@ import DynamicIcon from "@/components/utill/DynamicIcons";
 import Link from "next/link";
 export default function Forbidden(){
     return(
-            <div className="w-full h-dvh grid justify-items-center content-center text-gray-500/90 ">
-                <div className="text-center">
-                    <h1 className="text-2xl md:text-7xl text-gray-500 text-center">403</h1>
+            <div className="pt-10 sm:p-0">
+                <div className="text-center w-full h-full grid justify-items-center content-center text-gray-500/90">
+                    <h1 className="text-2xl md:text-6xl text-gray-500 text-center">Error - 403</h1>
                     <div className="px-10 py-2  md:p-0">
                         <img src="/icon/403.jpg" alt="403 door is guarded" className="md:w-100 md:h-100 relative -z-10 rounded-2xl" />
                     </div>
