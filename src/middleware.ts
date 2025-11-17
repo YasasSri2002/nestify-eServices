@@ -72,8 +72,7 @@ export function middleware(request: NextRequest) {
     }
 
     if(!authorizationForRoutes(pathname,decoded)){
-      //TODO: make a forbidden 403 page
-      return NextResponse.redirect(new URL('/',request.url));
+      return NextResponse.redirect(new URL('/forbidden',request.url));
     }
 
 
