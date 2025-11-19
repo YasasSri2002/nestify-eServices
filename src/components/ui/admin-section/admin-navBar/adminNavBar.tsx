@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 
 import DynamicIcon from "@/components/utill/DynamicIcons";
@@ -15,22 +14,13 @@ export default function NavBar(){
           <>
             <div
               id="mynavbar"
-              className="navbar flex items-center justify-between text-white p-2 relative bg-[hsla(0,0%,97%,1)] drop-shadow-xl sm:px-6 lg:px-8 w-full "
+              className="navbar flex items-center justify-between text-white p-2 relative bg-[hsla(0,0%,97%,1)] drop-shadow-xl sm:px-6 lg:px-8 w-full h-18"
             >
-              <div>
-                <Image
-                  src="/logo.png"
-                  alt="Logo"
-                  width={150}
-                  height={10}
-                  className="mx-0 w-auto h-auto max-h-[7rem]"
-                />
+              <div className="text-black">
+                <Link href={'/'} className="flex items-center"><DynamicIcon name="FaArrowLeft" className="mr-2"/>Back to site</Link>
               </div>
-
+              <Link href="/site-admin" className="text-2xl text-black">Admin Dashboard</Link>
               <ul className="hidden xl:flex gap-4 text-black">
-                <li>
-                  <Link href="/site-admin">Admin Dashboard</Link>
-                </li>
                 <li>
                   <Link href="/site-admin/users">users</Link>
                 </li>
@@ -42,7 +32,7 @@ export default function NavBar(){
                 </li>
               </ul>
               <button onClick={sideMenue} className="xl:hidden">
-                <DynamicIcon name="BiAlignJustify"/>
+                <DynamicIcon name="FaAlignJustify" className="text-black"/>
               </button>
             </div>
 
@@ -53,7 +43,7 @@ export default function NavBar(){
               <div className="bg-[hsla(0,0%,97%,1)] drop-shadow-2xl rounded-l-2xl grid w-50 h-dvh shadow-2xl">
                 <div className="justify-self-end max-h-5 mt-5 relative right-5">
                   <button onClick={sideMenue}>
-                    <DynamicIcon name="BiWindowClose"></DynamicIcon>
+                    <DynamicIcon name="MdClose" className="text-black"/>
                   </button>
                 </div>
                 <div className="absolute mt-20 ml-5">

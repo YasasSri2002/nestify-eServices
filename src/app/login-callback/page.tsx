@@ -48,11 +48,11 @@ export default function LoginCallback() {
           }
 
           console.error('Authentication failed:', errorData);
-          router.push('/login?error=authentication_failed');
+          router.push(loginUrl!+'?error=authentication_failed');
         }
       } catch (err) {
         console.error('Callback network error:', err);
-        router.push('/login?error=network_error');
+        router.push(loginUrl!+'?error=network_error');
       }
     };
 
