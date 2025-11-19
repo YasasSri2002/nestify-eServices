@@ -10,6 +10,7 @@ import * as HiIcons from "react-icons/hi";
 import * as CiIcons from "react-icons/ci";
 import * as ioIcons from "react-icons/io";
 import * as fiIcons from "react-icons/fi";
+import * as GoIcons from "react-icons/go"
 type IconLibrary = {
   [key: string]: IconType;
 };
@@ -23,7 +24,8 @@ const ICON_LIBRARY: IconLibrary = {
   ...HiIcons,
   ...CiIcons,
   ...ioIcons,
-  ...fiIcons
+  ...fiIcons,
+  ...GoIcons
 
 };
 

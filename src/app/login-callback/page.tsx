@@ -15,7 +15,7 @@ export default function LoginCallback() {
       // Handle login error from OAuth provider
       if (error) {
         console.error('Login error:', error);
-        router.push('/login?error=' + encodeURIComponent(error));
+        router.push(`${loginUrl!}?error=` + encodeURIComponent(error));
         return;
       }
 
@@ -35,7 +35,7 @@ export default function LoginCallback() {
 
         if (response.ok) {
           // Successful authentication, redirect to home page
-          router.push('/');
+          router.push('/site-admin');
         } else {
           // Safely handle non-JSON responses
           let errorData: any = {};
