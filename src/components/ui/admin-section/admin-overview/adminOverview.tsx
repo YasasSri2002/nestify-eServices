@@ -1,5 +1,9 @@
+'use client';
 import OverviewCard from "./overviewCards";
 export default function AdminOverview(){
+
+   
+
     return(
         <div className="grid md:grid-cols-2 justify-items-center w-full mt-5 gap-5">
             <div className="md:col-1 w-full px-5">

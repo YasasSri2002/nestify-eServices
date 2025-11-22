@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useEffect,useState } from "react";
 
 import DynamicIcon from "@/components/utill/DynamicIcons";
 
@@ -9,6 +10,25 @@ function sideMenue(){
     }
 
 export default function NavBar(){
+
+  const [userEmail,setUserEmail] =useState("");
+  const [userName,setUserName] =useState("");
+
+   useEffect(() => {
+      const fetchUser = async () => {
+        try {
+          const res = await fetch('/api-calls/users/data');
+          const data = await res.json();   // parse JSON
+          setUserName(data.userName);
+          setUserEmail(data.userEmail);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
+        fetchUser();
+  }, []);
+
 
         return (
           <>
@@ -30,6 +50,10 @@ export default function NavBar(){
                 <li>
                   <Link href="/site-admin/payments">payments</Link>
                 </li>
+                <div className="flex border-2 rounded-2xl space-x-5 p-2 ">
+                    <li>{userName}</li>
+                    <li>{userEmail}</li>
+                </div>
               </ul>
               <button onClick={sideMenue} className="xl:hidden">
                 <DynamicIcon name="FaAlignJustify" className="text-black"/>
@@ -47,20 +71,26 @@ export default function NavBar(){
                   </button>
                 </div>
                 <div className="absolute mt-20 ml-5">
-                  <ul className="mt-0">
-                    <li className="pb-2">
-                      <Link href="/site-admin">admin Dashboard</Link>
-                    </li>
-                    <li className="py-2">
-                      <Link href="/site-admin/users">Users</Link>
-                    </li>
-                    <li className="py-2">
-                      <Link href="/site-admin/providers">providers</Link>
-                    </li>
-                    <li className="py-2">
-                      <Link href="/site-admin/payments">payment</Link>
-                    </li>
-                  </ul>
+                  <ul className="mt-0 grid h-full content-between">
+                    <div>
+                        <li className="pb-2">
+                        <Link href="/site-admin">admin Dashboard</Link>
+                      </li>
+                      <li className="py-2">
+                        <Link href="/site-admin/users">Users</Link>
+                      </li>
+                      <li className="py-2">
+                        <Link href="/site-admin/providers">providers</Link>
+                      </li>
+                      <li className="py-2">
+                        <Link href="/site-admin/payments">payment</Link>
+                      </li>
+                    </div>
+                    <div className="grid border-2 rounded-2xl space-x-5 p-2">
+                      <li>{userName}</li>
+                      <li>{userEmail}</li>
+                    </div>
+                  </ul> 
                 </div>
               </div>
             </div>

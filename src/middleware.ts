@@ -1,7 +1,17 @@
-// middleware.ts
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import jwt from 'jsonwebtoken';
+import { jwtDecode } from 'jwt-decode';
+
+
+interface DecodedToken {
+  realm_access?: {
+    roles?: string[];
+  };
+  exp?: number;
+  sub?: string;
+  name?: string;
+  email?: string;
+}
 
  const protectedRoutes =[
     '/site-admin',
@@ -18,8 +28,19 @@ function validateToken(token: any){
   if(!token) return null;
 
   try{
-    return jwt.decode(token);
+    const decoded = jwtDecode<DecodedToken>(token);
+    
+    if(decoded.exp && decoded.exp *1000 < Date.now()){
+    
+      console.log("Token Expire");
+     
+      return null
+    }
+
+    return decoded
+
   }catch(err:any){
+
     console.log("token error",err)
     return null;
   }
@@ -56,11 +77,13 @@ function authorizationForRoutes(pathname: any , decodedToken:any){
 
 export function middleware(request: NextRequest) {
 
+  console.log("🔥 Middleware HIT:", request.nextUrl.pathname);
+
   const token = request.cookies.get('auth-token')?.value;
 
   const {pathname} = request.nextUrl;
 
-  const decoded: any = validateToken(token);
+  const decodedToken: any = validateToken(token);
 
   //check if current url is in the protected route
   if(!checkifProtectedUrl(request,protectedRoutes)){
@@ -71,19 +94,24 @@ export function middleware(request: NextRequest) {
       return handleUnauthorizationEntries(pathname);      
     }
 
-    if(!authorizationForRoutes(pathname,decoded)){
+    if(!authorizationForRoutes(pathname,decodedToken)){
       return NextResponse.redirect(new URL('/forbidden',request.url));
     }
 
+      const response = NextResponse.next();
+      response.cookies.set('x-user-id', decodedToken.sub || '');
+      response.cookies.set('x-user-name', decodedToken.name || '',{ httpOnly: false });
+      response.cookies.set('x-user-email', decodedToken.email || '',{ httpOnly: false });
+      response.cookies.set('x-user-roles', JSON.stringify(decodedToken.realm_access?.roles || []));
 
-  // Allow /login-callback and other routes
-  return NextResponse.next();
+      return response;
 }
 
 export const config = {
   matcher: [
       '/site-admin/:path*',
       '/user/profile/:path*',
-      '/provider/profile/:path*'
+      '/provider/profile/:path*',
+      '/api-calls/:path*'
   ], 
 };
