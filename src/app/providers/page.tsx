@@ -8,10 +8,7 @@ import Footer from "@/components/ui/footer";
 import NavBar from "@/components/ui/navbar";
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import PaginationControls from "@/components/utill/paginationControls";
-
-
-import { getAllProviders } from "@/app/api-calls/provider-api";
-
+import { getAllProviders } from "../api-calls/provider/route";
 
 
 
@@ -34,14 +31,12 @@ export default function AllProviders() {
   useEffect(()=>{
     async function fetchProivders(){
       try{
-        const data = await getAllProviders();
-        if(data){
-          setProviders(data);
-        }
+          const response = await getAllProviders();
+          setProviders(response);
+          setLoadProviders(false);
+          console.log(response)
       }catch(err:any){
-          alert("error"+err);
-      }finally{
-        setLoadProviders(false);
+          console.log(err)
       }
     }
     fetchProivders();

@@ -6,7 +6,14 @@ const SPRING_BOOT_URL = process.env.SPRING_BOOT_API_URL;
 
 // Public endpoints that don't need authentication
 const PUBLIC_ENDPOINTS = [
-  '/api/v1/gig/all',
+            '/api/v1/gig/all',
+            "/api/v1/providers/top5",
+            "/api/v1/providers/all",
+            "/api/v1/providers/by-expertises",
+            "/admin/realms/market-realm/users/",
+            "/api/v1/providers",
+            "/api/v1/client/persist",
+            "/api/v1/category/all"
 ];
 
 function isPublicEndpoint(path: string): boolean {
