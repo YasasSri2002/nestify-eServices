@@ -1,9 +1,11 @@
 "use client";
 
-import { getAllCategories } from '@/app/api-calls/category-api';
+import { useEffect,useState } from 'react';
+
+import { getAllCategories } from '@/app/api-calls/category/route';
 import { CategoryResponseDto } from '@/dto/CategoryDto';
 import { Search} from 'lucide-react';
-import { useEffect,useState } from 'react';
+
 
 
 export default function Searchbar() {
@@ -11,11 +13,11 @@ export default function Searchbar() {
   const[category,setCategory] = useState<CategoryResponseDto[]>([]);
 
   useEffect(()=>{
-      const response = getAllCategories();
-
-      response.then(data=> setCategory(data));
-
-
+       async function fetchCategories(){
+                  const data = await getAllCategories();
+                  setCategory(data);
+              }
+              fetchCategories()
   },[])
 
   return (

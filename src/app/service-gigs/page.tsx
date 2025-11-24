@@ -1,10 +1,12 @@
 "use client";
-import { getAllPosters } from "@/app/api-calls/gig-api";
-import ServiceGigCard from "@/components/ui/service-gig/serviceGigCard";
-import { ServiceGigWithProviderDto } from "@/dto/response/ServiceGigsWithProviderDto";
+
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+
+import ServiceGigCard from "@/components/ui/service-gig/serviceGigCard";
+import { ServiceGigWithProviderDto } from "@/dto/response/ServiceGigsWithProviderDto";
 import PaginationControls from "@/components/utill/paginationControls";
+import { getAllPosters } from "../api-calls/gig/route";
 
 export default function ServicesGigPage(){
 
@@ -17,7 +19,6 @@ export default function ServicesGigPage(){
             try{
                 const response = await getAllPosters();
                 setGigs(response);
-                console.log(response);
                 
             }catch(err:any){
                 console.log(err);

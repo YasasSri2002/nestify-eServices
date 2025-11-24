@@ -18,6 +18,7 @@ export default function ServiceComponent(){
             const data = await getAllCategories();
             setServiesList(data);
         }
+        fetchCategories()
     },[])
 
     return(
