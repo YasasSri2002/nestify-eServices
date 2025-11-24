@@ -14,3 +14,17 @@ export async function getAllProviders():Promise<ProviderDto[]>{
 
     return response.json();
 }
+
+export async function getPopularProviders(){
+    const response = await fetch(`${API_PREFIX}/api/v1/providers/top5`,{
+        cache: 'no-store'
+    });
+
+    if(!response.ok){
+        const error = await response.json();
+        throw new Error(error.error || 'fetch failed api-> popular provider'); 
+    }
+
+    return response.json();
+
+}

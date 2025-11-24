@@ -5,7 +5,8 @@ import ProviderCard from "@/components/ui/provider-section/providerCard";
 
 
 import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
-import { getPopularProviders } from "@/app/api-calls/provider-api";
+import { getPopularProviders } from "@/app/api-calls/provider/route";
+
 
 const images =[
   "https://avatar.iran.liara.run/public/girl",
@@ -25,9 +26,8 @@ export default function ProvidersList() {
       async function fetchPopularProivders(){
         try{
           const data = await getPopularProviders();
-          if(data){
-            setProviders(data);
-          }
+          setProviders(data);
+            
         }catch(err:any){
             alert("error"+err);
         }
