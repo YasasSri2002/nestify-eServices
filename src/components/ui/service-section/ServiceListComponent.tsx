@@ -1,8 +1,11 @@
 "use client"
-import { getAllCategories } from "@/app/api-calls/category-api";
+
+import { useEffect, useState } from "react";
+
+import { getAllCategories } from "@/app/api-calls/category/route";
 import ServiceCard from "@/components/ui/service-section/serviceCard";
 import { CategoryResponseDto } from "@/dto/CategoryDto";
-import { useEffect, useState } from "react";
+
 
 export default function ServiceComponent(){
     
@@ -11,11 +14,10 @@ export default function ServiceComponent(){
     
 
     useEffect(()=>{
-        const serviceData= getAllCategories();
-
-        serviceData.then(data=>{
+        async function fetchCategories(){
+            const data = await getAllCategories();
             setServiesList(data);
-        })
+        }
     },[])
 
     return(

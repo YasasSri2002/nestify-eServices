@@ -1,4 +1,5 @@
 import { ProviderDto } from "@/dto/ProviderDto";
+import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
 
 const API_PREFIX = "/api-calls/auth/apis"
 
@@ -15,7 +16,7 @@ export async function getAllProviders():Promise<ProviderDto[]>{
     return response.json();
 }
 
-export async function getPopularProviders(){
+export async function getPopularProviders(): Promise<ProviderWithCategory[]>{
     const response = await fetch(`${API_PREFIX}/api/v1/providers/top5`,{
         cache: 'no-store'
     });
