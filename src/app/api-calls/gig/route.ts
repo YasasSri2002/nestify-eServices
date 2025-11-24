@@ -27,3 +27,17 @@ export async function getCountOfActiveGigs(): Promise<{[key: string]: string}> {
 
   return response.json();
 }
+
+export async function getActiveGigs():Promise<ServiceGigWithProviderDto[]>{
+  const response = await fetch(`${API_PREFIX}/api/v1/gig/active-posters`,{
+    cache: 'no-store'
+  })
+
+   if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Failed to fetch active gigs');
+  }
+
+
+  return response.json()
+}
