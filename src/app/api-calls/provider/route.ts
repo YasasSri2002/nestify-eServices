@@ -29,3 +29,21 @@ export async function getPopularProviders(): Promise<ProviderWithCategory[]>{
     return response.json();
 
 }
+
+export async function getCountOfProviders(): Promise<{[key:string]:string}>{
+    const response = await fetch(`${API_PREFIX}/api/v1/providers/count-all`, {
+        method: 'GET',
+        credentials: 'include',  // send cookies
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+
+    if(!response.ok){
+        const error = await response.json();
+        throw new Error(error.error || 'fetch failed api-> count of providers');
+    }
+
+    return response.json();
+}

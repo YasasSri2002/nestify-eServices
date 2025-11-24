@@ -112,6 +112,5 @@ export const config = {
       '/site-admin/:path*',
       '/user/profile/:path*',
       '/provider/profile/:path*',
-      '/api-calls/:path*'
   ], 
 };
