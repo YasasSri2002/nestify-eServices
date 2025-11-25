@@ -13,7 +13,7 @@ export default function OverviewCard({title ,iconName,iconColor,data}:
                     <h1 className="text-3xl">{data}</h1>
                 </div>
                 <div className="w-20 h-20  rounded-full bg-gray-200 grid justify-items-center content-center">
-                    <DynamicIcon name={iconName} className={`w-10 h-10 text-[${iconColor}]`} />
+                    <DynamicIcon name={iconName} className={`w-10 h-10 ${iconColor}`}/>
                 </div>
                 
             </div>

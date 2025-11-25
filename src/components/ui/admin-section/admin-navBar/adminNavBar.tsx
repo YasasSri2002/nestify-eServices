@@ -40,7 +40,7 @@ export default function NavBar(){
                 <Link href={'/'} className="flex items-center"><DynamicIcon name="FaArrowLeft" className="mr-2"/>Back to site</Link>
               </div>
               <Link href="/site-admin" className="text-2xl text-black">Admin Dashboard</Link>
-              <ul className="hidden xl:flex gap-4 text-black">
+              <ul className="hidden xl:flex gap-4 text-black items-center">
                 <li>
                   <Link href="/site-admin/users">users</Link>
                 </li>
