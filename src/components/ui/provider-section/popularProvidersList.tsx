@@ -2,10 +2,9 @@
 import { useEffect, useState } from "react";
 
 import ProviderCard from "@/components/ui/provider-section/providerCard";
-
-
 import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
 import { getPopularProviders } from "@/app/api-calls/provider/route";
+import {LoadingPage} from "@/components/utill/loadingPage";
 
 
 const images =[
@@ -19,14 +18,16 @@ const images =[
   "https://avatar.iran.liara.run/username?username=[firstname+lastname]"
 ]
 
-export default function ProvidersList() {
+export default function PopularProvidersList() {
   const [providers, setProviders] = useState<ProviderWithCategory[]>([]);
+  const[isLoading,setIsLoading]= useState(true);
 
   useEffect(()=>{
       async function fetchPopularProivders(){
         try{
           const data = await getPopularProviders();
           setProviders(data);
+          setIsLoading(false);
             
         }catch(err:any){
             alert("error"+err);
@@ -36,6 +37,16 @@ export default function ProvidersList() {
   
     },[])
 
+    if(isLoading){
+       return (
+            <> 
+              <h1 className="text-gray-900 text-4xl lg:text-6xl text-center my-10">
+                Popular Providers
+              </h1>
+              <LoadingPage/>
+            </>
+      )
+    }
   return (
     <div className="h-full">
       <h1 className="text-gray-900 text-4xl lg:text-6xl text-center my-10">

@@ -5,17 +5,20 @@ import { useEffect,useState } from 'react';
 import { getAllCategories } from '@/app/api-calls/category/route';
 import { CategoryResponseDto } from '@/dto/CategoryDto';
 import { Search} from 'lucide-react';
+import { LoadingPage } from '../utill/loadingPage';
 
 
 
 export default function Searchbar() {
 
   const[category,setCategory] = useState<CategoryResponseDto[]>([]);
+  const[isLoading,setIsLoading] =useState(true);
 
   useEffect(()=>{
        async function fetchCategories(){
                   const data = await getAllCategories();
                   setCategory(data);
+                  setIsLoading(false);
               }
               fetchCategories()
   },[])
@@ -37,6 +40,7 @@ export default function Searchbar() {
         '>
           <option value="">All Categories</option>
           {
+            isLoading? <option>loading..</option> :
             category.map(category=>(
               <option value={category.name} key={category.id}>{category.name}</option>
             ))

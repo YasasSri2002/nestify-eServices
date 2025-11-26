@@ -9,6 +9,7 @@ import NavBar from "@/components/ui/navbar";
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import PaginationControls from "@/components/utill/paginationControls";
 import { getAllProviders } from "../api-calls/provider/route";
+import {FullPageLoading} from "@/components/utill/loadingPage";
 
 
 
@@ -51,7 +52,7 @@ export default function AllProviders() {
     const end = start + Number(per_page);
     const entries = providers.slice(start, end);
 
-    if(loadProviders) return( <div className="grid w-full h-dvh justify-items-center content-center lg:text-6xl">Loading..........</div> )
+    if(loadProviders) return <FullPageLoading/>
   
   return (
     <>

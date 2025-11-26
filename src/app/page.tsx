@@ -1,7 +1,7 @@
 
 import HeroSection from "@/components/ui/about-hero-section/Hero";
 import ServiceComponent from "../components/ui/service-section/ServiceListComponent";
-import ProvidersList from "../components/ui/provider-section/ProvidersList";
+import PopularProvidersList from "../components/ui/provider-section/popularProvidersList";
 import NavBar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 
@@ -14,7 +14,7 @@ export default function Home() {
       <NavBar/>
       <HeroSection/>
       <ServiceComponent/>
-      <ProvidersList/>
+      <PopularProvidersList/>
       <Footer/>
     </>
   );
