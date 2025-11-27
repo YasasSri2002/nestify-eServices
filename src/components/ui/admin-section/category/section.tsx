@@ -58,11 +58,11 @@ export default function AdminCategorySection(){
             </div>
             <div className="bg-gray-300 grid gap-5 justify-items-center">
                 <h1 className="text-center text-md md:text-lg lg:text-2xl">Add new Category</h1>
-                <div className="w-full lg:w-[40em] border-2 border-red-500 p-5">
+                <div className="w-full lg:w-[40em p-5">
                     <form onSubmit={addCategoryFormSubmit} className="grid justify-items-center">
-                        <div className="flex justify-between w-full space-y-8">
+                        <div className="flex justify-between md:justify-evenly w-full space-y-8">
                             <label htmlFor="name">Name:</label>
-                            <input type="text" name="name" className="bg-white w-[10em] lg:w-md h-6 lg:h-10 pl-2" />
+                            <input type="text" name="name" className="bg-white w-[10em] md:w-[20em] lg:w-md h-6 lg:h-10 pl-2 rounded-sm lg:rounded-xl " />
                         </div>
                         <button type="submit" className="border-2 rounded-2xl bg-green-300 px-2 py-1">Add Category</button>
                     </form>
