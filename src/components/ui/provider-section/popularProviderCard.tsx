@@ -1,7 +1,5 @@
 "use client"
 
-import DynamicIcon from '@/components/utill/DynamicIcons';
-
 import {BadgeCheck ,Star, MapPin } from 'lucide-react';
 
 import { ProviderWithCategory } from '@/dto/response/ProviderWithCategoryDto';
@@ -28,7 +26,7 @@ export default function PopularProviderCard({ provider ,images }: { readonly pro
             <div className="space-y-1 ml-5">
               <div className="flex space-x-4">
                 <h1 className="capitalize">{provider.providerDto.userName}</h1>
-                <BadgeCheck stroke="green" />
+                {provider.providerDto.isVerified ? <BadgeCheck stroke="green" />:""}
               </div>
               <h2 className="capitalize">{provider.providerDto.expertise}</h2>
               <div className="flex space-x-2 items-center">
