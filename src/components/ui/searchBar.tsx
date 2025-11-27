@@ -5,7 +5,6 @@ import { useEffect,useState } from 'react';
 import { getAllCategories } from '@/app/api-calls/category/route';
 import { CategoryResponseDto } from '@/dto/CategoryDto';
 import { Search} from 'lucide-react';
-import { LoadingPage } from '../utill/loadingPage';
 
 
 

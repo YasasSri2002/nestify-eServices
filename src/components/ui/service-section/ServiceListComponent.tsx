@@ -11,7 +11,7 @@ import { LoadingPage } from "@/components/utill/loadingPage";
 export default function ServiceComponent(){
     
     const [serviesList,setServiesList] = useState<CategoryResponseDto[]>([]);
-    const [serviceIconList,setServiceIconList]= useState(["GiVacuumCleaner","MdPlumbing"]);
+    const [serviceIconList,setServiceIconList]= useState(["GiVacuumCleaner","MdPlumbing","MdElectricBolt","GiGardeningShears"]);
     const [isLoading,setIsLoading] = useState(true);
     
 

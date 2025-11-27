@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import ProviderCard from "@/components/ui/provider-section/providerCard";
+import PopularProviderCard from "@/components/ui/provider-section/popularProviderCard";
 import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
 import { getPopularProviders } from "@/app/api-calls/provider/route";
 import {LoadingPage} from "@/components/utill/loadingPage";
@@ -53,9 +53,9 @@ export default function PopularProvidersList() {
         Popular Providers
       </h1>
 
-      <div className="flex flex-row flex-wrap justify-center gap-5">
+      <div className="flex flex-row flex-wrap justify-center gap-5 my-10">
         {providers.map((provider,index) => (
-          <ProviderCard key={provider.providerDto.email} provider={provider}  images={images[index % images.length]}/>
+          <PopularProviderCard key={provider.providerDto.email} provider={provider}  images={images[index % images.length]}/>
         ))}
       </div>
     </div>
