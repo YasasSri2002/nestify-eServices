@@ -1,3 +1,8 @@
+import { BookingDto } from "./BookingDto";
+import { CategoryResponseDto } from "./CategoryDto";
+import { ReviewDto } from "./ReviewDto";
+import { ServiceGigDto } from "./ServiceGigDto";
+
 export interface ProviderDto {
   id : number;
   userName: string;
@@ -11,4 +16,14 @@ export interface ProviderDto {
   address: string;
   experience: string;
   jobCount: number;
+}
+
+export interface ProviderWithAllDetails{
+
+  providerDto: ProviderDto;
+  serviceDto: ServiceGigDto;
+  bookingDto: BookingDto;
+  reviewDto: ReviewDto;
+  categoryDto: CategoryResponseDto;
+
 }

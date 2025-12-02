@@ -35,7 +35,7 @@ export default function LoginCallback() {
 
         if (response.ok) {
           // Successful authentication, redirect to home page
-          router.push('/site-admin');
+          router.push('/');
         } else {
           // Safely handle non-JSON responses
           let errorData: any = {};

@@ -1,4 +1,4 @@
-import { ProviderDto } from "@/dto/ProviderDto";
+import { ProviderDto, ProviderWithAllDetails } from "@/dto/ProviderDto";
 import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
 
 const API_PREFIX = "/api-calls/auth/apis"
@@ -48,7 +48,7 @@ export async function getCountOfProviders(): Promise<{[key:string]:string}>{
     return response.json();
 }
 
-export async function getProviderById(id: string): Promise<ProviderDto>{
+export async function getProviderById(id: string): Promise<ProviderWithAllDetails>{
     const response = await fetch(`${API_PREFIX}/api/v1/providers/by-id?id=${id}`,{
         method: "GET",
         cache: 'no-store'
