@@ -11,6 +11,7 @@ export default function BookingForm(){
 
     return(
         <>
+            
             <h1>Please kindly fill the data</h1>
             <form onSubmit={onSubmit}>
                 <div className="flex">

@@ -1,7 +1,8 @@
 import { ProviderDto, ProviderWithAllDetails } from "@/dto/ProviderDto";
 import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
 
-const API_PREFIX = "/api-calls/auth/apis"
+const API_PREFIX = "/api-calls/auth/apis";
+const SPRING_BOOT_URL = process.env.SPRING_BOOT_API_URL;
 
 export async function getAllProviders():Promise<ProviderDto[]>{
     const response = await fetch(`${API_PREFIX}/api/v1/providers/all`,{
@@ -48,9 +49,11 @@ export async function getCountOfProviders(): Promise<{[key:string]:string}>{
     return response.json();
 }
 
+/* when i do the dynmic path my dynamic api calling page confused it with the id so i use
+the spring boot Url to make sure it not confusing */
 export async function getProviderById(id: string): Promise<ProviderWithAllDetails> {
     const response = await fetch(
-        `http://localhost:8080/api/v1/providers/by-id?id=${id}`,
+        `${SPRING_BOOT_URL}/api/v1/providers/by-id?id=${id}`,
         {
             method: "GET",
             cache: "force-cache",
