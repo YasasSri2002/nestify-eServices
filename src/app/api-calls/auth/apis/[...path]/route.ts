@@ -12,7 +12,8 @@ const PUBLIC_ENDPOINTS = [
             "/admin/realms/market-realm/users/",
             "/api/v1/client/persist",
             "/api/v1/category/all",
-            "/api/v1/gig/active-posters"
+            "/api/v1/gig/active-posters",
+            "/api/v1/providers/by-id"
 ];
 
 function isPublicEndpoint(path: string): boolean {
