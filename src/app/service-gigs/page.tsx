@@ -51,7 +51,7 @@ export default function ServicesGigPage(){
             <NavBar/>
         
             <div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 px-2 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 px-2 gap-8 lg:m-10">
                     {
                        entries.map(gig => (
                             <div key={gig.id}>
