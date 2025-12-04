@@ -13,7 +13,7 @@ export default function ServiceCard(props:any){
                 <DynamicIcon name={props.name} className=" rounded-full w-30 h-30 bg-black/80 text-white/90 " />
             </div>
             <div>
-                <h1 className="mt-2 text-lg text-gray-700">{props.serviceName}</h1>
+                <h1 className="mt-2 text-lg text-gray-700 capitalize">{props.serviceName}</h1>
             </div>
         </div>
 

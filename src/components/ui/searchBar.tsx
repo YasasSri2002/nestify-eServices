@@ -24,13 +24,13 @@ export default function Searchbar() {
 
   return (
     <div className='flex flex-col xl:flex-row justify-center items-center gap-4 sm:gap-5 my-5'>
-      <div className='w-full relative flex justify-center items-center'>
+      <div className='w-full relative flex justify-center items-center '>
         <Search 
-          className="absolute left-[18%] sm:left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" 
+          className="absolute left-10 sm:left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" 
         />
         <input 
           placeholder="What service do you need?"
-          className=' w-25em sm:w-full h-10 sm:h-12 rounded-2xl px-10 bg-[#f1f1f1]'
+          className=' w-25em sm:w-full focus:text-center h-10 sm:h-12 rounded-2xl px-10 bg-[#f1f1f1]'
         />
       </div>
       
@@ -41,7 +41,7 @@ export default function Searchbar() {
           {
             isLoading? <option>loading..</option> :
             category.map(category=>(
-              <option value={category.name} key={category.id}>{category.name}</option>
+              <option value={category.name} key={category.id} className='capitalize' >{category.name}</option>
             ))
           }
         </select>

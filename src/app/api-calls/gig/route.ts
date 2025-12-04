@@ -30,7 +30,7 @@ export async function getCountOfActiveGigs(): Promise<{[key: string]: string}> {
 
 export async function getActiveGigs():Promise<ServiceGigWithProviderDto[]>{
   const response = await fetch(`${API_PREFIX}/api/v1/gig/active-posters`,{
-    cache: 'no-store'
+    cache: 'force-cache'
   })
 
    if (!response.ok) {

@@ -19,7 +19,10 @@ export async function getAllProviders():Promise<ProviderDto[]>{
 
 export async function getPopularProviders(): Promise<ProviderWithCategory[]>{
     const response = await fetch(`${API_PREFIX}/api/v1/providers/top5`,{
-        cache: 'no-store'
+        cache: 'force-cache',
+        next:{
+            revalidate: 300
+        }
     });
 
     if(!response.ok){
