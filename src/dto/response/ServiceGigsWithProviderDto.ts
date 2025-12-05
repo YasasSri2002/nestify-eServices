@@ -8,6 +8,8 @@ export interface ServiceGigWithProviderDto{
 
     shortDescription: string;
 
+    fullDescription:string;
+
     basePrice: number;
 
     priceType: string; //Hourly, per Job or for day

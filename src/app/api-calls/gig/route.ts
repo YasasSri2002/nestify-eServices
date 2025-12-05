@@ -1,6 +1,7 @@
 import { ServiceGigWithProviderDto } from "@/dto/response/ServiceGigsWithProviderDto";
 
 const API_PREFIX = '/api-calls/auth/apis'; // Routes through Next.js proxy
+const SPRING_BOOT_URL = process.env.SPRING_BOOT_API_URL;
 
 export async function getAllPosters(): Promise<ServiceGigWithProviderDto[]> {
   const response = await fetch(`${API_PREFIX}/api/v1/gig/all`, {
@@ -40,4 +41,22 @@ export async function getActiveGigs():Promise<ServiceGigWithProviderDto[]>{
 
 
   return response.json()
+}
+
+export async function getGigsById(id:string): Promise<ServiceGigWithProviderDto>{
+  
+   const response = await fetch(`${SPRING_BOOT_URL}/api/v1/gig/by-id?id=${id}`,{
+    cache: 'force-cache',
+    credentials:'include',
+  
+  })
+
+   if (!response.ok) {
+    const error = response.statusText;
+    throw new Error(error || 'Failed to fetch get gigs by id');
+  }
+
+
+  return response.json()
+
 }

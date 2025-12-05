@@ -1,9 +1,13 @@
+import { ProviderDto } from "./ProviderDto";
+
 export interface ServiceGigDto{
     id : string;
     
     title: string;
 
     shortDescription: string;
+
+    fullDescription:string;
 
     basePrice: number;
 
@@ -19,3 +23,4 @@ export interface ServiceGigDto{
 
     updatedAt: Date;
 }
+

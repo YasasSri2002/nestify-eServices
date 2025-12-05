@@ -27,7 +27,7 @@ export default function ServiceGigCard(
                         <h1>By {serviceGig.provider.userName}</h1>
                     </div>
                     <div className="w-full text-blue-600">
-                        <Link href="/" 
+                        <Link href={`/service-gigs/details/${serviceGig.id}`} 
                             className='flex space-x-2 justify-end items-center  '>
                                 View more 
                                 <DynamicIcon name="MdArrowRightAlt" className='text-2xl top-[1px] relative'/>
