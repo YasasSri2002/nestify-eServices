@@ -13,12 +13,15 @@ export default async  function ServiceGigDetails({params}:{readonly params:Promi
         <NavBar/>
 
         <div className="grid grid-cols-6">
-           <div className="col-span-2 border-2 border-red-300">
+           <div className="col-span-2 border-2 border-red-300 grid justify-items-center ">
                 <div className="w-30 h-30 rounded-full">
                     <img src="https://avatar.iran.liara.run/public/boy"/>
                 </div>
                 <div>
                     <h1>{gig.provider.userName}</h1>
+                    <h1>{gig.provider.experience}</h1>
+                    <h1>Main Category: {gig.provider.expertise}</h1>
+                    <p>{gig.provider.jobCount}</p>
                 </div>
            </div>
            <div className="col-span-4 border-2 border-blue-300">

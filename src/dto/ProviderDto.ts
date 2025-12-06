@@ -10,7 +10,6 @@ export interface ProviderDto {
   lastName: string;
   email: string;
   contactNo: string;
-  hourlyRate: number;
   expertise: string;
   isVerified: boolean;
   address: string;
