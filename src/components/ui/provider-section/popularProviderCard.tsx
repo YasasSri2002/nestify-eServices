@@ -1,8 +1,10 @@
 "use client"
 
-import {BadgeCheck ,Star, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 import { ProviderWithCategory } from '@/dto/response/ProviderWithCategoryDto';
+
+import {BadgeCheck ,Star, MapPin } from 'lucide-react';
 
 
 export default function PopularProviderCard({ provider ,images }: { readonly provider: ProviderWithCategory , readonly images: string }){
@@ -69,7 +71,10 @@ export default function PopularProviderCard({ provider ,images }: { readonly pro
           </div>
 
           <div className="grid mx-4 content-end justify-items-center">
-            <button className='bg-white hover:bg-gray-200 border-1 rounded-2xl w-2/3'>View</button>
+            <Link href={`providers/details/${provider.providerDto.id}`}
+                 className='bg-white hover:bg-gray-200 border-1 rounded-2xl w-2/3 flex justify-center'>
+                <button>View</button>
+            </Link>
           </div>
         </div>
       </div>
