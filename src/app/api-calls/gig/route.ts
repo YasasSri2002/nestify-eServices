@@ -31,7 +31,7 @@ export async function getCountOfActiveGigs(): Promise<{[key: string]: string}> {
 
 export async function getActiveGigs():Promise<ServiceGigWithProviderDto[]>{
   const response = await fetch(`${API_PREFIX}/api/v1/gig/active-posters`,{
-    cache: 'force-cache'
+    cache: 'no-store'
   })
 
    if (!response.ok) {
@@ -46,9 +46,7 @@ export async function getActiveGigs():Promise<ServiceGigWithProviderDto[]>{
 export async function getGigsById(id:string): Promise<ServiceGigWithProviderDto>{
   
    const response = await fetch(`${SPRING_BOOT_URL}/api/v1/gig/by-id?id=${id}`,{
-    cache: 'force-cache',
-    credentials:'include',
-  
+    cache: 'no-store'
   })
 
    if (!response.ok) {

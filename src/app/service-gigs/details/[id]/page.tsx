@@ -19,9 +19,7 @@ export default async  function ServiceGigDetails({params}:{readonly params:Promi
                 </div>
                 <div>
                     <h1>{gig.provider.userName}</h1>
-                    <h1>{gig.provider.experience}</h1>
-                    <h1>Main Category: {gig.provider.expertise}</h1>
-                    <p>{gig.provider.jobCount}</p>
+                    <p>{gig.provider.shortDescription}</p>
                 </div>
            </div>
            <div className="col-span-4 border-2 border-blue-300">

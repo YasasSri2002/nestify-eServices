@@ -15,6 +15,7 @@ export interface ProviderDto {
   address: string;
   experience: string;
   jobCount: number;
+  shortDescription: string;
 }
 
 export interface ProviderWithAllDetails{
