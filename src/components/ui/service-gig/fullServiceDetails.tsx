@@ -1,0 +1,89 @@
+'use client'
+
+import Image from "next/image";
+
+import DynamicIcon from "@/components/utill/DynamicIcons";
+import { ServiceGigWithProviderDto } from "@/dto/response/ServiceGigsWithProviderDto";
+
+function showProviderDetails(){
+        const providerDetailsPanel = document.getElementById(`providerDetails`);
+        providerDetailsPanel?.classList.toggle('sr-only')
+    }
+
+export default function FullServiceGigsDetails({gig}: {readonly gig: ServiceGigWithProviderDto}){
+    return(
+        <div className="grid grid-cols-6">
+            <div className="h-full sm:hidden bg-gray-300 grid justify-items-center content-between py-2">
+                <button onClick={showProviderDetails}>
+                    <DynamicIcon name="BiMenu" className="text-3xl"/>
+                </button>
+                <div className="w-10 h-10 rounded-full">
+                    <Image src={"https://avatar.iran.liara.run/public/boy"} 
+                        width={100}
+                        height={100}
+                        alt="provider's profile picture"/>
+                </div>
+            </div>
+
+           <div id="providerDetails" className="col-span-2 border-2 border-red-300 grid justify-items-center order-2 
+                    sm:order-1 absolute bg-gray-300 sm:bg-white/5 z-10 sr-only sm:not-sr-only gap-5 sm:p-4">
+                <div className="w-full flex justify-end sm:sr-only ">
+                    <button onClick={showProviderDetails}>
+                        <DynamicIcon name="IoMdClose" className="text-xl"/>
+                    </button>
+                </div>
+                <div className="w-30 h-30 rounded-full">
+                    <Image src={"https://avatar.iran.liara.run/public/boy"} 
+                        width={100}
+                        height={100}
+                        alt="provider's profile picture"/>
+                </div>
+                <div className="grid gap-5">
+                    <div className="flex space-x-4 justify-center">
+                        <h1 className="md:text-xl">{gig.provider.userName}</h1>
+                        {
+                            gig.provider.isVerified ? 
+                            <DynamicIcon name="BiBadgeCheck" className="text-green-400 text-2xl" /> : ""
+                        }
+                    </div>
+                    <p>{gig.provider.shortDescription}</p>
+                </div>
+                <div className="grid sm:grid-cols-2">
+                    <div className="col-1">
+                        <h1>Experience:{gig.provider.experience}</h1>
+                        <h1>Main Category: {gig.provider.expertise}</h1>
+                        <h1>Other Categories: </h1>
+                    </div>
+                    <div className="col-2">
+                        <h1>Up to date {gig.provider.jobCount} jobs has successfully compeleted</h1>
+                        
+                        <div className="grid justify-items-center">
+                            <h1>Contacts</h1>
+                            <div className="flex justify-between w-full">
+                                <h1>Phone:</h1> <h1>{gig.provider.contactNo}</h1>
+                            </div>
+                             <div className="flex justify-between w-full">
+                                <h1>Email:</h1> <h1>{gig.provider.email}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+           </div>
+           <div className="col-span-5 sm:col-span-4 border-2 border-blue-300 order-1 sm:order-2">
+                <div>
+                    <h1>about this gig</h1>
+                    <p>{gig.shortDescription}</p>
+                </div>
+                <div className="flex justify-between w-full">
+                    <h1>main type</h1>
+                </div>
+                
+                <div>
+                    <h1>reviews</h1>
+                </div>
+                <h2>full details</h2>
+           </div>
+        </div>
+    )
+}
