@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import ServiceGigCard from "@/components/ui/service-gig/serviceGigCard";
-import { ServiceGigWithProviderDto } from "@/dto/response/ServiceGigsWithProviderDto";
+import { ServiceGigResponseDto } from "@/dto/response/ServiceGigsWithProviderDto";
 import PaginationControls from "@/components/utill/paginationControls";
 import { getActiveGigs } from "../api-calls/gig/route";
 import NavBar from "@/components/ui/navbar";
@@ -12,7 +12,7 @@ import {FullPageLoading} from "@/components/utill/loadingPage";
 
 export default function ServicesGigPage(){
 
-    const[gigs,setGigs] = useState<ServiceGigWithProviderDto[]>([]);
+    const[gigs,setGigs] = useState<ServiceGigResponseDto[]>([]);
 
     const[isLoading,setIsLoading] =useState(true);
 

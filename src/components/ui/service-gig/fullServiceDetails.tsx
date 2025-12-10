@@ -3,14 +3,14 @@
 import Image from "next/image";
 
 import DynamicIcon from "@/components/utill/DynamicIcons";
-import { ServiceGigWithProviderDto } from "@/dto/response/ServiceGigsWithProviderDto";
+import { ServiceGigResponseDto } from "@/dto/response/ServiceGigsWithProviderDto";
 
 function showProviderDetails(){
         const providerDetailsPanel = document.getElementById(`providerDetails`);
         providerDetailsPanel?.classList.toggle('sr-only')
     }
 
-export default function FullServiceGigsDetails({gig}: {readonly gig: ServiceGigWithProviderDto}){
+export default function FullServiceGigsDetails({gig}: {readonly gig: ServiceGigResponseDto}){
     return(
         <div className="grid grid-cols-6">
             <div className="h-full sm:hidden bg-gray-300 grid justify-items-center content-between py-2">
@@ -40,7 +40,9 @@ export default function FullServiceGigsDetails({gig}: {readonly gig: ServiceGigW
                 </div>
                 <div className="grid gap-5">
                     <div className="flex space-x-4 justify-center">
-                        <h1 className="md:text-xl">{gig.provider.userName}</h1>
+                        <h1 className="md:text-xl">
+                            Get to know<span className="capitalize"> {gig.provider.userName}</span>
+                        </h1>
                         {
                             gig.provider.isVerified ? 
                             <DynamicIcon name="BiBadgeCheck" className="text-green-400 text-2xl" /> : ""
@@ -48,16 +50,16 @@ export default function FullServiceGigsDetails({gig}: {readonly gig: ServiceGigW
                     </div>
                     <p>{gig.provider.shortDescription}</p>
                 </div>
-                <div className="grid sm:grid-cols-2">
-                    <div className="col-1">
+                <div className="grid lg:grid-cols-2 gap-4">
+                    <div className="lg:col-1">
                         <h1>Experience:{gig.provider.experience}</h1>
                         <h1>Main Category: {gig.provider.expertise}</h1>
                         <h1>Other Categories: </h1>
                     </div>
-                    <div className="col-2">
+                    <div className="lg:col-2 gap-2 grid">
                         <h1>Up to date {gig.provider.jobCount} jobs has successfully compeleted</h1>
                         
-                        <div className="grid justify-items-center">
+                        <div className="grid justify-items-center w-fit gap-2">
                             <h1>Contacts</h1>
                             <div className="flex justify-between w-full">
                                 <h1>Phone:</h1> <h1>{gig.provider.contactNo}</h1>
@@ -70,19 +72,29 @@ export default function FullServiceGigsDetails({gig}: {readonly gig: ServiceGigW
                     
                 </div>
            </div>
-           <div className="col-span-5 sm:col-span-4 border-2 border-blue-300 order-1 sm:order-2">
-                <div>
-                    <h1>about this gig</h1>
-                    <p>{gig.shortDescription}</p>
+           <div className="col-span-5 sm:col-span-4 border-2 border-blue-300 order-1 sm:order-2 p-5">
+                <div className="grid gap-5">
+                        <h1 className="lg:text-2xl text-center capitalize">{gig.title}</h1>
+                        <div className="grid gap-2">
+                            <h1 className="lg:text-2xl ">About this gig</h1>
+                            <p className="text-gray-600 md:text-lg">{gig.fullDescription}</p>
+                        </div>
+                        <div className="flex space-x-5 w-full items-center">
+                            <h1>Category: </h1>  
+                            <h1 className="bg-gray-200 rounded-xl px-4 py-1">{gig.category.name}</h1>
+                        </div>
+                        <div>
+                            <h1 className="lg:text-2xl">Payment</h1>
+                            
+                        </div>
+
+                        
+                        <div>
+                            <h1 className="lg:text-2xl">Reviews</h1>
+
+                        </div>
+                        
                 </div>
-                <div className="flex justify-between w-full">
-                    <h1>main type</h1>
-                </div>
-                
-                <div>
-                    <h1>reviews</h1>
-                </div>
-                <h2>full details</h2>
            </div>
         </div>
     )

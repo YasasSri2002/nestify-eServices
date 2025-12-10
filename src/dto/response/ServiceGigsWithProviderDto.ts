@@ -1,7 +1,8 @@
+import { CategoryResponseDto } from "../CategoryDto";
 import { ProviderDto } from "../ProviderDto";
 
 
-export interface ServiceGigWithProviderDto{
+export interface ServiceGigResponseDto{
     id : string;
     
     title: string;
@@ -25,4 +26,7 @@ export interface ServiceGigWithProviderDto{
     updatedAt: Date;
 
     provider: ProviderDto;
+
+    category: CategoryResponseDto;
+
 }

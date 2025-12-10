@@ -1,9 +1,9 @@
-import { ServiceGigWithProviderDto } from "@/dto/response/ServiceGigsWithProviderDto";
+import { ServiceGigResponseDto } from "@/dto/response/ServiceGigsWithProviderDto";
 
 const API_PREFIX = '/api-calls/auth/apis'; // Routes through Next.js proxy
 const SPRING_BOOT_URL = process.env.SPRING_BOOT_API_URL;
 
-export async function getAllPosters(): Promise<ServiceGigWithProviderDto[]> {
+export async function getAllPosters(): Promise<ServiceGigResponseDto[]> {
   const response = await fetch(`${API_PREFIX}/api/v1/gig/all`, {
     cache: 'no-store', // Disable caching for dynamic data
   });
@@ -29,7 +29,7 @@ export async function getCountOfActiveGigs(): Promise<{[key: string]: string}> {
   return response.json();
 }
 
-export async function getActiveGigs():Promise<ServiceGigWithProviderDto[]>{
+export async function getActiveGigs():Promise<ServiceGigResponseDto[]>{
   const response = await fetch(`${API_PREFIX}/api/v1/gig/active-posters`,{
     cache: 'no-store'
   })
@@ -43,7 +43,7 @@ export async function getActiveGigs():Promise<ServiceGigWithProviderDto[]>{
   return response.json()
 }
 
-export async function getGigsById(id:string): Promise<ServiceGigWithProviderDto>{
+export async function getGigsById(id:string): Promise<ServiceGigResponseDto>{
   
    const response = await fetch(`${SPRING_BOOT_URL}/api/v1/gig/by-id?id=${id}`,{
     cache: 'no-store'
