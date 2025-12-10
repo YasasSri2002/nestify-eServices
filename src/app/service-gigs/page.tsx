@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import ServiceGigCard from "@/components/ui/service-gig/serviceGigCard";
-import { ServiceGigResponseDto } from "@/dto/response/ServiceGigsWithProviderDto";
+import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
 import PaginationControls from "@/components/utill/paginationControls";
 import { getActiveGigs } from "../api-calls/gig/route";
 import NavBar from "@/components/ui/navbar";

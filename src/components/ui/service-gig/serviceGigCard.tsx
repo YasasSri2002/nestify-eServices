@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { ServiceGigWithProviderDto } from "@/dto/response/ServiceGigsWithProviderDto";
+import { ServiceGigWithProviderDto } from "@/dto/response/ServiceGigResponseDto";
 import DynamicIcon from '@/components/utill/DynamicIcons';
 
 

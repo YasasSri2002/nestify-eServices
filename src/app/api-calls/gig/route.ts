@@ -1,4 +1,4 @@
-import { ServiceGigResponseDto } from "@/dto/response/ServiceGigsWithProviderDto";
+import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
 
 const API_PREFIX = '/api-calls/auth/apis'; // Routes through Next.js proxy
 const SPRING_BOOT_URL = process.env.SPRING_BOOT_API_URL;

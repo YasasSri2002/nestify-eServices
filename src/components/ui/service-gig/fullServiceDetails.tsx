@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 import DynamicIcon from "@/components/utill/DynamicIcons";
-import { ServiceGigResponseDto } from "@/dto/response/ServiceGigsWithProviderDto";
+import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
 
 function showProviderDetails(){
         const providerDetailsPanel = document.getElementById(`providerDetails`);
