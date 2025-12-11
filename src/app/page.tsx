@@ -4,7 +4,7 @@ import ServiceComponent from "../components/ui/service-section/ServiceListCompon
 import PopularProvidersList from "../components/ui/provider-section/popularProvidersList";
 import NavBar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
-
+import ReviewCard from "@/components/ui/reviews/reviewCard";
 
 
 

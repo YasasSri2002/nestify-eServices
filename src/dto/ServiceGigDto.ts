@@ -1,4 +1,3 @@
-import { ProviderDto } from "./ProviderDto";
 
 export interface ServiceGigDto{
     id : string;
