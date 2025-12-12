@@ -1,18 +1,16 @@
+
 import { ReviewDto } from "@/dto/ReviewDto";
 
-const API_PREFIX = '/api-calls/auth/apis'
 
-export async function getReviewsByGigId(id: string): Promise<ReviewDto>{
+const API_PREFIX = "/api-calls/auth/apis";
+const SPRING_BOOT_URL = process.env.SPRING_BOOT_API_URL;
+
+export async function getReviewsByGigId(id: string): Promise<ReviewDto[]>{
     
-        const response =  await fetch(`${API_PREFIX}/api/v1/reviews/by-gig-id?id=${id}`,{
-            next: {
-                revalidate: 600
-            }
-        })
+        const response =  await fetch(`http://localhost:3000/${API_PREFIX}/api/v1/review/by-gig-id?id=${id}`)
 
         if(!response.ok){
-            const error = await response.json();
-            throw new Error(error.error || 'fetch failed api->  get review in gig'); 
+            throw (response.status); 
         }
 
         return response.json();

@@ -13,7 +13,8 @@ const PUBLIC_ENDPOINTS = [
             "/api/v1/client/persist",
             "/api/v1/category/all",
             "/api/v1/gig/active-posters",
-            "/api/v1/providers/by-id"
+            "/api/v1/providers/by-id",
+            "/api/v1/review/by-gig-id"
 ];
 
 function isPublicEndpoint(path: string): boolean {

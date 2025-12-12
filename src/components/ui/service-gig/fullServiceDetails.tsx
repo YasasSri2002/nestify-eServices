@@ -4,13 +4,20 @@ import Image from "next/image";
 
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
+import ReviewCard from "../reviews/reviewCard";
+import { ReviewDto } from "@/dto/ReviewDto";
+import { useEffect, useState } from "react";
 
 function showProviderDetails(){
         const providerDetailsPanel = document.getElementById(`providerDetails`);
         providerDetailsPanel?.classList.toggle('sr-only')
     }
 
-export default function FullServiceGigsDetails({gig}: {readonly gig: ServiceGigResponseDto}){
+export default function FullServiceGigsDetails({gig}:
+     {readonly gig: ServiceGigResponseDto})
+
+     {
+
     return(
         <div className="grid grid-cols-6">
             <div className="h-full sm:hidden bg-gray-300 grid justify-items-center content-between py-2">
@@ -88,11 +95,6 @@ export default function FullServiceGigsDetails({gig}: {readonly gig: ServiceGigR
                             
                         </div>
 
-                        
-                        <div>
-                            <h1 className="lg:text-2xl">Reviews</h1>
-
-                        </div>
                         
                 </div>
            </div>
