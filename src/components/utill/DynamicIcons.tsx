@@ -13,6 +13,8 @@ import * as fiIcons from "react-icons/fi";
 import * as GoIcons from "react-icons/go";
 import * as PiIcons from "react-icons/pi";
 import * as BiIcons from "react-icons/bi";
+import * as RxIcons from 'react-icons/rx';
+
 type IconLibrary = {
   [key: string]: IconType;
 };
@@ -29,7 +31,8 @@ const ICON_LIBRARY: IconLibrary = {
   ...fiIcons,
   ...GoIcons,
   ...PiIcons,
-  ...BiIcons
+  ...BiIcons,
+  ...RxIcons
 
 };
 

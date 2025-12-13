@@ -4,9 +4,6 @@ import Image from "next/image";
 
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
-import ReviewCard from "../reviews/reviewCard";
-import { ReviewDto } from "@/dto/ReviewDto";
-import { useEffect, useState } from "react";
 
 function showProviderDetails(){
         const providerDetailsPanel = document.getElementById(`providerDetails`);
@@ -33,7 +30,7 @@ export default function FullServiceGigsDetails({gig}:
             </div>
 
            <div id="providerDetails" className="col-span-2 border-2 border-red-300 grid justify-items-center order-2 
-                    sm:order-1 absolute bg-gray-300 sm:bg-white/5 z-10 sr-only sm:not-sr-only gap-5 sm:p-4">
+                    sm:order-1 absolute bg-gray-300 sm:bg-white/5 z-50 sr-only sm:not-sr-only gap-5 sm:p-4 h-full">
                 <div className="w-full flex justify-end sm:sr-only ">
                     <button onClick={showProviderDetails}>
                         <DynamicIcon name="IoMdClose" className="text-xl"/>

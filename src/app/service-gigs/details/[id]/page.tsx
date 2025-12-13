@@ -4,7 +4,8 @@ import { getReviewsByGigId } from "@/app/api-calls/reviews/route";
 import NavBar from "@/components/ui/navbar";
 import FullServiceGigsDetails from "@/components/ui/service-gig/fullServiceDetails";
 import { ReviewDto } from "@/dto/ReviewDto";
-import ReviewCard from "@/components/ui/reviews/reviewCard";
+
+import ReviewCarousel from "@/components/ui/reviews/carousel";
 
 
  
@@ -23,13 +24,9 @@ export default async  function ServiceGigDetails({params}:{readonly params:Promi
         <FullServiceGigsDetails gig={gig} />
         <div>
             <h1 className="lg:text-2xl text-center">Reviews</h1>
-                {
-                     reviewList.map(review =>(
-                        <div className="m-5" key={review.id}>
-                            <ReviewCard  review={review}/>
-                        </div>
-                        ))
-                }
+            <ReviewCarousel reviewList={reviewList}/>
+
+                
         </div>
         </>
         

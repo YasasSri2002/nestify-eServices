@@ -16,21 +16,17 @@ export default function ReviewCard({review}: {readonly review: ReviewDto}){
 
     return(
         
-        <div className="p-5 rounded-2xl bg-gray-200 lg:w-150 grid gap-3">
+        <div className=" rounded-2xl  grid gap-3 w-full px-15 bg-gray-100 py-5 h-50">
             <div className="grid gap-2">
                 <h1>Rating</h1>
                 <div className="flex space-x-5 items-center">
-                    <div className="flex space-x-4">
-                        <DynamicIcon name="IoIosStar" 
-                            className={rating > 0 && rating < 6 ? `text-amber-300`: 'text-gray-500'}  />
-                        <DynamicIcon name="IoIosStar" 
-                            className={ rating > 1 && rating < 6 ? `text-amber-300`: 'text-gray-500'} />
-                        <DynamicIcon name="IoIosStar" 
-                            className={ rating > 2 && rating < 6 ? `text-amber-300`: 'text-gray-500'} />
-                        <DynamicIcon name="IoIosStar" 
-                            className={rating > 3 && rating < 6 ? `text-amber-300`: 'text-gray-500'} />
-                        <DynamicIcon name="IoIosStar" 
-                            className={rating == 5 ? `text-amber-300`: 'text-gray-500'} />
+                   <div className="flex gap-1  items-center">
+                        {[new Array(5)].map((_, i) => (
+                            <span key={i}>
+                                <DynamicIcon name="FaStar" 
+                                    className={`text-lg ${i < review.rating ? 'text-yellow-400' : 'text-gray-300'}`}/>
+                            </span>
+                        ))}
                     </div>
                     <h1>{rating}</h1>
                 </div>
