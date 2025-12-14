@@ -77,23 +77,30 @@ export default function FullServiceGigsDetails({gig}:
                 </div>
            </div>
            <div className="col-span-5 sm:col-span-4 border-2 border-blue-300 order-1 sm:order-2 p-5">
-                <div className="grid gap-5">
-                        <h1 className="lg:text-2xl text-center capitalize">{gig.title}</h1>
-                        <div className="grid gap-2">
-                            <h1 className="lg:text-2xl ">About this gig</h1>
-                            <p className="text-gray-600 md:text-lg">{gig.fullDescription}</p>
-                        </div>
-                        <div className="flex space-x-5 w-full items-center">
-                            <h1>Category: </h1>  
-                            <h1 className="bg-gray-200 rounded-xl px-4 py-1">{gig.category.name}</h1>
-                        </div>
-                        <div>
-                            <h1 className="lg:text-2xl">Abour Prices</h1>
+                <h1 className="lg:text-2xl text-center capitalize mt-2 mb-10 ">{gig.title}</h1>
+                <div className="grid gap-5 md:grid-cols-2">
+                       <div className="md:col-1 grid gap-4 ">
+                             <div className="grid gap-2">
+                                <h1 className="lg:text-2xl ">About this gig</h1>
+                                <p className="text-gray-600 md:text-lg">{gig.fullDescription}</p>
+                            </div>
                             
-                        </div>
-
-                        
+                        </div> 
+                        <div className="md:col-2 sticky grid content-center h-full ">
+                            <div className="bg-gray-300 p-5 rounded-2xl">
+                                <h1 className="lg:text-2xl">Abour Prices</h1>
+                                <div className="ml-3">
+                                    <h1>The base price: {gig.basePrice} {gig.currency}</h1>
+                                    <h1>How price adding: {gig.priceType}</h1>
+                                </div>
+                            </div>
+                        </div>  
                 </div>
+                <div className="flex space-x-5 w-full items-center  my-10">
+                    <h1>Category: </h1>  
+                    <h1 className="bg-gray-200 rounded-xl px-4 py-1">{gig.category.name}</h1>
+                </div>
+                 
            </div>
         </div>
     )
