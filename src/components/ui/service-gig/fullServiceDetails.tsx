@@ -88,7 +88,7 @@ export default function FullServiceGigsDetails({gig}:
                             <h1 className="bg-gray-200 rounded-xl px-4 py-1">{gig.category.name}</h1>
                         </div>
                         <div>
-                            <h1 className="lg:text-2xl">Payment</h1>
+                            <h1 className="lg:text-2xl">Abour Prices</h1>
                             
                         </div>
 

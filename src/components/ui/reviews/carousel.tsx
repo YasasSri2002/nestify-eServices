@@ -10,7 +10,6 @@ export default function ReviewCarousel({reviewList}: {readonly reviewList:Review
 
    
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
     const [isPaused, setIsPaused] = useState(false);
   
   
@@ -18,7 +17,7 @@ export default function ReviewCarousel({reviewList}: {readonly reviewList:Review
   const autoPlayInterval = 3000;
 
   useEffect(() => {
-        if (!isAutoPlaying || isPaused) return;
+        if (isPaused) return;
 
         const interval = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % reviewList.length);
@@ -26,7 +25,7 @@ export default function ReviewCarousel({reviewList}: {readonly reviewList:Review
 
         return () => clearInterval(interval);
         
-    }, [isAutoPlaying, isPaused, reviewList.length]);
+    }, [ isPaused, reviewList.length]);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % reviewList.length);
@@ -36,9 +35,6 @@ export default function ReviewCarousel({reviewList}: {readonly reviewList:Review
     setCurrentIndex((prev) => (prev - 1 + reviewList.length) % reviewList.length);
   };
 
-  const goToSlide = (index:any) => {
-    setCurrentIndex(index);
-  };
 
 
 
@@ -80,21 +76,7 @@ export default function ReviewCarousel({reviewList}: {readonly reviewList:Review
             <DynamicIcon name="FaChevronRight" className="w-6 h-6 text-gray-700" />
             </button>
 
-            {/* Dot Indicators */}
-            <div className="flex justify-center gap-2 mt-6">
-            {reviewList.map((review, index) => (
-                <button
-                key={review.id}
-                onClick={() => goToSlide(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                    index === currentIndex 
-                    ? 'bg-blue-600 w-8' 
-                    : 'bg-gray-300 w-2 hover:bg-gray-400'
-                }`}
-                aria-label={`Go to review ${index + 1}`}
-                />
-            ))}
-            </div>
+            
         </div>
     </div>
   );

@@ -18,11 +18,20 @@ export default function ReviewCard({review}: {readonly review: ReviewDto}){
         
         <div className=" rounded-2xl  grid gap-3 w-full px-15 bg-gray-100 py-5 h-50">
             <div className="grid gap-2">
-                <h1>Rating</h1>
+                <div className="flex items-center space-x-4 ">
+                     <div className="w-10 h-10 rounded-full">
+                        <Image src={"https://avatar.iran.liara.run/public/boy"} 
+                                width={100}
+                                height={100}
+                                alt="provider's profile picture"/>
+                    </div>
+                     <h1>{review.reviewsClient.email}</h1>
+                </div>
+
                 <div className="flex space-x-5 items-center">
                    <div className="flex gap-1  items-center">
-                        {[new Array(5)].map((_, i) => (
-                            <span key={i}>
+                        {[1,2,3,4,5].map((number, i) => (
+                            <span key={number}>
                                 <DynamicIcon name="FaStar" 
                                     className={`text-lg ${i < review.rating ? 'text-yellow-400' : 'text-gray-300'}`}/>
                             </span>
@@ -34,16 +43,7 @@ export default function ReviewCard({review}: {readonly review: ReviewDto}){
 
             <p>{review.comment}</p>
 
-                <div className="flex items-center space-x-4 justify-end">
-                     <div className="w-10 h-10 rounded-full">
-                        <Image src={"https://avatar.iran.liara.run/public/boy"} 
-                                width={100}
-                                height={100}
-                                alt="provider's profile picture"/>
-                    </div>
-                     <h1>{review.reviewsClient.email}</h1>
-                </div>
-
+                
         </div>
 
     )
