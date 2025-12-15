@@ -21,9 +21,9 @@ export interface ProviderDto {
 export interface ProviderWithAllDetails{
 
   providerDto: ProviderDto;
-  serviceDto: ServiceGigDto;
-  bookingDto: BookingDto;
-  reviewDto: ReviewDto;
-  categoryDto: CategoryResponseDto;
+  gigs : ServiceGigDto[];
+  bookingDto: BookingDto[];
+  reviewDto: ReviewDto[];
+  categoryDto: CategoryResponseDto[];
 
 }

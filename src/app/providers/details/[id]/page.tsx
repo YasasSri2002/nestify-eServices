@@ -1,4 +1,8 @@
 import { getProviderById } from "@/app/api-calls/provider/route";
+import FullDetailsOfAProvider from "@/components/ui/provider-section/fullDetailsOfAProvider";
+import NavBar from "@/components/ui/navbar";
+import Footer from "@/components/ui/footer";
+
 
 export default async function ProviderDetailsPage({
     params,
@@ -11,18 +15,9 @@ export default async function ProviderDetailsPage({
 
     return (
         <div>
-            <div className="grid md:grid-cols-6">
-                <div className="col-span-2 border-2 border-red-400 w-full bg-gray-200">
-                    <div className="flex space-x-5">
-                        <h1>Provider name:</h1>
-                        <h1>{provider?.providerDto?.userName}</h1>
-                    </div>
-                </div>
-
-                <div className="col-span-4 border-2 border-blue-800">
-                    <h1>All services this provider offers</h1>
-                </div>
-            </div>
+            <NavBar/>
+            <FullDetailsOfAProvider providerDetails={provider}/>
+            <Footer/>
         </div>
     );
 }
