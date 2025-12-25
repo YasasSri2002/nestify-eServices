@@ -20,7 +20,7 @@ export async function getAllProviders():Promise<ProviderDto[]>{
 export async function getPopularProviders(): Promise<ProviderWithCategory[]>{
     const response = await fetch(`${API_PREFIX}/api/v1/providers/top5`,{
         next:{
-            revalidate: 600
+            revalidate: 3600
         }
     });
 

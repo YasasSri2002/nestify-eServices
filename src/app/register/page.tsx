@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import ClientForm from './Client'; 
 import ProviderForm from './Provider'; 
+import NavBar from '@/components/ui/navbar';
 
 export default function RegisterPage() {
   const [role, setRole] = useState('client'); 
@@ -14,6 +15,7 @@ export default function RegisterPage() {
 
   return (
     <>
+    <NavBar/>
     <div className="flex flex-col items-center m-10 p-5">
       {/* Role Selection Toggle */}
       <div className="w-dvw rounded-4xl p-5 grid sm:grid-cols-2 gap-4">

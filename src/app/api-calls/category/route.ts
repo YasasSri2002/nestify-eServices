@@ -4,7 +4,10 @@ const API_PREFIX = '/api-calls/auth/apis';
 
 export async function getAllCategories(): Promise<CategoryResponseDto[]>{
     const response = await fetch(`${API_PREFIX}/api/v1/category/all`,{
-        next:{revalidate:7200}
+        next:{
+            tags: ['categories'],
+            revalidate: 7200
+        }
     })
 
     if(!response.ok){

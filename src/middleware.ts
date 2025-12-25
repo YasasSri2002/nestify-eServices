@@ -103,6 +103,7 @@ export function middleware(request: NextRequest) {
       response.cookies.set('x-user-name', decodedToken.name || '',{ httpOnly: false });
       response.cookies.set('x-user-email', decodedToken.email || '',{ httpOnly: false });
       response.cookies.set('x-user-roles', JSON.stringify(decodedToken.realm_access?.roles || []));
+      console.log(response)
 
       return response;
 }
