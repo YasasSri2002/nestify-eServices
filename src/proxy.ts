@@ -76,7 +76,7 @@ function authorizationForRoutes(pathname: string , decodedToken:DecodedToken | n
 
 
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
 
   console.log("🔥 Middleware HIT:", request.nextUrl.pathname);
 
