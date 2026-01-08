@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   /* config options here */
   experimental:{
     authInterrupts: true,
-    cacheComponents: true,
   },
   images: {
     remotePatterns: [
@@ -17,7 +16,8 @@ const nextConfig: NextConfig = {
         search: '',
       },
     ],
-  }
+  },
+  cacheComponents: true,
 };
 
 export default nextConfig;

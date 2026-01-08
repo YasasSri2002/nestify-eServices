@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getCountOfActiveGigs } from "@/app/api-calls/gig/route";
 import OverviewCard from "./overviewCards";
-import { getCountOfProviders } from "@/app/api-calls/provider/route";
+
 
 
 
@@ -23,9 +23,16 @@ useEffect(() => {
             console.log('Gigs:', gigsResponse["Count of active gigs"]);
 
             // Then fetch providers
-            const providersResponse = await getCountOfProviders();
-            setProviderCount(providersResponse["Provider count"]);
-            console.log('Providers:', providersResponse["Provider count"]);
+            
+            const response = await fetch('/api-calls/provider/count-all');
+                
+            if (!response.ok) {
+                throw new Error(`Failed to fetch: ${response.statusText}`);
+            }
+            const data = await response.json();
+            console.log(data);
+            setProviderCount(data["Provider count"]);
+
         } catch (err) {
             console.error('API fetch error:', err);
         }
