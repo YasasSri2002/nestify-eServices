@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 import { jwtDecode } from 'jwt-decode';
 
 
+
 interface DecodedToken {
   realm_access?: {
     roles?: string[];
@@ -19,12 +20,12 @@ interface DecodedToken {
     '/provider/profile',
   ]
 
-function hasRole(jwtDecoded: any , roles: string[]){
+function hasRole(jwtDecoded: DecodedToken | null , roles: string[]){
     const accessRoles = jwtDecoded?.realm_access?.roles || [];
     return roles.some(role => accessRoles?.includes(role));
   }
 
-function validateToken(token: any){
+function validateToken(token: string){
   if(!token) return null;
 
   try{
@@ -39,7 +40,7 @@ function validateToken(token: any){
 
     return decoded
 
-  }catch(err:any){
+  }catch(err: unknown){
 
     console.log("token error",err)
     return null;
@@ -53,14 +54,14 @@ function checkifProtectedUrl(request: NextRequest, protectedRoutes: string[]){
 
 }
 
-function handleUnauthorizationEntries(pathname: any){
+function handleUnauthorizationEntries(pathname: string){
       const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
       const redirectUrl = new URL(loginUrl!);
       redirectUrl.searchParams.set('redirect', pathname);
       return NextResponse.redirect(redirectUrl);
 }
 
-function authorizationForRoutes(pathname: any , decodedToken:any){
+function authorizationForRoutes(pathname: string , decodedToken:DecodedToken | null){
    if(pathname.startsWith('/user/profile')){
           return  hasRole(decodedToken,['user','admin']);
     }
@@ -83,7 +84,7 @@ export function middleware(request: NextRequest) {
 
   const {pathname} = request.nextUrl;
 
-  const decodedToken: any = validateToken(token);
+  const decodedToken: DecodedToken | null = validateToken(token!);
 
   //check if current url is in the protected route
   if(!checkifProtectedUrl(request,protectedRoutes)){
@@ -99,10 +100,9 @@ export function middleware(request: NextRequest) {
     }
 
       const response = NextResponse.next();
-      response.cookies.set('x-user-id', decodedToken.sub || '');
-      response.cookies.set('x-user-name', decodedToken.name || '',{ httpOnly: false });
-      response.cookies.set('x-user-email', decodedToken.email || '',{ httpOnly: false });
-      response.cookies.set('x-user-roles', JSON.stringify(decodedToken.realm_access?.roles || []));
+      response.cookies.set('x-user-id', decodedToken?.sub || '',{httpOnly: false});
+      response.cookies.set('x-user-name', decodedToken?.name || '',{ httpOnly: false });
+      response.cookies.set('x-user-email', decodedToken?.email || '',{ httpOnly: false });
       console.log(response)
 
       return response;
