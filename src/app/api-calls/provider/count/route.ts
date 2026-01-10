@@ -1,5 +1,4 @@
 'use cache'
-import { cacheTag } from "next/cache";
 import { cookies } from "next/headers";
 
 const SPRING_BOOT_API_URL = process.env.SPRING_BOOT_API_URL;
