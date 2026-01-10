@@ -17,7 +17,10 @@ export default async function getPopularProviders(): Promise<ProviderWithCategor
         headers:{
             'Content-Type': 'application/json',
         },
-       cache: "no-store"
+       next: {
+            revalidate: 3600,
+            tags: ['popular-provider']
+       }
        
     });
     
