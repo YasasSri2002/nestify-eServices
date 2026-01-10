@@ -1,4 +1,4 @@
-'use cache'
+'use server'
 import { cookies } from "next/headers";
 
 const SPRING_BOOT_API_URL = process.env.SPRING_BOOT_API_URL;
@@ -18,7 +18,10 @@ export async function getCountOfProviders(): Promise<{[key:string]:string}>{
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
-        },
+        },next:{
+            revalidate: 10000,
+            tags: ['count of providers']
+        }
     });
 
 

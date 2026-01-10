@@ -24,15 +24,9 @@ useEffect(() => {
             console.log('Gigs:', gigsResponse["Count of active gigs"]);
 
             // Then fetch providers
-            
-            const response = await fetch('/api-calls/provider/count-all');
-                
-            if (!response.ok) {
-                throw new Error(`Failed to fetch: ${response.statusText}`);
-            }
-            const data = await response.json();
-            console.log(data);
-            setProviderCount(data["Provider count"]);
+            const providerCount = await getCountOfProviders();   
+            console.log(providerCount);
+            setProviderCount(providerCount["Provider count"]);
 
         } catch (err) {
             console.error('API fetch error:', err);
