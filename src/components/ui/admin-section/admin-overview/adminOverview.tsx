@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 
 import { getCountOfActiveGigs } from "@/app/api-calls/gig/route";
 import OverviewCard from "./overviewCards";
-import { getCountOfProviders } from "@/app/api-calls/provider/route";
+import { getCountOfProviders } from "@/app/api-calls/provider/count/route";
+
 
 
 
