@@ -1,0 +1,31 @@
+
+import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
+
+const SPRING_BOOT_API_URL = process.env.SPRING_BOOT_API_URL;
+
+
+export default async function getPopularProviders(): Promise<ProviderWithCategory[]>{
+
+    if(!SPRING_BOOT_API_URL){
+        console.error("back end url didnt load")
+    }
+
+    console.log(process.env.SPRING_BOOT_API_URL);
+
+    const response = await fetch(`${SPRING_BOOT_API_URL}/api/v1/providers/top5`, {
+        method: "GET",
+        headers:{
+            'Content-Type': 'application/json',
+        },
+       cache: "no-store"
+       
+    });
+    
+    if(!response.ok){
+        const error = await response.json();
+        throw new Error(error.error || 'fetch failed api-> popular provider'); 
+    }
+
+    return response.json();
+
+}

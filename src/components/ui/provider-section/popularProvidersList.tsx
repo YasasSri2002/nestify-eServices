@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import PopularProviderCard from "@/components/ui/provider-section/popularProviderCard";
 import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
-import { getPopularProviders } from "@/app/api-calls/provider/route";
+import getPopularProviders from "@/app/api-calls/provider/popular-providers/route";
 import {LoadingPage} from "@/components/utill/loadingPage";
 
 

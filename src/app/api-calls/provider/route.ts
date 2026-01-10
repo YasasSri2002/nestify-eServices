@@ -20,22 +20,7 @@ export async function getAllProviders():Promise<ProviderDto[]>{
     return response.json();
 }
 
-export async function getPopularProviders(): Promise<ProviderWithCategory[]>{
-    const response = await fetch(`${SPRING_BOOT_URL}/api/v1/providers/top5`, {
-        next: {
-            revalidate: 3600,
-            tags: ['popular-provider']
-        }
-    });
-    
-    if(!response.ok){
-        const error = await response.json();
-        throw new Error(error.error || 'fetch failed api-> popular provider'); 
-    }
 
-    return response.json();
-
-}
 
 
 
