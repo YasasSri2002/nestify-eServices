@@ -17,12 +17,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-<<<<<<< HEAD
    cacheComponents: true,
   
-=======
-  cacheComponents: true,
->>>>>>> 6cfcfd506cf653b7593e731cc4e616ef5ebba64a
 };
 
 export default nextConfig;
