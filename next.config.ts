@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-
   /* config options here */
   experimental:{
     authInterrupts: true,
@@ -17,7 +16,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+<<<<<<< HEAD
   cacheComponents: true,
+=======
+>>>>>>> parent of 6481a87 (next version upgraded)
 };
 
 export default nextConfig;

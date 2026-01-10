@@ -29,7 +29,7 @@ export default function PopularProvidersList() {
           setProviders(data);
           setIsLoading(false);
             
-        }catch(err:unknown){
+        }catch(err:any){
             alert("error"+err);
         }
       }
@@ -55,8 +55,7 @@ export default function PopularProvidersList() {
 
       <div className="flex flex-row flex-wrap justify-center gap-5 my-10">
         {providers.map((provider,index) => (
-          <PopularProviderCard key={provider.providerDto.email} 
-              provider={provider}  images={images[index % images.length]}/>
+          <PopularProviderCard key={provider.providerDto.email} provider={provider}  images={images[index % images.length]}/>
         ))}
       </div>
     </div>

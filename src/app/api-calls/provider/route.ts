@@ -1,7 +1,7 @@
  'use cache'
 import { ProviderDto, ProviderWithAllDetails } from "@/dto/ProviderDto";
 import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
-import { cacheTag } from 'next/cache';
+
 
 
 
@@ -37,7 +37,7 @@ export async function getPopularProviders(): Promise<ProviderWithCategory[]>{
         throw new Error(error.error || 'fetch failed api-> popular provider'); 
     }
     
-    cacheTag("popular-provider");
+    
     return response.json();
 }
 
