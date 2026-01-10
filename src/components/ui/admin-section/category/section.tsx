@@ -1,5 +1,6 @@
 'use client';
-import { AddCategory, getAllCategories } from "@/app/api-calls/category/route";
+import { AddCategory} from "@/app/api-calls/category/route";
+import { getAllCategories } from "@/app/api-calls/category/all/route";
 import { CategoryResponseDto } from "@/dto/CategoryDto";
 import { FormEvent, useEffect, useState } from "react";
 

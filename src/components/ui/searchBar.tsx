@@ -2,7 +2,7 @@
 
 import { useEffect,useState } from 'react';
 
-import { getAllCategories } from '@/app/api-calls/category/route';
+import { getAllCategories } from '@/app/api-calls/category/all/route';
 import { CategoryResponseDto } from '@/dto/CategoryDto';
 import { Search} from 'lucide-react';
 

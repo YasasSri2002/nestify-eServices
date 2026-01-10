@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { getAllCategories } from "@/app/api-calls/category/route";
+import { getAllCategories } from "@/app/api-calls/category/all/route";
 import ServiceCard from "@/components/ui/service-section/serviceCard";
 import { CategoryResponseDto } from "@/dto/CategoryDto";
 import { LoadingPage } from "@/components/utill/loadingPage";
