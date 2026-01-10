@@ -8,7 +8,7 @@ import Footer from "@/components/ui/footer";
 import NavBar from "@/components/ui/navbar";
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import PaginationControls from "@/components/utill/paginationControls";
-import { getAllProviders } from "../api-calls/provider/route";
+import { getAllProviders } from "../api-calls/provider/all/route";
 import {FullPageLoading} from "@/components/utill/loadingPage";
 
 
