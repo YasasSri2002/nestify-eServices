@@ -5,5 +5,5 @@ export async function GET(request:NextRequest) {
   const userEmail = request.cookies.get('x-user-email')?.value;
 
   console.log("form -api ->"+userId)
-    return NextResponse.json( {userName , userEmail})
+    return NextResponse.json( {userId,userName , userEmail})
 }
