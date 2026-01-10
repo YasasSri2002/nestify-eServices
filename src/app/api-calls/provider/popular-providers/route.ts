@@ -1,7 +1,7 @@
 
 import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
 
-const SPRING_BOOT_API_URL = process.env.SPRING_BOOT_API_URL;
+const SPRING_BOOT_API_URL = process.env.SPRING_BOOT_API_URL || "http://localhost:8080";
 
 
 export default async function getPopularProviders(): Promise<ProviderWithCategory[]>{

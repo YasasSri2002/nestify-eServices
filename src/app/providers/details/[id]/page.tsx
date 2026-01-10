@@ -1,4 +1,4 @@
-import { getProviderById } from "@/app/api-calls/provider/route";
+import { getProviderById } from "@/app/api-calls/provider/with-id/route";
 import FullDetailsOfAProvider from "@/components/ui/provider-section/fullDetailsOfAProvider";
 import NavBar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";

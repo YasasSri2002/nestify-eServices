@@ -1,7 +1,5 @@
- 'use cache'
+
 import { ProviderDto, ProviderWithAllDetails } from "@/dto/ProviderDto";
-import { ProviderWithCategory } from "@/dto/response/ProviderWithCategoryDto";
-import { cacheTag } from 'next/cache';
 
 
 const API_PREFIX = "/api-calls/auth/apis";
@@ -24,20 +22,3 @@ export async function getAllProviders():Promise<ProviderDto[]>{
 
 
 
-/* when i do the dynmic path my dynamic api calling page confused it with the id so i use
-the spring boot Url to make sure it not confusing */
-export async function getProviderById(id: string): Promise<ProviderWithAllDetails> {
-    const response = await fetch(
-        `${SPRING_BOOT_URL}/api/v1/providers/by-id?id=${id}`,
-        {
-            method: "GET",
-            cache: "force-cache",
-            next: { revalidate: 300 } 
-        }
-    );
-
-    if (!response.ok) {
-        throw new Error("Failed to fetch provider by id "+ response.status);
-    }
-    return response.json();
-}
