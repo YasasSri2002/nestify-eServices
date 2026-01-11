@@ -10,35 +10,40 @@ async function onSubmit(event: FormEvent<HTMLFormElement>){
 export default function BookingForm(){
 
     return(
-        <>
-            
-            <h1>Please kindly fill the data</h1>
-            <form onSubmit={onSubmit}>
-                <div className="flex">
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" name="name"/>
+        <div className="border-1 w-200 rounded-2xl px-10">
+            <h1 className="text-center" >Booking Information</h1>
+            <form onSubmit={onSubmit} className="w-full gap-5 grid">
+                <div className="grid">
+                    <label htmlFor="name">Full name</label>
+                    <input type="text" name="name" placeholder="Enter your name" className="border-[0.5px] h-8 rounded-sm outline-none pl-2"/>
                 </div>
-                <div className="flex">
+                <div className="flex justify-between">
+                <div className="grid ">
+                    <label htmlFor="email">Email address</label>
+                    <input type="email" name="email" placeholder="Enter your email" className="border-[0.5px] h-8 rounded-sm outline-none pl-2 w-[20em]"/>
+                </div>
+                <div className="grid">
+                    <label htmlFor="contact">Contact number</label>
+                    <input type="text" name="contact" placeholder="Enter your contact number" className="border-[0.5px] h-8 rounded-sm outline-none pl-2 w-[20em]"/>
+                </div>
+                </div>
+                <div className="grid">
+                    <label htmlFor="address">Address</label>
+                    <input type="text" name="address" placeholder="Enter your address" className="border-[0.5px] h-8 rounded-sm outline-none pl-2"/>
+                </div>
+                <div className="flex justify-between">
+                <div className="grid ">
                     <label htmlFor="booking-date">Date:</label>
-                    <input type="date" name="booking-date"/>
+                    <input type="date" defaultValue={"2026-07-22"} name="booking-date" className="w-[17em] h-8 rounded-sm text-center bg-gray-200"/>
                 </div>
-                <div className="flex space-x-5">
-                    <div>
-                        <label htmlFor="starting-time">Starting time:</label>
-                        <input type="time" name="starting-time"/>
-                    </div>
-                    <div>
-                        <label htmlFor="ending-time">ending time:</label>
-                        <input type="time" name="ending-time"/>
-                    </div>
+                <div className="grid">
+                    <label htmlFor="starting-time">Starting time:</label>
+                    <input type="time" defaultValue={"07:00"} name="starting-time" className="w-[17em] h-8 rounded-sm  text-center bg-gray-200"/>
                 </div>
-                <div className="flex">
-                    <label htmlFor="payment">payment:</label>
-                    <input type="number" name="payment"/>
                 </div>
                 
-                    <button type="submit">submit</button>
+                    <button type="submit" className="bg-gray-200  rounded-sm h-10">Submit</button>
             </form>
-        </>
+        </div>
     );
 }
