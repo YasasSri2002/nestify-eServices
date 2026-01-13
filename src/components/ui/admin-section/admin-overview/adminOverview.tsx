@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { getCountOfActiveGigs } from "@/app/api-calls/gig/route";
+import { getCountOfActiveGigs } from "@/app/api-calls/gig/count-of-active-gigs/route";
 import OverviewCard from "./overviewCards";
 import { getCountOfProviders } from "@/app/api-calls/provider/count/route";
 
