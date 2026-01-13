@@ -10,7 +10,7 @@ async function onSubmit(event: FormEvent<HTMLFormElement>){
 export default function BookingForm(){
 
     return(
-        <div className="border-1 w-200 rounded-2xl px-10">
+        <div className="border-1 xl:w-200 rounded-2xl px-10">
             <h1 className="text-center" >Booking Information</h1>
             <form onSubmit={onSubmit} className="w-full gap-5 grid">
                 <div className="grid">
