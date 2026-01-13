@@ -20,18 +20,3 @@ export async function getCountOfActiveGigs(): Promise<{[key: string]: string}> {
 
 
 
-export async function getGigsById(id:string): Promise<ServiceGigResponseDto>{
-  
-   const response = await fetch(`${SPRING_BOOT_URL}/api/v1/gig/by-id?id=${id}`,{
-    cache: 'no-store'
-  })
-
-   if (!response.ok) {
-    const error = response.statusText;
-    throw new Error(error || 'Failed to fetch get gigs by id');
-  }
-
-
-  return response.json()
-
-}
