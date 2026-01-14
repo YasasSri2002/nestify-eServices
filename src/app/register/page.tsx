@@ -18,7 +18,7 @@ export default function RegisterPage() {
     <NavBar/>
     <div className="flex flex-col items-center m-10 p-5">
       {/* Role Selection Toggle */}
-      <div className="w-dvw rounded-4xl p-5 grid sm:grid-cols-2 gap-4">
+      <div className="w-full rounded-4xl p-5 grid sm:grid-cols-2 gap-4">
         <div className="grid justify-items-center">
           <button
             onClick={() => setRole('provider')}
