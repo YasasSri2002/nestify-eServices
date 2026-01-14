@@ -25,7 +25,7 @@ export default function RegisterPage() {
             className={`w-1/2 max-w-m  px-4 py-2 rounded-md transition-all ${
               role === 'provider'
                 ? "border-2 border-green-500 shadow-md shadow-green-200 bg-white font-medium rounded-2xl" 
-                : " hover:bg-gray-100"
+                : " hover:bg-white bg-gray-200"
             }`}
           >
             Service Provider
@@ -38,7 +38,7 @@ export default function RegisterPage() {
             className={`w-1/2 px-4 py-2 rounded-md transition-all ${
               role === 'client'
                 ? "border-2 border-green-500 shadow-md shadow-green-200 bg-white font-medium rounded-2xl" 
-                : " hover:bg-gray-100"
+                : " hover:bg-gray-100 bg-gray-200"
             }`}
           >
             Client
