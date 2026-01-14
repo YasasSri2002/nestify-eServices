@@ -20,7 +20,7 @@ export default function ClientForm() {
 
   return (
       <div className="w-full max-w-[100vw]">
-        <div className="flex flex-col sm:grid sm:grid-cols-[1fr_1fr] items-center w-full">
+        <div className="flex flex-col lg:grid lg:grid-cols-[1fr_1fr] items-center w-full">
           <div className="w-full flex justify-center bg-white p-4">
             <div className="max-w-full flex flex-col items-center">
               <h2 className="text-xl font-bold">Register as a client</h2>
