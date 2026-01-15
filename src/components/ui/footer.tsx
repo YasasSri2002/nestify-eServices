@@ -1,4 +1,9 @@
 "use client";
+import { Suspense } from 'react'
+
+function getCurrentYear(){
+    return new Date().getFullYear();
+}
 
 
 export default function Footer(){
@@ -47,8 +52,12 @@ export default function Footer(){
             </div>
         </div>
         <div className="md:text-1xl bg-[#121212e1] px-5 py-10 flex">
-                <div className="w-[99.9%] border-t border-white flex items-center justify-center pt-10">
-                    <p className="text-[hsla(0,0%,90%,1)]">&copy; {new Date().getFullYear()} Nestify. All rights reserved.</p>
+                <div className="w-[99.9%] border-t border-white flex items-center justify-center pt-10"> 
+                    <Suspense fallback={<p>&copy; 2026 Nestify. All rights reserved.</p>}>           
+                        <p className="text-[hsla(0,0%,90%,1)]">&copy; 
+                            {getCurrentYear()} Nestify. All rights reserved.
+                        </p>
+                    </Suspense>
                 </div>
         </div>
         </>
