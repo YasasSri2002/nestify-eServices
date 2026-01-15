@@ -9,7 +9,10 @@ export async function getGigsById(id:string): Promise<ServiceGigResponseDto>{
     }
   
    const response = await fetch(`${SPRING_BOOT_URL}/api/v1/gig/by-id?id=${id}`,{
-    cache: 'no-store'
+     next:{
+       revalidate: 7200,
+       tags: ['gig' , id]
+     }
   })
 
    if (!response.ok) {
