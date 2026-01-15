@@ -22,9 +22,12 @@ export default async  function ServiceGigDetails({params}:{readonly params:Promi
         <>
         <NavBar/>
         <FullServiceGigsDetails gig={gig} />
-        <div>
+        <div className="mt-5">
             <h1 className="lg:text-2xl text-center">Reviews</h1>
-            <ReviewCarousel reviewList={reviewList}/>
+            {
+                reviewList && reviewList.length>0 ? ( <ReviewCarousel reviewList={reviewList}/>) : 
+                <p className="text-center text-2xl my-5">no reviews yet</p>
+            }
 
                 
         </div>
