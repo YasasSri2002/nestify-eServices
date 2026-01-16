@@ -54,7 +54,7 @@ export default function AllProvidersPage(){
     return(
         <div className="grid justify-items-center sm:justify-items-normal">
         <div className="sm:grid sm:grid-cols-4">
-        <div className="sm:col-1 bg-gradient-to-t from-white from-10% via-gray-100 via-30% to-gray-200 to-90% w-dvw sm:w-full h-[10em] sm:h-full rounded-b-2xl ">
+        <div className="sm:col-1 bg-linear-to-t from-white from-10% via-gray-100 via-30% to-gray-200 to-90% w-dvw sm:w-full h-[10em] sm:h-full rounded-b-2xl ">
           <div className="sm:mx-6 my-2 pt-5">
             <h1>Search service providers</h1>
           </div>

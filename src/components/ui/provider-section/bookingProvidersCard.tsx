@@ -8,9 +8,9 @@ export default function BookingProvidersCard(
        
             <div className="grid lg:flex justify-between bg-white shadow-2xl rounded-2xl w-[18em] md:w-[20em] lg:w-[50em] p-5">
                 <div >
-                    <img src={images} alt="" className="w-[200px] object-fit max-w-[400px] rounded-2xl" />
+                    <img src={images} alt="" className="w-50 object-fit max-w-100 rounded-2xl" />
                 </div>
-                <div className=" bg-gray-600 w-[5px] ml-5 mr-1 my-6 rounded-2xl"></div>
+                <div className=" bg-gray-600 w-1.25 ml-5 mr-1 my-6 rounded-2xl"></div>
                 <div className="grid content-between w-full p-5"> 
                         <div className="grid ml-5">
                             <div className="flex md:justify-between w-full">
