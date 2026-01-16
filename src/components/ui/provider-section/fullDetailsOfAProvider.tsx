@@ -61,11 +61,11 @@ export default function FullDetailsOfAProvider({providerDetails}: {readonly prov
                             </div>
                             <h1>Up to date {providerDetails.providerDto.jobCount} jobs has been compeleted </h1>
                             <div className='w-full'>
-                                <div className="flex justify-between items-center w-full border-b-1 my-2">
+                                <div className="flex justify-between items-center w-full border-b my-2">
                                     <h1>Email</h1>
                                     <h1>{providerDetails.providerDto.email}</h1>
                                 </div>
-                                 <div className="flex justify-between items-center w-full border-b-1 my-2">
+                                 <div className="flex justify-between items-center w-full border-b my-2">
                                     <h1>Contact No</h1>
                                     <h1>{providerDetails.providerDto.contactNo}</h1>
                                 </div>

@@ -11,19 +11,10 @@ import {FullPageLoading} from "@/components/utill/loadingPage";
   
 export default function AllProvidersPage(){
 
-    const images =[
-  "https://avatar.iran.liara.run/public/girl",
-  "https://avatar.iran.liara.run/public/boy",
-  "https://avatar.iran.liara.run/public/boy?username=Scott",
-  "https://avatar.iran.liara.run/public/boy?username=Maria",
-  "https://avatar.iran.liara.run/username?username=nayanja+nipunsara",
-  "https://avatar.iran.liara.run/username?username=[firstname+lastname]",
-  "https://avatar.iran.liara.run/username?username=[firstname+lastname]",
-  "https://avatar.iran.liara.run/username?username=[firstname+lastname]"
-  ]
 
   const [providers, setProviders] = useState<ProviderDto[]>([])
   const [loadProviders,setLoadProviders] =useState(true);
+  
 
   useEffect(()=>{
     async function fetchProivders(){
@@ -63,8 +54,15 @@ export default function AllProvidersPage(){
             <input
               type="text"
               placeholder="search"
-              className="bg-white rounded-2xl px-10 w-40 md:w-50 lg:w-fit"
+              className="bg-white lg:rounded-lg px-10 w-25 sm:w-fit border-2  xl:h-10"
             />
+          </div>
+          <div className="grid justify-items-end mx-10 my-2">
+            <button 
+                className='flex justify-center items-center border border-black w-10 lg:w-20 py-2 px-3 rounded-lg
+                transition-all delay-50 duration-100 active:scale-85'>
+                <DynamicIcon name="CiSearch" className="w-xl h-xl"/>
+            </button>
           </div>
           
         </div>
@@ -74,7 +72,6 @@ export default function AllProvidersPage(){
               entries.map((provider, index)=>(
                 <BookingProvidersCard key={provider.email} 
                 providers={provider}
-                images={images[index % images.length]}
                 />
               ))}
               
