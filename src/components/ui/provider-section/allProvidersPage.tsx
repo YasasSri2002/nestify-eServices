@@ -44,30 +44,31 @@ export default function AllProvidersPage(){
 
     return(
         <div className="grid justify-items-center sm:justify-items-normal">
-        <div className="sm:grid sm:grid-cols-4">
-        <div className="sm:col-1 bg-linear-to-t from-white from-10% via-gray-100 via-30% to-gray-200 to-90% w-dvw sm:w-full h-[10em] sm:h-full rounded-b-2xl ">
-          <div className="sm:mx-6 my-2 pt-5">
-            <h1>Search service providers</h1>
+        <div>
+        <div className="bg-gray-600  flex items-center justify-between p-5 ">
+          <div className="grid">
+              
+              <div className="flex justify-center sm:justify-normal items-center space-x-2">
+                <DynamicIcon name="CiSearch" className="relative left-10" />
+                <input
+                  type="text"
+                  placeholder="search"
+                  className="bg-white lg:rounded-lg px-10 w-50 sm:w-fit  xl:h-10"
+                />
+            </div>
+            
           </div>
-          <div className="flex justify-center sm:justify-normal items-center space-x-2">
-            <DynamicIcon name="CiSearch" className="relative left-10" />
-            <input
-              type="text"
-              placeholder="search"
-              className="bg-white lg:rounded-lg px-10 w-25 sm:w-fit border-2  xl:h-10"
-            />
+          <div >
+              <div className="md:flex gap-5 hidden ">
+                <button className="px-5 py-1 rounded-xl border text-white ">Service Category</button>
+                <button className="px-5 py-1 rounded-xl border text-white">Job Count</button>
+                <button className="px-5 py-1 rounded-xl border text-white">Exprience</button>
+              </div>
+              <button className="md:hidden"><DynamicIcon name="MdOutlineMenu"/></button>
           </div>
-          <div className="grid justify-items-end mx-10 my-2">
-            <button 
-                className='flex justify-center items-center border border-black w-10 lg:w-20 py-2 px-3 rounded-lg
-                transition-all delay-50 duration-100 active:scale-85'>
-                <DynamicIcon name="CiSearch" className="w-xl h-xl"/>
-            </button>
-          </div>
-          
         </div>
-        <div className="sm:col-span-3 bg-white w-dvw sm:w-full  p-10">
-          <div className="grid justify-items-center w-full gap-5">
+        <div className="bg-white w-dvw sm:w-full  p-10">
+          <div className="grid justify-items-center md:flex md:justify-between md:flex-wrap w-full gap-5">
             {
               entries.map((provider, index)=>(
                 <BookingProvidersCard key={provider.email} 
