@@ -4,29 +4,19 @@ import { useState, useEffect, FormEvent } from "react";
 
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { LiaWindowCloseSolid } from "react-icons/lia";
-import axios from "axios";
+
 
 function submit(event :FormEvent<HTMLFormElement>){
   event.preventDefault();
   const formData = new FormData(event.currentTarget);
+  console.log(formData);
 }
 
 export default function ProviderForm() {
   // Use state to force remount when switching
   const [animationKey, setAnimationKey] = useState(Date.now());
-  const [registerProvider, setRegisterPrvider] =useState({
-    email:"",
-    username:"",
-    contactNo: "",
-    expertiese: "",
-    hourlyRate: "",
-    password: "",
-    confirmPassword: "",
-
-  });
-
-
-  
+ 
+ 
 
   // Reset animation when component mounts
   useEffect(() => {
@@ -42,13 +32,13 @@ export default function ProviderForm() {
             <div className="lg:col-1">
               <div className="max-w-full flex flex-col items-center"> 
                   <h2 className="text-xl font-bold first-letter:uppercase ">register as a service provider</h2>
-                  <div className="w-full max-w-[750px]"> 
+                  <div className="w-full max-w-187.5"> 
                     <DotLottieReact
                       key={animationKey}
                       src="/animation/Building_and_Construction.lottie"
                       loop
                       autoplay
-                      className="sm:w-[600px]"
+                      className="sm:w-150"
                     />
                   </div>
                   
@@ -63,56 +53,46 @@ export default function ProviderForm() {
                     <LiaWindowCloseSolid size={34} />
                   </div>
                   <div className="grid justify-evenly my-6 w-full ">
-                    <form onSubmit={submit}>
-                      <div className="grid gap-3  sm:flex sm:justify-between my-6 w-full">
-                        <div className="sm:relative flex justify-between sm:grid sm:gap-2 w-full">
-                          <label htmlFor="firstName" className="left-5 sm:left-2  relative"  >First Name</label>
-                          <input
-                            type="text"
-                            name="firstName"
-                            className="bg-white sm:w-[250px]  rounded-2xl px-2"
-                          />
+                      <form onSubmit={submit}>
+                        <div className="w-full grid gap-2 sm:gap-3 md:justify-items-center">
+                            <div className=" grid sm:flex gap-2 sm:gap-10 w-full">
+                              <div className="grid">
+                                <label htmlFor="firstName" className="pl-1">First name</label>
+                                <input type="text" name="firstName" className="bg-white h-8 sm:w-62.5 rounded-sm p-2"/>
+                              </div>
+                              <div className="grid">
+                                <label htmlFor="lastName" className="pl-1">Last name</label>
+                                <input type="text" name="lastName" className="bg-white h-8 sm:w-62.5 rounded-sm  p-2"/>
+                              </div>
+                            </div>
+                            <div className="grid">
+                              <label htmlFor="email" className="pl-1">Email</label>
+                              <input type="text" name="email" className="bg-white md:w-135 h-8 rounded-sm pl-3"/>
+                            </div>
+                            <div className="grid">
+                              <label htmlFor="username" className="pl-1">Username</label>
+                              <input type="text" name="username" className="bg-white md:w-135 h-8 rounded-sm pl-3" />
+                            </div>
+                            <div className="grid">
+                              <label htmlFor="contactNo">Phone Number</label>
+                              <div className="flex">
+                                <select className="bg-white h-8">
+                                  <option value="0">SL(+94)</option>
+                                </select>
+                                <input type="text" name="contactNo" className="bg-white h-8 rounded-sm pl-2 sm:w-116.5" />
+                              </div>
+                            </div>
+                            <div className="grid">
+                              <label htmlFor="password" className="pl-1">Password</label>
+                              <input type="text" name="password" className="bg-white md:w-135 h-8 rounded-sm pl-3" />
+                            </div>
+                            <button type="submit" 
+                                className="border sm:hover:bg-white my-5 px-5 py-2 rounded-md 
+                                  active:scale-75 duration-150 transition-all active:bg-white md:w-[75%]">
+                              Submit
+                            </button>
                         </div>
-                        <div className="sm:relative flex justify-between sm:grid sm:gap-2 w-full">
-                          <label htmlFor="lastName" className="left-5  sm:left-2 relative" >Last name</label>
-                          <input
-                            type="text"
-                            name="lastName"
-                            className="bg-white lg:w-[250px]   rounded-2xl px-2"
-                          />
-                        </div>
-                      </div>
-                      <div className="flex justify-between my-6  w-full">
-                        <label htmlFor="email">Email</label>
-                        <input
-                          type="text"
-                          id="email"
-                          className="bg-white lg:w-[250px]   rounded-2xl px-2"
-                        />
-                      </div>
-                      
-                    <div className="flex  justify-between my-6 w-full ">
-                      <label htmlFor="password">Password</label>
-                      <input
-                        type="text"
-                        id="password"
-                        className="bg-white lg:w-[250px] rounded-2xl px-2"
-                      />
-                    </div>
-                    <div className="flex justify-between my-6  w-full">
-                      <label htmlFor="confirmPss">Confirm Password</label>
-                      <input
-                        type="text"
-                        id="confirmpass"
-                        className="bg-white lg:w-[250px]  rounded-2xl px-2"
-                      />
-                    </div>
-                    </form>
-                  <div className="flex justify-center mb-2">
-                    <button type="submit" className="bg-white rounded-2xl p-2 w-[10em] h-[3em]">
-                      Register
-                    </button>
-                  </div>
+                      </form>
                 </div>
             </div>
           </div>
