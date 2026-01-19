@@ -12,7 +12,7 @@ export async function getAllProviders():Promise<ProviderDto[]>{
 
     const response = await fetch(`${SPRING_BOOT_URL}/api/v1/providers/all`,{
         next: {
-            revalidate: 100,
+            revalidate: 3600,
             tags: ['providers']
         }
     });

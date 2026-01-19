@@ -7,16 +7,6 @@ import getPopularProviders from "@/app/api-calls/provider/popular-providers/rout
 import {LoadingPage} from "@/components/utill/loadingPage";
 
 
-const images =[
-  "https://avatar.iran.liara.run/public/girl",
-  "https://avatar.iran.liara.run/public/boy",
-  "https://avatar.iran.liara.run/public/boy?username=Scott",
-  "https://avatar.iran.liara.run/public/boy?username=Maria",
-  "https://avatar.iran.liara.run/username?username=nayanja+nipunsara",
-  "https://avatar.iran.liara.run/username?username=[firstname+lastname]",
-  "https://avatar.iran.liara.run/username?username=[firstname+lastname]",
-  "https://avatar.iran.liara.run/username?username=[firstname+lastname]"
-]
 
 export default function PopularProvidersList() {
   const [providers, setProviders] = useState<ProviderWithCategory[]>([]);
@@ -54,9 +44,9 @@ export default function PopularProvidersList() {
       </h1>
 
       <div className="flex flex-row flex-wrap justify-center gap-5 my-10">
-        {providers.map((provider,index) => (
+        {providers.map((provider) => (
           <PopularProviderCard key={provider.providerDto.email} 
-              provider={provider}  images={images[index % images.length]}/>
+              provider={provider}/>
         ))}
       </div>
     </div>

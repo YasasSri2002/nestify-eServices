@@ -19,7 +19,7 @@ export default async function getPopularProviders(): Promise<ProviderWithCategor
             'Content-Type': 'application/json',
         },
        next: {
-            revalidate: 100,
+            revalidate: 3600,
             tags: ['popular-provider']
        }
        

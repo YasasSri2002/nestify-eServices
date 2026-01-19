@@ -41,6 +41,8 @@ export default function AllProvidersPage(){
 
     if(loadProviders) return <FullPageLoading/>
 
+    
+
 
     return(
         <div className="grid justify-items-center sm:justify-items-normal">
@@ -64,8 +66,18 @@ export default function AllProvidersPage(){
                 <button className="px-5 py-1 rounded-xl border text-white">Job Count</button>
                 <button className="px-5 py-1 rounded-xl border text-white">Exprience</button>
               </div>
-              <button className="md:hidden"><DynamicIcon name="MdOutlineMenu"/></button>
+
+              <div className="bg-gray-600 rounded-2xl px-3 py-2 fixed top-0 md:hidden">
+                  <div className="grid gap-3">
+                    <button className="px-3  py-1 rounded-xl border text-white ">Service Category</button>
+                    <button className="px-3 h-8 py-1 rounded-xl border text-white">Job Count</button>
+                    <button className="px-3 h-8 py-1 rounded-xl border text-white">Exprience</button>
+                  </div>
+              </div>
+
+
           </div>
+        
         </div>
         <div className="bg-white w-dvw sm:w-full  p-10">
           <div className="grid justify-items-center md:flex md:justify-between md:flex-wrap w-full gap-5">
