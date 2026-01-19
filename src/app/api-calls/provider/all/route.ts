@@ -12,7 +12,7 @@ export async function getAllProviders():Promise<ProviderDto[]>{
 
     const response = await fetch(`${SPRING_BOOT_URL}/api/v1/providers/all`,{
         next: {
-            revalidate: 24,
+            revalidate: 100,
             tags: ['providers']
         }
     });
@@ -23,7 +23,7 @@ export async function getAllProviders():Promise<ProviderDto[]>{
   }
 
   cacheTag('providers')
-  cacheLife('hours');
+
     return response.json();
 }
 
