@@ -34,8 +34,8 @@ export default function PopularProviderCard({ provider  }: { readonly provider: 
               <h2 className="capitalize">{provider.providerDto.expertise}</h2>
               <div className="flex space-x-2 items-center">
                 <Star fill="gold" stroke="gold" width={16} />
-                <h2 className="font-bold text-[0.8em]">4.9</h2>
-                <h6 className="text-[0.8em] text-gray-600">(127 views)</h6>
+                <h2 className="font-bold text-[0.8em]">{provider.avgRate== null ? 0 : provider.avgRate }</h2>
+                <h6 className="text-[0.8em] text-gray-600">({provider.reviews} views)</h6>
               </div>
             </div>
             
