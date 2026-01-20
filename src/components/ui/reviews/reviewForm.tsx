@@ -32,7 +32,7 @@ export default function ReviewForm(){
                     <div className="grid gap-2">
                         <label htmlFor="message">Leave your thoughts</label>
                         <textarea name="message" id="client-message" 
-                            className="w-120 h-50 rounded-2xl px-2 pt-2 border-1 focus:outline-0 resize-none bg-gray-100"></textarea>
+                            className="w-120 h-50 rounded-2xl px-2 pt-2 border focus:outline-0 resize-none bg-gray-100"></textarea>
 
                     </div>
                     

@@ -1,15 +1,15 @@
 import Link from 'next/link';
 
-import { ServiceGigWithProviderDto } from "@/dto/response/ServiceGigResponseDto";
+import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
 import DynamicIcon from '@/components/utill/DynamicIcons';
 
 
 
 export default function ServiceGigCard(
-    {serviceGig}:{ readonly serviceGig:ServiceGigWithProviderDto} 
+    {serviceGig}:{ readonly serviceGig:ServiceGigResponseDto} 
 ){
     return(
-            <div className="sm:p-5 grid gap-5 border-x-1 border-b-1 rounded-2xl">
+            <div className="sm:p-5 grid gap-5 border-x border-b rounded-2xl">
                 <div>
                     <img src="/cleaning-poster.jpg" alt="" className="w-full h-60 rounded-xl"/>
                 </div>
@@ -26,12 +26,16 @@ export default function ServiceGigCard(
                     <div className="text-center">
                         <h1>By {serviceGig.provider.userName}</h1>
                     </div>
-                    <div className="w-full text-blue-600">
+                    <div className="w-full text-blue-600 flex justify-between ">
+                         <button>
+                            Give a Review
+                        </button>
                         <Link href={`/service-gigs/details/${serviceGig.id}`} 
                             className='flex space-x-2 justify-end items-center  '>
                                 View more 
                                 <DynamicIcon name="MdArrowRightAlt" className='text-2xl top-[1px] relative'/>
                         </Link>
+                       
                         
                     </div>
                 </div>

@@ -28,6 +28,7 @@ export default function BookingProvidersCard(
                                                 active:scale-75 active:bg-gray-300  border">
                                 <Link href={`/providers/details/${providers.id}`}>More details</Link>
                             </button>
+                            
                         </div>
                 </div>
             </div>
