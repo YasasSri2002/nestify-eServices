@@ -16,14 +16,16 @@ import { FormEvent } from "react"
 export default function ReviewForm(){
    
     return(
-            <div className="grid gap-15 justify-items-center content-center lg:h-dvh">
+            <div className="grid gap-5 justify-items-center content-center w-dvw md:w-fit  bg-gray-200 px-5 py-10 rounded-2xl">
+                
                 <h1 className="md:text-2xl">Tell us how was your experience with Provider</h1>
                 <form onSubmit={submitForm} className="grid content-center gap-4">
+                    
                     <div className="flex space-x-5 justify-center">
                         {
                             [...Array(5)].map((number,i)=>
                                 <button  key={i}>
-                                    <DynamicIcon name="FaStar" className={`text-4xl`}/>
+                                    <DynamicIcon name="FaStar" className={`text-sm lg:text-4xl`}/>
                                 </button>
                             )
                             
@@ -32,7 +34,7 @@ export default function ReviewForm(){
                     <div className="grid gap-2">
                         <label htmlFor="message">Leave your thoughts</label>
                         <textarea name="message" id="client-message" 
-                            className="w-120 h-50 rounded-2xl px-2 pt-2 border focus:outline-0 resize-none bg-gray-100"></textarea>
+                            className="w-60 sm:w-100 lg:w-120 h-30 sm:h-50 rounded-2xl px-2 pt-2 border focus:outline-0 resize-none bg-gray-100"></textarea>
 
                     </div>
                     

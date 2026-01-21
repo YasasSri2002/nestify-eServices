@@ -6,6 +6,8 @@ import FullServiceGigsDetails from "@/components/ui/service-gig/fullServiceDetai
 import { ReviewDto } from "@/dto/ReviewDto";
 
 import ReviewCarousel from "@/components/ui/reviews/carousel";
+import ReviewForm from "@/components/ui/reviews/reviewForm";
+import ServiceGigReviewSection from "@/components/ui/reviews/service-gig-review-section/serviceGigReviewSection";
 
 
  
@@ -14,7 +16,7 @@ export default async  function ServiceGigDetails({params}:{readonly params:Promi
     
     const gigId = (await params).id;
     const gig =  await getGigsById(gigId);
-    const reviewList: ReviewDto[] = await getReviewsByGigId(gigId);
+    
 
 
     return(
@@ -22,14 +24,8 @@ export default async  function ServiceGigDetails({params}:{readonly params:Promi
         <>
         <NavBar/>
         <FullServiceGigsDetails gig={gig} />
-        <div className="mt-5">
-            <h1 className="lg:text-2xl text-center">Reviews</h1>
-            {
-                reviewList && reviewList.length>0 ? ( <ReviewCarousel reviewList={reviewList}/>) : 
-                <p className="text-center text-2xl my-5">no reviews yet</p>
-            }
-
-                
+        <div className="my-5 ">
+           <ServiceGigReviewSection serviceGigid={gigId} />
         </div>
         </>
         

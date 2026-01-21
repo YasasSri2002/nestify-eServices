@@ -26,14 +26,11 @@ export default function ServiceGigCard(
                     <div className="text-center">
                         <h1>By {serviceGig.provider.userName}</h1>
                     </div>
-                    <div className="w-full text-blue-600 flex justify-between ">
-                         <button>
-                            Give a Review
-                        </button>
+                    <div className="w-full text-blue-600 flex justify-end ">
                         <Link href={`/service-gigs/details/${serviceGig.id}`} 
                             className='flex space-x-2 justify-end items-center  '>
                                 View more 
-                                <DynamicIcon name="MdArrowRightAlt" className='text-2xl top-[1px] relative'/>
+                                <DynamicIcon name="MdArrowRightAlt" className='text-2xl top-px relative'/>
                         </Link>
                        
                         

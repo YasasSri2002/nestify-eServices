@@ -54,21 +54,21 @@ export default function FullServiceGigsDetails({gig}:
                     </div>
                     <p>{gig.provider.shortDescription}</p>
                 </div>
-                <div className="grid lg:grid-cols-2 gap-4">
-                    <div className="lg:col-1">
+                <div className="grid xl:grid-cols-2 ">
+                    <div className="xl:col-1">
                         <h1>Experience:{gig.provider.experience}</h1>
                         <h1>Main Category: {gig.provider.expertise}</h1>
                         <h1>Other Categories: </h1>
                     </div>
-                    <div className="lg:col-2 gap-2 grid">
+                    <div className="xl:col-2 gap-2 grid">
                         <h1>Up to date {gig.provider.jobCount} jobs has successfully compeleted</h1>
                         
                         <div className="grid justify-items-center w-fit gap-2">
                             <h1>Contacts</h1>
-                            <div className="flex justify-between w-full">
+                            <div className="flex justify-between w-full lg:">
                                 <h1>Phone:</h1> <h1>{gig.provider.contactNo}</h1>
                             </div>
-                             <div className="flex justify-between w-full">
+                             <div className="flex justify-between w-full lg:">
                                 <h1>Email:</h1> <h1>{gig.provider.email}</h1>
                             </div>
                         </div>
