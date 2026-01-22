@@ -11,6 +11,7 @@ import DynamicIcon from "@/components/utill/DynamicIcons";
 export default function ServiceGigReviewSection({serviceGigid}:{serviceGigid:string}){
 
     const [reviewList,setReviewList] = useState<ReviewDto[]>([])
+    const [showReviewForm, setShowReviewForm] =useState(false);
 
     useEffect(()=>{
         async function getData(gigId:string){
@@ -22,7 +23,8 @@ export default function ServiceGigReviewSection({serviceGigid}:{serviceGigid:str
 
     
     function handleReviewFormView(){
-        document.getElementById('review-form')?.classList.toggle('hidden')
+        document.getElementById('review-form')?.classList.toggle('hidden');
+        setShowReviewForm(prev => !prev)
     }
 
     return(
@@ -40,7 +42,7 @@ export default function ServiceGigReviewSection({serviceGigid}:{serviceGigid:str
                             <DynamicIcon name="MdClose"></DynamicIcon>
                         </button>
                      </div>
-                    <ReviewForm/>
+                    <ReviewForm onClose={handleReviewFormView}/>
                 </div>
             </div>
             <div className="grid justify-end w-full pr-5">

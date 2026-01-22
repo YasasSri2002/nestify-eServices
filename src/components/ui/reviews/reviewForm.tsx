@@ -1,19 +1,30 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import { FormEvent } from "react"
 
- function submitForm(event: FormEvent<HTMLFormElement>){
+ 
+
+export default function ReviewForm({onClose}:{onClose:()=>void}){
+
+    
+    const [rating, setRating] = useState(0);
+   
+       function getRateValue(rate:any){
+        setRating(rate)
+        console.log(rate);
+       }
+
+       function submitForm(event: FormEvent<HTMLFormElement>){
         event.preventDefault();
         const formData = new FormData(event.currentTarget)
         console.log(formData);
+        
+        onClose();
     }
-
-
-
-export default function ReviewForm(){
+   
    
     return(
             <div className="grid gap-5 justify-items-center content-center w-dvw md:w-fit  bg-gray-200 px-5 py-10 rounded-2xl">
@@ -23,12 +34,18 @@ export default function ReviewForm(){
                     
                     <div className="flex space-x-5 justify-center">
                         {
-                            [...Array(5)].map((number,i)=>
-                                <button  key={i}>
-                                    <DynamicIcon name="FaStar" className={`text-sm lg:text-4xl`}/>
-                                </button>
-                            )
-                            
+                            [1,2,3,4,5].map((_,i)=>{
+                             const starRate = i+1;
+                                return(
+                                <button  key={i} type="button" >
+                                    <DynamicIcon 
+                                     onClick={()=>getRateValue(i+1)} name="FaStar" 
+                                     className={`text-sm lg:text-4xl 
+                                                ${ starRate <= rating ? 'text-amber-400': 'text-gray-400'}`}
+                                    />
+                                </button>)
+                                
+                            })
                         }
                     </div>
                     <div className="grid gap-2">
@@ -37,11 +54,16 @@ export default function ReviewForm(){
                             className="w-60 sm:w-100 lg:w-120 h-30 sm:h-50 rounded-2xl px-2 pt-2 border focus:outline-0 resize-none bg-gray-100"></textarea>
 
                     </div>
+
+                    <div className="flex justify-center items-center">
+                        <button type="submit" 
+                            className="rounded-xl bg-blue-600 px-5 py-1 text-white/85 hover:scale-105" >
+                            Submit
+                        </button>
+                    </div>
                     
                 </form>
-                <div className="flex justify-center items-center">
-                    <button type="submit" className="rounded-xl bg-blue-600 px-5 py-1 text-white/85 hover:scale-105" >Submit</button>
-                </div>
+                
             </div>
     )
 }

@@ -29,7 +29,7 @@ export default function FullServiceGigsDetails({gig}:
                 </div>
             </div>
 
-           <div id="providerDetails" className="col-span-2 border-2 border-red-300 grid justify-items-center order-2 
+           <div id="providerDetails" className="col-span-2 grid justify-items-center order-2 
                     sm:order-1 absolute bg-gray-300 sm:bg-white/5 z-50 sr-only sm:not-sr-only gap-5 sm:p-4 h-full">
                 <div className="w-full flex justify-end sm:sr-only ">
                     <button onClick={showProviderDetails}>
@@ -76,7 +76,7 @@ export default function FullServiceGigsDetails({gig}:
                     
                 </div>
            </div>
-           <div className="col-span-5 sm:col-span-4 border-2 border-blue-300 order-1 sm:order-2 p-5">
+           <div className="col-span-5 sm:col-span-4  sm:order-2 p-5">
                 <h1 className="lg:text-2xl text-center capitalize mt-2 mb-10 ">{gig.title}</h1>
                 <div className="grid gap-5 md:grid-cols-2">
                        <div className="md:col-1 grid gap-4 ">
