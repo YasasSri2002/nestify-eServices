@@ -1,6 +1,6 @@
 import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
 
-const SPRING_BOOT_URL = process.env.SPRING_BOOT_API_URL;
+const SPRING_BOOT_URL = process.env.SPRING_BOOT_API_URL || 'http://localhost:8080';
 
 export async function getGigsById(id:string): Promise<ServiceGigResponseDto>{
 
@@ -9,8 +9,9 @@ export async function getGigsById(id:string): Promise<ServiceGigResponseDto>{
     }
   
    const response = await fetch(`${SPRING_BOOT_URL}/api/v1/gig/by-id?id=${id}`,{
+    method: 'GET',
      next:{
-       revalidate: 200,
+       revalidate: 100,
        tags: ['gig' , id]
      }
   })
