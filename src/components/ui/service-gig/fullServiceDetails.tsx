@@ -16,7 +16,8 @@ export default function FullServiceGigsDetails({gig}:
      {
 
     return(
-        <div className="grid grid-cols-6">
+        <div className="grid grid-cols-6 bg-linear-to-br to-gray-200 from-gray-300 via-blue-50">
+            {/* mobile-menue */}
             <div className="h-full sm:hidden bg-gray-300 grid justify-items-center content-between py-2">
                 <button onClick={showProviderDetails}>
                     <DynamicIcon name="BiMenu" className="text-3xl"/>
@@ -29,8 +30,11 @@ export default function FullServiceGigsDetails({gig}:
                 </div>
             </div>
 
+            {/* left-side */}
+
            <div id="providerDetails" className="col-span-2 grid justify-items-center order-2 
-                    sm:order-1 absolute bg-gray-300 sm:bg-white/5 z-50 sr-only sm:not-sr-only gap-5 sm:p-4 h-full">
+                    sm:order-1 absolute bg-gray-300 sm:bg-white/5 z-50 sr-only sm:not-sr-only gap-5 sm:p-4 h-full
+                    ">
                 <div className="w-full flex justify-end sm:sr-only ">
                     <button onClick={showProviderDetails}>
                         <DynamicIcon name="IoMdClose" className="text-xl"/>
@@ -76,7 +80,9 @@ export default function FullServiceGigsDetails({gig}:
                     
                 </div>
            </div>
-           <div className="col-span-5 sm:col-span-4  sm:order-2 p-5">
+        
+           {/* right-side */}
+           <div className="col-span-5 sm:col-span-4  sm:order-2 p-5 ">
                 <h1 className="lg:text-2xl text-center capitalize mt-2 mb-10 ">{gig.title}</h1>
                 <div className="grid gap-5 md:grid-cols-2">
                        <div className="md:col-1 grid gap-4 ">

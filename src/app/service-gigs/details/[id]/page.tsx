@@ -12,7 +12,7 @@ import ServiceGigReviewSection from "@/components/ui/reviews/service-gig-review-
 
  
 
-export default async  function ServiceGigDetails({params}:{readonly params:Promise<{id:string}> }){
+export default async function ServiceGigDetails({params}:{readonly params:Promise<{id:string}> }){
     
     const gigId = (await params).id;
     const gig =  await getGigsById(gigId);
