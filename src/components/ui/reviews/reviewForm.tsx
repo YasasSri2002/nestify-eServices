@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import { FormEvent } from "react"
+import { ReviewRequestDto } from "@/dto/ReviewDto";
+import { SendAReview } from "@/app/api-calls/reviews/add-review/route";
 
  
 
-export default function ReviewForm({onClose}:{onClose:()=>void}){
+export default function ReviewForm({onClose,gigId}:{onClose:()=>void, gigId: string}){
 
     
     const [rating, setRating] = useState(0);
@@ -21,6 +23,26 @@ export default function ReviewForm({onClose}:{onClose:()=>void}){
         event.preventDefault();
         const formData = new FormData(event.currentTarget)
         console.log(formData);
+
+        const reviewRequestDto: ReviewRequestDto ={
+            comment: String(formData.get("message")),
+            rating: rating,
+            serviceGigId: gigId
+        }
+
+       
+            const response = SendAReview(reviewRequestDto);
+
+
+            response.then(() => {
+                        alert("Successfully done");
+                    })
+                    .catch((err: Error) => {
+                        alert("Error: " + err.message);
+                    });
+
+
+       
         
         onClose();
     }

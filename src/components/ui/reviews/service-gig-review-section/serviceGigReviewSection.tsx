@@ -42,7 +42,7 @@ export default function ServiceGigReviewSection({serviceGigid}:{serviceGigid:str
                             <DynamicIcon name="MdClose"></DynamicIcon>
                         </button>
                      </div>
-                    <ReviewForm onClose={handleReviewFormView}/>
+                    <ReviewForm onClose={handleReviewFormView} gigId={serviceGigid}/>
                 </div>
             </div>
             <div className="grid justify-end w-full pr-5">
