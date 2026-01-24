@@ -100,10 +100,6 @@ export function proxy(request: NextRequest) {
     }
 
       const response = NextResponse.next();
-      response.cookies.set('x-user-id', decodedToken?.sub || '',{httpOnly: false ,path: '/' ,sameSite: 'lax'});
-      response.cookies.set('x-user-name', decodedToken?.name || '',{ httpOnly: false });
-      response.cookies.set('x-user-email', decodedToken?.email || '',{ httpOnly: false });
-  
 
       return response;
 }
