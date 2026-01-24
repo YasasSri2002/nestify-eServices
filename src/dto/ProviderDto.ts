@@ -4,7 +4,7 @@ import { ReviewDto } from "./ReviewDto";
 import { ServiceGigDto } from "./ServiceGigDto";
 
 export interface ProviderDto {
-  id : number;
+  id : string;
   userName: string;
   firstName:string;
   lastName: string;

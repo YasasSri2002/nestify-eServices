@@ -25,7 +25,7 @@ export default async function ServiceGigDetails({params}:{readonly params:Promis
         <NavBar/>
         <FullServiceGigsDetails gig={gig} />
         <div className="my-5 ">
-           <ServiceGigReviewSection serviceGigid={gigId} />
+           <ServiceGigReviewSection serviceGigid={gigId} providersId={gig.provider.id} />
         </div>
         </>
         

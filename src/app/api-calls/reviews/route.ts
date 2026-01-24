@@ -1,7 +1,7 @@
 
 import { ReviewDto } from "@/dto/ReviewDto";
 
-const SPRING_BOOT_URL = process.env.SPRING_BOOT_API_URL;
+const SPRING_BOOT_URL = process.env.SPRING_BOOT_API_URL || 'http://localhost:8080' ;
 
 export async function getReviewsByGigId(id: string): Promise<ReviewDto[]>{
     
@@ -14,7 +14,7 @@ export async function getReviewsByGigId(id: string): Promise<ReviewDto[]>{
         })
 
         if(!response.ok){
-            throw (response.status); 
+            throw ("error from getReviews by gig id api" + response.status); 
         }
 
         return response.json();

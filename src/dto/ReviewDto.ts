@@ -20,5 +20,7 @@ export interface ReviewRequestDto{
     
     serviceGigId?: string;
 
+    providerId: string;
+
     clientId?: string;
 }

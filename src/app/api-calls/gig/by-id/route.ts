@@ -11,7 +11,7 @@ export async function getGigsById(id:string): Promise<ServiceGigResponseDto>{
    const response = await fetch(`${SPRING_BOOT_URL}/api/v1/gig/by-id?id=${id}`,{
     method: 'GET',
      next:{
-       revalidate: 100,
+       revalidate: 10,
        tags: ['gig' , id]
      }
   })

@@ -9,7 +9,7 @@ import { SendAReview } from "@/app/api-calls/reviews/add-review/route";
 
  
 
-export default function ReviewForm({onClose,gigId}:{onClose:()=>void, gigId: string}){
+export default function ReviewForm({onClose,gigId,providersId}:{onClose:()=>void, gigId: string ,providersId:string}){
 
     
     const [rating, setRating] = useState(0);
@@ -27,7 +27,8 @@ export default function ReviewForm({onClose,gigId}:{onClose:()=>void, gigId: str
         const reviewRequestDto: ReviewRequestDto ={
             comment: String(formData.get("message")),
             rating: rating,
-            serviceGigId: gigId
+            serviceGigId: gigId,
+            providerId: providersId
         }
 
        
@@ -46,6 +47,9 @@ export default function ReviewForm({onClose,gigId}:{onClose:()=>void, gigId: str
         
         onClose();
     }
+
+    console.log("provider id review form--> " +providersId)
+    console.log("gig id review form--> " +gigId)
    
    
     return(
