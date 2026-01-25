@@ -1,21 +1,45 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useEffect, useState } from "react";
 
 import {  AlignJustify, X } from 'lucide-react'
+
 
 function sideMenue(){
         const menue = document.getElementById("mobile-first");
         if(menue) menue.classList.toggle('hidden');
     }
 
+  
+    
+
 export default function NavBar(){
+
+  const [userEmail, setUserEmail] = useState('')
 
   const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
 
   const registrationUrl =  "/register";
 
+  
+  useEffect(() => {
+    const logo = document.getElementById("logo");
+    logo?.addEventListener("click", () => {
+      window.location.href = "/";
+    });
+
+  const getUserData =async ()=>{
+    const response =  await fetch('/api-calls/users/data');
+    const data  =  await response.json()
+    console.log("from nav bar the user data function---> " , data)
+    setUserEmail(data.userEmail);
+  }
+    getUserData()
+
+    console.log(userEmail)
+
+  }, []);
 
         return (
           <>
@@ -23,13 +47,13 @@ export default function NavBar(){
               id="mynavbar"
               className="navbar flex items-center justify-between text-white p-2 relative bg-[hsla(0,0%,97%,1)] drop-shadow-xl sm:px-6 lg:px-8 w-full "
             >
-              <div>
+              <div id="logo">
                 <Image
                   src="/logo.png"
                   alt="Logo"
                   width={150}
                   height={10}
-                  className="mx-0 w-auto h-auto max-h-[7rem]"
+                  className="mx-0 w-auto h-auto max-h-28"
                 />
               </div>
 
@@ -47,7 +71,12 @@ export default function NavBar(){
                   <Link href="/about">About Us</Link>
                 </li>
               </ul>
-              <div
+              {
+                userEmail  ? 
+                <div className="space-x-4 hidden xl:flex text-black ">
+                  <label className="text-gray-600" > Welcome back <span className="capitalize text-black/90">{userEmail}</span></label>
+                </div> :
+                <div
                 id="controls"
                 className="space-x-4 hidden xl:flex text-black "
               >
@@ -64,7 +93,9 @@ export default function NavBar(){
                       <Link href={registrationUrl!}>Register</Link>
                     </button>
                     
-              </div>
+              </div> 
+              
+              }
               <button onClick={sideMenue} className="xl:hidden">
                 <AlignJustify size={34} stroke="black" />
               </button>
@@ -98,7 +129,14 @@ export default function NavBar(){
                 </div>
 
                 <div className="content-end mb-2 mt-25 lg:mt-0 relative bottom-5">
-                  <div
+                  {
+                    userEmail? 
+                    <div className="grid justify-items-center gap-2">
+                        <h1 className="text-gray-600" > Welcome back</h1>
+                        <h1 className="capitalize text-black/90">{userEmail}</h1>
+                    </div>
+                    
+                    : <div
                     id="mobile-controls"
                     className="space-x-4 grid  justify-items-center h-full
                      md:h-1/2  content-end text-black "
@@ -118,6 +156,7 @@ export default function NavBar(){
                       <Link href={registrationUrl!}>Register</Link>
                     </button>
                   </div>
+                  }
                 </div>
               </div>
             </div>
