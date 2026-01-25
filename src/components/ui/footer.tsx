@@ -1,10 +1,9 @@
 "use client";
 
 import { Suspense } from 'react'
+import Link from 'next/link';
 
 const currentYear = new Date().getFullYear();
-
-
 
 export default function Footer(){
     return(
@@ -26,11 +25,10 @@ export default function Footer(){
             <div className="basis-full md:basis-1/3 sm:ml-20">
             <h1 className="my-3 text-center font-semibold text-white">Quick links</h1>
             <ul className="flex-col ml-4 sm:ml-10">
-                <li className="my-2"><a href="#">How it Works</a></li>
-                <li className="my-2"><a href="#">Browse Services</a></li>
-                <li className="my-2"><a href="#">Join as Provider</a></li>
-                <li className="my-2"><a href="#">Safety & Trust</a></li>
-                <li className="my-2"><a href="#">Help Center</a></li>
+                <li className="my-2"><Link href="/about/#how-we-work">How it Works</Link></li>
+                <li className="my-2"><Link href="/service-gigs">Browse Services</Link></li>
+                <li className="my-2"><Link href="/register">Join as Provider</Link></li>
+                <li className="my-2"><Link href="/about">Safety & Trust</Link></li>
             </ul>
             </div>
             <div className="basis-full md:basis-1/3 ">

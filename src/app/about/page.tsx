@@ -19,7 +19,9 @@ export default function AboutPage(){
     
         <JourneySection/>
 
-        <HowWeWork/>
+        <div id="how-we-work">
+            <HowWeWork/>
+        </div>
 
         <ChooseUs/>
         <Footer/>
