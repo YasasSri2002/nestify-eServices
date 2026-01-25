@@ -1,7 +1,9 @@
+import Link from 'next/link'
+
 export default function AboutHeroSction(){
     return (
       
-        <div className="relative min-h-[600px] flex items-center justify-center overflow-hidden">
+        <div className="relative min-h-150 flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <div
               id="heroSection"
@@ -20,9 +22,11 @@ export default function AboutHeroSction(){
                   needs. From repairs to renovations, we've got you covered.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                  <button className="px-8 py-3 text-lg bg-white/80 rounded-3xl hover:bg-white">Get Started</button>
+                  <button className="px-8 py-3 text-lg bg-white/80 rounded-3xl hover:bg-white">
+                      <Link href="/register">Get Started</Link>
+                    </button>
                   <button className="px-8 py-3 text-lg bg-white/10 border-white/30 text-white hover:bg-white/20 rounded-3xl">
-                    Browse Services
+                    <Link href={'/service-gigs'}>Browse Services</Link> 
                   </button>
                 </div>
               </div>

@@ -11,7 +11,8 @@ export default function HowWeWork(){
             <div className="sm:flex flex-wrap w-full gap-4">
                 <div className="flex-1  bg-white m-2 rounded-3xl shadow-xl py-2 mx-10 sm:mx-0">
                     <div className="grid justify-items-center">
-                    <div className="rounded-full w-[75px] h-[75px] bg-white/80 flex justify-center items-center mb-5 shadow-2xl hover:border-1 hover:border-black/80">
+                    <div className="rounded-full w-18.75 h-18.75 bg-white/80 flex justify-center items-center
+                         mb-5 shadow-2xl hover:border hover:border-black/80">
                         <DynamicIcon name="CiSearch" className="text-4xl" />
                     </div>
                     <h1 className="font-bold text-black/80">Search & Discover</h1>
@@ -20,7 +21,8 @@ export default function HowWeWork(){
                 </div>
                  <div className="flex-1 bg-white m-2 rounded-3xl shadow-2xl py-2 mx-10 sm:mx-0">
                     <div className="grid justify-items-center">
-                    <div className="rounded-full w-[75px] h-[75px] bg-white/80 flex justify-center items-center mb-5 shadow-2xl hover:border-1 hover:border-black/80">
+                    <div className="rounded-full w-18.75 h-18.75 bg-white/80 flex justify-center items-center mb-5
+                            shadow-2xl hover:border hover:border-black/80">
                         <DynamicIcon name="FaUserCheck" className="text-3xl" />
                     </div>
                     <h1 className="font-bold text-black/80">Compare & Choose</h1>
@@ -29,7 +31,8 @@ export default function HowWeWork(){
                 </div>
                  <div className="flex-1 bg-white m-2 rounded-3xl shadow-2xl py-2 mx-10 sm:mx-0">
                     <div className="grid justify-items-center">
-                    <div className="rounded-full w-[75px] h-[75px] bg-white/80 flex justify-center items-center mb-5 shadow-2xl hover:border-1 hover:border-black/80">
+                    <div className="rounded-full w-18.75 h-18.75 bg-white/80 flex justify-center items-center mb-5 
+                        shadow-2xl hover:border hover:border-black/80">
                         <DynamicIcon name="CiCalendar" className="text-4xl" />
                     </div>
                     <h1 className="font-bold text-black/80">Book & Schedule</h1>
@@ -38,7 +41,8 @@ export default function HowWeWork(){
                 </div>
                  <div className="flex-1 bg-white m-2 rounded-3xl shadow-2xl py-2 mx-10 sm:mx-0">
                     <div className="grid justify-items-center">
-                    <div className="rounded-full w-[75px] h-[75px] bg-white/80 flex justify-center items-center mb-5 shadow-2xl hover:border-1 hover:border-black/80">
+                    <div className="rounded-full w-18.75 h-18.75 bg-white/80 flex justify-center items-center mb-5 
+                    shadow-2xl hover:border hover:border-black/80">
                         <DynamicIcon name="IoMdCheckmarkCircleOutline" className="text-4xl" />
                     </div>
                     <h1 className="font-bold text-black/80">Get It Done</h1>
