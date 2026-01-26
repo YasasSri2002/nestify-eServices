@@ -4,7 +4,7 @@ export default function MissionPage(){
     return(
     
         <div className="grid justify-items-center my-5 p-10">
-            <div className="rounded-full w-[75px] h-[75px] bg-black/90 flex justify-center items-center mb-5">
+            <div className="rounded-full w-18.75 h-18.75 bg-black/90 flex justify-center items-center mb-5">
             <DynamicIcon name="CiHeart" className="text-white text-4xl" />
             </div>
             <div className="grid justify-items-center w-full gap-5">

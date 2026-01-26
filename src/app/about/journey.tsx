@@ -10,7 +10,8 @@ export default function JourneySection(){
                 <div className="col-1">
                     <div className="grid justify-items-center content-center p-10 gap-4">
                         <div className="flex">
-                            <div className="rounded-full w-[10px] h-[10px] bg-black/90 flex justify-center items-center mb-5 p-5">
+                            <div className="rounded-full w-2.5 h-2.5 bg-black/90 flex justify-center items-center 
+                                mb-5 p-5">
                             <h1 className="text-white">25</h1>
                         </div>
                         <div className="grid ml-5">
@@ -20,7 +21,7 @@ export default function JourneySection(){
                         
                         </div>
                         <div className="flex">
-                            <div className="rounded-full w-[10px] h-[10px] bg-black/90 flex justify-center items-center mb-5 p-5">
+                            <div className="rounded-full w-2.5 h-2.5 bg-black/90 flex justify-center items-center mb-5 p-5">
                             <h1 className="text-white">26</h1>
                         </div>
                         <div className="grid ml-5">

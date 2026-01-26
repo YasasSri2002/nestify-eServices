@@ -2,7 +2,7 @@ import SearchBar from "@/components/ui/searchBar";
 
 export default function HeroSection(){
     return (
-      <div className="min-h-screen xl:h-dvh w-dvw sm:w-screen md:w-full  grid content-center bg-gradient-to-r from-gray-100 to-gray-200 space-y-6">
+      <div className="min-h-screen xl:h-dvh w-dvw sm:w-screen md:w-full  grid content-center bg-linear-to-r from-gray-100 to-gray-200 space-y-6">
         <div className="text-center space-y-4 md:space-y-6">
           <h1 className="grid text-4xl md:text-6xl font-bold text-primary">
             Find Trusted<span className="text-[rgba(3,2,18,0.80)]">Home Service Providers</span>
