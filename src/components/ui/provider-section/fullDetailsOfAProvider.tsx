@@ -15,28 +15,12 @@ function showProviderDetails(){
 
 export default function FullDetailsOfAProvider({providerDetails}: {readonly providerDetails:ProviderWithAllDetails}){
     return(
-            <div className="grid grid-cols-6">
-                <div className="h-full sm:hidden bg-gray-300 grid justify-items-center content-between py-2">
-                <button onClick={showProviderDetails}>
-                    <DynamicIcon name="BiMenu" className="text-3xl"/>
-                </button>
-                <div>
-                    <Image src={"/user.jpg"} 
-                        width={50}
-                        height={100}
-                        alt="provider's profile picture"
-                        className='rounded-full w-10 h-10'
-                        />
-                </div>
-            </div>
+            <div className="md:grid md:grid-cols-6">
+
+            {/* left-side */}
                 <div id="providerDetails" 
-                    className="sr-only sm:not-sr-only absolute z-10 md:col-span-2 border-2 border-red-400 w-full 
-                            bg-gray-200 h-dvh p-5 ">
-                    <div className='w-full flex justify-end sm:hidden'>
-                        <button onClick={showProviderDetails}>
-                            <DynamicIcon name='MdClose' />
-                        </button>
-                    </div>
+                    className="md:col-span-2  w-full 
+                            bg-linear-to-br from-gray-600 via-gray-400 to-gray-200 h-dvh p-5 ">
                     <div>
                         <div className='w-full flex justify-center'>
                             <Image src={"/user.jpg"} 
@@ -74,8 +58,8 @@ export default function FullDetailsOfAProvider({providerDetails}: {readonly prov
                         
                     </div>
                 </div>
-
-                <div className="col-span-5 md:col-span-4 border-2 border-blue-800">
+                {/* right-side */}
+                <div className="col-span-5 md:col-span-4">
                     <div className='m-5' >
                         <h1>Service gig titles</h1>
                         <div className="ml-5">
