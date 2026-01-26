@@ -15,12 +15,12 @@ function showProviderDetails(){
 
 export default function FullDetailsOfAProvider({providerDetails}: {readonly providerDetails:ProviderWithAllDetails}){
     return(
-            <div className="md:grid md:grid-cols-6">
+            <div className="grid md:grid-cols-2">
 
             {/* left-side */}
                 <div id="providerDetails" 
-                    className="md:col-span-2  w-full 
-                            bg-linear-to-br from-gray-600 via-gray-400 to-gray-200 h-dvh p-5 ">
+                    className="md:col-1  w-full 
+                            bg-linear-to-br from-red-50 via-gray-200 to-pink-50 h-dvh sm:h-fit p-5 ">
                     <div>
                         <div className='w-full flex justify-center'>
                             <Image src={"/user.jpg"} 
@@ -59,7 +59,7 @@ export default function FullDetailsOfAProvider({providerDetails}: {readonly prov
                     </div>
                 </div>
                 {/* right-side */}
-                <div className="col-span-5 md:col-span-4">
+                <div className="md:col-2">
                     <div className='m-5' >
                         <h1>Service gig titles</h1>
                         <div className="ml-5">
