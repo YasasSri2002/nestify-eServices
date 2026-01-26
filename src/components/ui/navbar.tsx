@@ -103,7 +103,7 @@ export default function NavBar(){
 
             <div
               id="mobile-first"
-              className="hidden  justify-end absolute z-50 -top-0 right-0"
+              className="hidden  justify-end absolute z-50 top-0 right-0"
             >
               <div className="bg-[hsla(0,0%,97%,1)] drop-shadow-2xl rounded-l-2xl grid w-50 h-dvh shadow-2xl">
                 <div className="justify-self-end max-h-5 mt-5 relative right-5">

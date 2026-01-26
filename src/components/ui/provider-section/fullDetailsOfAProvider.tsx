@@ -79,7 +79,9 @@ export default function FullDetailsOfAProvider({providerDetails}: {readonly prov
                     <div className='m-5' >
                         <h1>Service gig titles</h1>
                         <div className="ml-5">
-                            {
+                        {
+                            providerDetails.gigs.length === 0 ? 
+                            <h1>No services from {providerDetails.providerDto.userName}</h1> :
                             providerDetails.gigs.map((gig,i) => 
                                     <Link 
                                         href={`/service-gigs/details/${gig.id}`} 

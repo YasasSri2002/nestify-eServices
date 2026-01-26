@@ -24,7 +24,7 @@ export default function BookingProvidersCard(
                             </div>
                         </div>
                         <div className="flex mt-5 justify-center items-end space-x-5">
-                            <button className="rounded-2xl transition-all duration-300  p-2 
+                            <button className="rounded-md transition-all duration-300  p-2 
                                                 active:scale-75 active:bg-gray-300  border">
                                 <Link href={`/providers/details/${providers.id}`}>More details</Link>
                             </button>
