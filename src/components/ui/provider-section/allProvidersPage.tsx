@@ -51,7 +51,7 @@ export default function AllProvidersPage(){
         <div>
         <div className="bg-gray-600 flex items-center justify-between p-5 gap-4">
         {/* Search */}
-          <div className="flex items-center space-x-2 w-full md:w-auto border border-red-500">
+          <div className="flex items-center space-x-2 w-full md:w-auto ">
             <DynamicIcon name="CiSearch" className="relative left-10 text-gray-900" />
             <input
               type="text"
