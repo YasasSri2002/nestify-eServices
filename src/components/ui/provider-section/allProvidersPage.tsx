@@ -14,7 +14,9 @@ export default function AllProvidersPage(){
 
   const [providers, setProviders] = useState<ProviderDto[]>([])
   const [loadProviders,setLoadProviders] =useState(true);
-  
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+
+
 
   useEffect(()=>{
     async function fetchProivders(){
@@ -47,38 +49,46 @@ export default function AllProvidersPage(){
     return(
         <div className="grid justify-items-center sm:justify-items-normal">
         <div>
-        <div className="bg-gray-600  flex items-center justify-between p-5 ">
-          <div className="grid">
-              
-              <div className="flex justify-center sm:justify-normal items-center space-x-2">
-                <DynamicIcon name="CiSearch" className="relative left-10" />
-                <input
-                  type="text"
-                  placeholder="search"
-                  className="bg-white lg:rounded-lg px-10 w-50 sm:w-fit  xl:h-10"
-                />
+        <div className="bg-gray-600 flex items-center justify-between p-5 gap-4">
+        {/* Search */}
+          <div className="flex items-center space-x-2 w-full md:w-auto border border-red-500">
+            <DynamicIcon name="CiSearch" className="relative left-10 text-gray-900" />
+            <input
+              type="text"
+              className="bg-white rounded-lg px-10 py-2 w-full md:w-64 lg:w-150"
+            />
+          </div>
+
+          {/* Desktop filters */}
+          <div className="gap-5 hidden md:flex">
+            <button  className="px-5 py-2 rounded-xl border text-white hover:bg-white hover:text-black transition">
+              Service Category
+            </button>
+            <button  className="px-5 py-2 rounded-xl border text-white hover:bg-white hover:text-black transition">
+              Job Count
+            </button>
+            <button  className="px-5 py-2 rounded-xl border text-white hover:bg-white hover:text-black transition">
+              Experience
+            </button>
+          </div>
+
+          {/* Mobile filter button */}
+          <div className="md:hidden flex justify-end">
+            <button onClick={() => setMobileFilterOpen(!mobileFilterOpen)}>
+              <DynamicIcon name="HiOutlineAdjustmentsHorizontal" className="text-2xl text-white" />
+            </button>
+          </div>
+
+          {/* Mobile filters */}
+          {mobileFilterOpen && (
+            <div className="grid gap-3 md:hidden">
+              <button  className="filter-btn">Service Category</button>
+              <button  className="filter-btn">Job Count</button>
+              <button className="filter-btn">Experience</button>
             </div>
-            
-          </div>
-          <div >
-              <div className="md:flex gap-5 hidden ">
-                <button className="px-5 py-1 rounded-xl border text-white ">Service Category</button>
-                <button className="px-5 py-1 rounded-xl border text-white">Job Count</button>
-                <button className="px-5 py-1 rounded-xl border text-white">Exprience</button>
-              </div>
-
-              <div className="bg-gray-600 rounded-2xl px-3 py-2 fixed top-0 md:hidden">
-                  <div className="grid gap-3">
-                    <button className="px-3  py-1 rounded-xl border text-white ">Service Category</button>
-                    <button className="px-3 h-8 py-1 rounded-xl border text-white">Job Count</button>
-                    <button className="px-3 h-8 py-1 rounded-xl border text-white">Exprience</button>
-                  </div>
-              </div>
-
-
-          </div>
+          )}
+      </div>
         
-        </div>
         <div className="bg-white w-dvw sm:w-full  p-10">
           <div className="grid justify-items-center md:flex md:justify-between md:flex-wrap w-full gap-5">
             {
