@@ -15,6 +15,7 @@ import * as PiIcons from "react-icons/pi";
 import * as BiIcons from "react-icons/bi";
 import * as RxIcons from 'react-icons/rx';
 import * as Hi2Icons from 'react-icons/hi2'
+import * as Io5Icons from 'react-icons/io5';
 
 type IconLibrary = {
   [key: string]: IconType;
@@ -34,7 +35,8 @@ const ICON_LIBRARY: IconLibrary = {
   ...PiIcons,
   ...BiIcons,
   ...RxIcons,
-  ...Hi2Icons
+  ...Hi2Icons,
+  ...Io5Icons,
 
 };
 
