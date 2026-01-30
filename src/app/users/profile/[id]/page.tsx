@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import ProfileNavbar from "../profileNavbar";
+import ProfileDashboard from "../dashboard";
 
 
 export default function UserProfile(){
@@ -21,6 +22,7 @@ export default function UserProfile(){
       
         <div>
             <ProfileNavbar/>
+            <ProfileDashboard/>
         </div>
         
     );

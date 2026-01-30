@@ -1,0 +1,69 @@
+import Image from "next/image"
+export default function PerosonalInformationForm(){
+    return(
+        <div className="bg-gray-300 rounded-2xl p-2 md:p-5 ">
+            <div className="flex justify-between">
+                <div className="text-wrap">
+                    <h1 className="md:text-xl">Perosonal Information</h1>
+                    <h3 className="text-sm sm:text-md md:text-lg">update your personal information  and profile picture</h3>
+                </div>
+            </div>
+            <div className="m-3 flex">
+                <Image src="/user.jpg"
+                    width={100}
+                    height={100}
+                    alt="profile photo"
+                    className="rounded-full w-25 h-25"
+                ></Image>   
+                <div className="grid content-center mx-5">
+                    <h1 className="text-xl font-semibold">Name</h1>
+                    <h1>email</h1>
+                </div>
+            </div>
+            <div className="flex justify-center w-full">
+                <div className="h-0.5 bg-gray-600 w-[98%] rounded-sm"></div>
+            </div>
+            <div className="m-3">
+                <form>
+                    <div className="grid gap-3">
+                        <div className="flex justify-between gap-8 ">
+                            <div className="grid flex-1 gap-2">
+                                <label htmlFor="firstName" className="pl-0.5">first Name</label>
+                                <input type="text" className="border-white border w-full h-8 rounded-md bg-white pl-3" />
+                            </div>
+                            <div className="grid flex-1 gap-2">
+                                <label htmlFor="lastName" className="pl-0.5">last Name</label>
+                                <input type="text" className="border-white border w-full h-8 rounded-md bg-white pl-3" />
+                            </div>
+                        </div>
+                        <div className="flex justify-between gap-8 ">
+                            <div className="grid flex-1 gap-2">
+                                <label htmlFor="email" className="pl-0.5">email</label>
+                                <input type="text" className="border-white border w-full h-8 rounded-md bg-white pl-3" />
+                            </div>
+                            <div className="grid flex-1 gap-2">
+                                <label htmlFor="contact" className="pl-0.5">contact</label>
+                                <input type="text" className="border-white border w-full h-8 rounded-md bg-white pl-3" />
+                            </div>
+                        </div>
+                        <div className="grid gap-2">
+                            <label htmlFor="bio" className="pl-0.5">bio</label>
+                            <textarea name="bio" 
+                            className="border-white border w-full rounded-md bg-white pl-3 resize-none"
+                            cols={30} rows={5}
+                            ></textarea>
+                        </div>
+
+                        <div className="flex w-full justify-end">
+                            <button 
+                            className="border border-slate-950 bg-gray-950 text-white text-sm px-2 py-2 
+                            sm:px-8 sm:py-2 rounded-md">Edit profile</button>
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    )
+}
