@@ -1,10 +1,15 @@
-import DynamicIcon from "@/components/utill/DynamicIcons"
 
-export default function BookingCard(){
+import DynamicIcon from "@/components/utill/DynamicIcons"
+import { BookingResponseDto } from "@/dto/BookingDto"
+
+
+export default function BookingCard({bookingData}:{bookingData:BookingResponseDto}){
+
+
     return(
         <div className="grid rounded-lg w-full bg-white/80 shadow-md p-5 grid-cols-9 xl:w-6xl">
             <div className="col-span-7 grid gap-3">
-                <h1>gig name</h1>
+                <h1>{bookingData.name}</h1>
                 <h2 className="text-gray-300">with provider's name</h2>
                 <div className="flex gap-3">
                     <h1 className="flex gap-1"><DynamicIcon name="CiCalendar"/> date</h1>

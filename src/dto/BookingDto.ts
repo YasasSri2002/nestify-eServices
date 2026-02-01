@@ -12,3 +12,23 @@ export interface BookingDto{
     endingDate: Date; //if the service ran for days
 
 }
+
+export interface BookingResponseDto{
+    id: string;
+
+     name: string;
+
+     email: string;
+
+     contactNo: string;
+
+     address: string;
+
+     additionalInformation: string;
+
+     status: string;
+
+    startingTime: string;
+
+    startingDate: string;
+}

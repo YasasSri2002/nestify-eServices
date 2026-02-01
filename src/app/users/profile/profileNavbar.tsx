@@ -1,5 +1,5 @@
+'use client';
 import Link from "next/link"
-
 import DynamicIcon from "@/components/utill/DynamicIcons";
 
 function handleMobileMenue(){
