@@ -90,6 +90,14 @@ export async function POST(request: NextRequest) {
       maxAge: tokens.expires_in,
     });
 
+    response.cookies.set('x-user-roles', JSON.stringify(decodedToken.realm_access?.roles ?? [ ]),{
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: tokens.expires_in,
+    });
+
     // Optional: Store refresh token if needed
     if (tokens.refresh_token) {
       response.cookies.set('refresh-token', tokens.refresh_token, {

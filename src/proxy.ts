@@ -16,7 +16,7 @@ interface DecodedToken {
 
  const protectedRoutes =[
     '/site-admin',
-    '/user/profile',
+    '/users/profile/',
     '/provider/profile',
   ]
 
@@ -107,7 +107,7 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
       '/site-admin/:path*',
-      '/user/profile/:path*',
+      '/users/profile/:path*',
       '/provider/profile/:path*',
   ], 
 };
