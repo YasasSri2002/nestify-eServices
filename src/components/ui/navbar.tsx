@@ -5,18 +5,13 @@ import { useEffect, useState } from "react";
 
 import {  AlignJustify, X } from 'lucide-react'
 
-
-function sideMenue(){
-        const menue = document.getElementById("mobile-first");
-        if(menue) menue.classList.toggle('hidden');
-    }
-
-  
     
 
 export default function NavBar(){
 
-  const [userEmail, setUserEmail] = useState('')
+  const [userEmail, setUserEmail] = useState('');
+  const [roles , setRoles] = useState(['']);
+  const [toggleSideMenu, setToggleSideMenu] = useState(false);
 
   const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
 
@@ -24,30 +19,48 @@ export default function NavBar(){
 
   
   useEffect(() => {
-    const logo = document.getElementById("logo");
-    logo?.addEventListener("click", () => {
-      window.location.href = "/";
-    });
-
+    
   const getUserData =async ()=>{
     const response =  await fetch('/api-calls/users/data');
     const data  =  await response.json()
-    console.log("from nav bar the user data function---> " , data)
+    console.log("from nav bar the user data function---> " , data.rolesList)
     setUserEmail(data.userEmail);
+    setRoles(data.rolesList);
+    console.log(Array.isArray(data.rolesList));
   }
-    getUserData()
-
-    console.log(userEmail)
-
+    getUserData() 
   }, []);
+
+    function dashboardRenderingDesktop(){
+
+      if(roles.some(role => role === "user")){
+        <div>
+            <button
+              className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
+                hover:bg-[hsla(0,0%,67%,1)]"
+            >
+              <Link href={loginUrl!}>Log in</Link>
+            </button>
+            <button
+              className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
+                hover:bg-[hsla(0,0%,71%,1)]"
+            >
+              <Link href={registrationUrl!}>Register</Link>
+            </button>
+        </div>
+      }
+
+
+    }
+
 
         return (
           <>
             <div
               id="mynavbar"
-              className="navbar flex items-center justify-between text-white p-2 relative bg-[hsla(0,0%,97%,1)] drop-shadow-xl sm:px-6 lg:px-8 w-full "
+              className="flex items-center justify-between text-white p-2 relative bg-[hsla(0,0%,97%,1)] drop-shadow-xl sm:px-6 lg:px-8 w-full "
             >
-              <div id="logo">
+              <div id="logo" onClick={() => window.location.href = "/"}>
                 <Image
                   src="/logo.png"
                   alt="Logo"
@@ -71,11 +84,6 @@ export default function NavBar(){
                   <Link href="/about">About Us</Link>
                 </li>
               </ul>
-              {
-                userEmail  ? 
-                <div className="space-x-4 hidden xl:flex text-black ">
-                  <label className="text-gray-600" > Welcome back <span className="capitalize text-black/90">{userEmail}</span></label>
-                </div> :
                 <div
                 id="controls"
                 className="space-x-4 hidden xl:flex text-black "
@@ -94,20 +102,18 @@ export default function NavBar(){
                     </button>
                     
               </div> 
-              
-              }
-              <button onClick={sideMenue} className="xl:hidden">
+              <button onClick={()=>setToggleSideMenu(!toggleSideMenu)} className="xl:hidden">
                 <AlignJustify size={34} stroke="black" />
               </button>
             </div>
 
             <div
               id="mobile-first"
-              className="hidden  justify-end absolute z-50 top-0 right-0"
+              className={`${toggleSideMenu ? 'hidden' : 'justify-end absolute z-50 top-0 right-0'  }`}
             >
               <div className="bg-[hsla(0,0%,97%,1)] drop-shadow-2xl rounded-l-2xl grid w-50 h-dvh shadow-2xl">
                 <div className="justify-self-end max-h-5 mt-5 relative right-5">
-                  <button onClick={sideMenue}>
+                  <button onClick={()=> setToggleSideMenu(!toggleSideMenu)}>
                     <X size={24} stroke="black" />
                   </button>
                 </div>
@@ -129,20 +135,11 @@ export default function NavBar(){
                 </div>
 
                 <div className="content-end mb-2 mt-25 lg:mt-0 relative bottom-5">
-                  {
-                    userEmail? 
-                    <div className="grid justify-items-center gap-2">
-                        <h1 className="text-gray-600" > Welcome back</h1>
-                        <h1 className="capitalize text-black/90">{userEmail}</h1>
-                    </div>
-                    
-                    : <div
+                  <div
                     id="mobile-controls"
                     className="space-x-4 grid  justify-items-center h-full
                      md:h-1/2  content-end text-black "
                   >
-                 
-                 
                    <button
                       className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
                     hover:bg-[hsla(0,0%,67%,1)]"
@@ -155,8 +152,7 @@ export default function NavBar(){
                     >
                       <Link href={registrationUrl!}>Register</Link>
                     </button>
-                  </div>
-                  }
+                  </div>                 
                 </div>
               </div>
             </div>
