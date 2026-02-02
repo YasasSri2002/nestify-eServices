@@ -2,15 +2,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import DynamicIcon from "../utill/DynamicIcons";
 
 import {  AlignJustify, X } from 'lucide-react'
 
-    
 
 export default function NavBar(){
 
   const [userEmail, setUserEmail] = useState('');
-  const [roles , setRoles] = useState(['']);
+  const [userId,setUserId] = useState();
+  const [roles , setRoles] = useState(['notLogin']);
   const [toggleSideMenu, setToggleSideMenu] = useState(false);
 
   const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
@@ -23,35 +24,112 @@ export default function NavBar(){
   const getUserData =async ()=>{
     const response =  await fetch('/api-calls/users/data');
     const data  =  await response.json()
-    console.log("from nav bar the user data function---> " , data.rolesList)
+    console.log("from nav bar the user data function---> " , data.roles);
     setUserEmail(data.userEmail);
-    setRoles(data.rolesList);
+    if(data.roles){
+      const rolesList = JSON.parse(data.roles)
+      setRoles(rolesList);
+    }
     console.log(Array.isArray(data.rolesList));
   }
     getUserData() 
   }, []);
 
-    function dashboardRenderingDesktop(){
-
-      if(roles.some(role => role === "user")){
-        <div>
-            <button
-              className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
-                hover:bg-[hsla(0,0%,67%,1)]"
-            >
-              <Link href={loginUrl!}>Log in</Link>
-            </button>
-            <button
-              className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
-                hover:bg-[hsla(0,0%,71%,1)]"
-            >
-              <Link href={registrationUrl!}>Register</Link>
-            </button>
-        </div>
-      }
-
+  const handleLogOut = ()=>{
+      setRoles(['notLogin'])
+      window.location.reload()
 
     }
+
+    const dashboardRenderingDesktop = ()=>{
+
+      if(roles.some(role => role === "user")){
+        return(
+            <div className="hidden xl:flex">
+                <button
+                  className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
+                    hover:bg-[hsla(0,0%,67%,1)]"
+                >
+                  <Link href={'/users/profile/'}>Dashboard</Link>
+                </button>
+                <button
+                  className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
+                    hover:bg-[hsla(0,0%,71%,1)]"
+                    onClick={handleLogOut}
+                >
+                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  Log out
+                </button>
+          </div>
+        )
+      }
+
+      if(roles.some(role => role == 'notLogin')){
+        return(
+          <div className="xl:flex hidden">
+              <button
+                className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
+                  hover:bg-[hsla(0,0%,67%,1)]"
+              >
+                <Link href={loginUrl!}>Log in</Link>
+              </button>
+              <button
+                className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
+                  hover:bg-[hsla(0,0%,71%,1)]"
+              >
+                <Link href={registrationUrl!}>Register</Link>
+              </button>
+        </div>
+        )
+      }
+    }
+
+    const dashboardRenderingMobile = ()=>{
+
+      if(roles.some(role => role === "user")){
+        return(
+            <div className="space-x-4 grid  justify-items-center h-full
+                     md:h-1/2  content-end text-black ">
+                <button
+                  className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
+                    hover:bg-[hsla(0,0%,67%,1)]"
+                >
+                  <Link href={'/users/profile/'}>Dashboard</Link>
+                </button>
+                <button
+                  className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
+                    hover:bg-[hsla(0,0%,71%,1)]"
+                    onClick={handleLogOut}
+                >
+                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  Log out
+                </button>
+          </div>
+        )
+      }
+
+      if(roles.some(role => role == 'notLogin')){
+        return(
+          <div className="space-x-4 grid  justify-items-center h-full
+                     md:h-1/2  content-end text-black">
+              <button
+                className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
+                  hover:bg-[hsla(0,0%,67%,1)]"
+              >
+                <Link href={loginUrl!}>Log in</Link>
+              </button>
+              <button
+                className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
+                    hover:bg-[hsla(0,0%,71%,1)]"
+              >
+                <Link href={registrationUrl!}>Register</Link>
+              </button>
+        </div>
+        )
+      }
+    }
+
+    
 
 
         return (
@@ -84,24 +162,9 @@ export default function NavBar(){
                   <Link href="/about">About Us</Link>
                 </li>
               </ul>
-                <div
-                id="controls"
-                className="space-x-4 hidden xl:flex text-black "
-              >
-                    <button
-                      className="mx-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-[10em] p-2 
-                    hover:bg-[hsla(0,0%,67%,1)]"
-                    >
-                      <Link href={loginUrl!}>login</Link>
-                    </button>
-                    <button
-                      className="mx-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-[10em] p-2
-                    hover:bg-[hsla(0,0%,71%,1)]"
-                    >
-                      <Link href={registrationUrl!}>Register</Link>
-                    </button>
-                    
-              </div> 
+               {
+                  dashboardRenderingDesktop()
+               }
               <button onClick={()=>setToggleSideMenu(!toggleSideMenu)} className="xl:hidden">
                 <AlignJustify size={34} stroke="black" />
               </button>
@@ -109,7 +172,7 @@ export default function NavBar(){
 
             <div
               id="mobile-first"
-              className={`${toggleSideMenu ? 'hidden' : 'justify-end absolute z-50 top-0 right-0'  }`}
+              className={`${toggleSideMenu ? 'justify-end absolute z-50 top-0 right-0' : 'hidden'  }`}
             >
               <div className="bg-[hsla(0,0%,97%,1)] drop-shadow-2xl rounded-l-2xl grid w-50 h-dvh shadow-2xl">
                 <div className="justify-self-end max-h-5 mt-5 relative right-5">
@@ -135,24 +198,9 @@ export default function NavBar(){
                 </div>
 
                 <div className="content-end mb-2 mt-25 lg:mt-0 relative bottom-5">
-                  <div
-                    id="mobile-controls"
-                    className="space-x-4 grid  justify-items-center h-full
-                     md:h-1/2  content-end text-black "
-                  >
-                   <button
-                      className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
-                    hover:bg-[hsla(0,0%,67%,1)]"
-                    >
-                      <Link href={loginUrl!}>Log in</Link>
-                    </button>
-                    <button
-                      className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
-                    hover:bg-[hsla(0,0%,71%,1)]"
-                    >
-                      <Link href={registrationUrl!}>Register</Link>
-                    </button>
-                  </div>                 
+                  {
+                    dashboardRenderingMobile()
+                  }                
                 </div>
               </div>
             </div>
