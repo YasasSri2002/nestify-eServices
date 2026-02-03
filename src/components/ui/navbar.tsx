@@ -24,18 +24,24 @@ export default function NavBar(){
   const getUserData =async ()=>{
     const response =  await fetch('/api-calls/users/data');
     const data  =  await response.json()
-    console.log("from nav bar the user data function---> " , data.roles);
+    console.log("from nav bar the user data function---> " , data);
     setUserEmail(data.userEmail);
     if(data.roles){
       const rolesList = JSON.parse(data.roles)
       setRoles(rolesList);
     }
+    setUserId(data.userId);
     console.log(Array.isArray(data.rolesList));
   }
     getUserData() 
   }, []);
 
   const handleLogOut = ()=>{
+
+      fetch(`/api-calls/auth/logout/`,{
+        method: 'POST',
+        credentials: 'include'
+      })
       setRoles(['notLogin'])
       window.location.reload()
 
@@ -50,7 +56,7 @@ export default function NavBar(){
                   className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
                     hover:bg-[hsla(0,0%,67%,1)]"
                 >
-                  <Link href={'/users/profile/'}>Dashboard</Link>
+                  <Link href={`/users/profile/${userId}`}>Dashboard</Link>
                 </button>
                 <button
                   className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
@@ -94,7 +100,7 @@ export default function NavBar(){
                   className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
                     hover:bg-[hsla(0,0%,67%,1)]"
                 >
-                  <Link href={'/users/profile/'}>Dashboard</Link>
+                  <Link href={`/users/profile/${userId}`}>Dashboard</Link>
                 </button>
                 <button
                   className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
