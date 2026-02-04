@@ -53,14 +53,56 @@ export default function NavBar(){
         return(
             <div className="hidden xl:flex">
                 <button
-                  className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
-                    hover:bg-[hsla(0,0%,67%,1)]"
+                  className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800 text-black/80 w-30 py-2 px-5 
+                    hover:bg-[hsla(0,0%,67%,1)]  active:scale-75"
                 >
                   <Link href={`/users/profile/${userId}`}>Dashboard</Link>
                 </button>
                 <button
-                  className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
-                    hover:bg-[hsla(0,0%,71%,1)]"
+                  className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] w-30 py-2 px-5
+                    hover:bg-[hsla(0,0%,71%,1)] active:scale-75 text-black/80"
+                    onClick={handleLogOut}
+                >
+                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  Log out
+                </button>
+          </div>
+        )
+      }
+
+      if(roles.some(role => role === "provider")){
+        return(
+            <div className="hidden xl:flex">
+                <button
+                  className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800 w-30 py-2 px-5 
+                    hover:bg-[hsla(0,0%,67%,1)]  active:scale-75 text-black/80"
+                >
+                  <Link href={`/providers/profile/${userId}`}>Dashboard</Link>
+                </button>
+                <button
+                  className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] w-30 py-2 px-5
+                    hover:bg-[hsla(0,0%,71%,1)] active:scale-75 text-black/80"
+                    onClick={handleLogOut}
+                >
+                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  Log out
+                </button>
+          </div>
+        )
+      }
+
+      if(roles.some(role => role === "admin")){
+        return(
+            <div className="hidden xl:flex">
+                <button
+                  className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800 w-30 py-2 px-5 
+                    hover:bg-[hsla(0,0%,67%,1)]  active:scale-75 text-black/80"
+                >
+                  <Link href={`/site-admin/${userId}`}>Dashboard</Link>
+                </button>
+                <button
+                  className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] w-30 py-2 px-5
+                    hover:bg-[hsla(0,0%,71%,1)] active:scale-75 text-black/80"
                     onClick={handleLogOut}
                 >
                   <DynamicIcon name='FaLogout'></DynamicIcon>
@@ -74,14 +116,14 @@ export default function NavBar(){
         return(
           <div className="xl:flex hidden">
               <button
-                className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
-                  hover:bg-[hsla(0,0%,67%,1)]"
+                className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800 text-black/80 w-25 py-2 px-5 
+                  hover:bg-[#ecececfa] active:scale-75"
               >
                 <Link href={loginUrl!}>Log in</Link>
               </button>
               <button
-                className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
-                  hover:bg-[hsla(0,0%,71%,1)]"
+                className="lg:m-2 md:m-2 rounded-lg text-black/80 bg-[hsla(0,0%,81%,1)] w-25 py-2 px-5
+                  hover:bg-[hsla(0,0%,71%,1)] active:scale-75"
               >
                 <Link href={registrationUrl!}>Register</Link>
               </button>
@@ -97,14 +139,58 @@ export default function NavBar(){
             <div className="space-x-4 grid  justify-items-center h-full
                      md:h-1/2  content-end text-black ">
                 <button
-                  className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
-                    hover:bg-[hsla(0,0%,67%,1)]"
+                  className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800 text-black/80  py-2 px-5 
+                    hover:bg-[hsla(0,0%,67%,1)] w-30 "
                 >
                   <Link href={`/users/profile/${userId}`}>Dashboard</Link>
                 </button>
                 <button
-                  className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
-                    hover:bg-[hsla(0,0%,71%,1)]"
+                  className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] py-2 px-5
+                    hover:bg-[hsla(0,0%,71%,1)] w-30"
+                    onClick={handleLogOut}
+                >
+                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  Log out
+                </button>
+          </div>
+        )
+      }
+
+      if(roles.some(role => role === "provider")){
+        return(
+            <div className="space-x-4 grid  justify-items-center h-full
+                     md:h-1/2  content-end text-black ">
+                <button
+                  className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800 text-black/80  py-2 px-5 
+                    hover:bg-[hsla(0,0%,67%,1)] w-30 "
+                >
+                  <Link href={`/providers/profile/${userId}`}>Dashboard</Link>
+                </button>
+                <button
+                  className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] py-2 px-5
+                    hover:bg-[hsla(0,0%,71%,1)] w-30"
+                    onClick={handleLogOut}
+                >
+                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  Log out
+                </button>
+          </div>
+        )
+      }
+
+      if(roles.some(role => role === "admin")){
+        return(
+            <div className="space-x-4 grid  justify-items-center h-full
+                     md:h-1/2  content-end text-black ">
+                <button
+                  className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800 text-black/80  py-2 px-5 
+                    hover:bg-[hsla(0,0%,67%,1)] w-30 "
+                >
+                  <Link href={`/site-admin/${userId}`}>Dashboard</Link>
+                </button>
+                <button
+                  className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] py-2 px-5
+                    hover:bg-[hsla(0,0%,71%,1)] w-30"
                     onClick={handleLogOut}
                 >
                   <DynamicIcon name='FaLogout'></DynamicIcon>
@@ -119,14 +205,14 @@ export default function NavBar(){
           <div className="space-x-4 grid  justify-items-center h-full
                      md:h-1/2  content-end text-black">
               <button
-                className="mb-2 md:m-2 lg:m-2 rounded-2xl bg-[hsla(0,0%,77%,1)] w-fit py-2 px-5 
-                  hover:bg-[hsla(0,0%,67%,1)]"
+                className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800  py-2 px-5 
+                  hover:bg-[hsla(0,0%,67%,1)] w-25 active:scale-75"
               >
                 <Link href={loginUrl!}>Log in</Link>
               </button>
               <button
-                className="lg:m-2 md:m-2 rounded-2xl bg-[hsla(0,0%,81%,1)] w-fit py-2 px-5
-                    hover:bg-[hsla(0,0%,71%,1)]"
+                className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] py-2 px-5
+                    hover:bg-[hsla(0,0%,71%,1)] w-25 active:scale-75"
               >
                 <Link href={registrationUrl!}>Register</Link>
               </button>
