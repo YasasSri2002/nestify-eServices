@@ -1,7 +1,10 @@
 import AccountInfo from "./accountInfo";
 import PerosonalInformationForm from "./personalInformation";
 
-export default function ProfileDashboard(){
+export default function ProfileDashboard({userId}: {userId:string}){
+
+    
+
     return(
         
         <div className="lg:px-10">

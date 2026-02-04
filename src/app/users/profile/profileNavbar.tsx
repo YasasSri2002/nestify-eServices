@@ -9,7 +9,7 @@ function handleMobileMenue(){
 
 export default function ProfileNavbar(){
     return(
-        <div className="flex justify-between items-center px-2 lg:px-10 lg:py-5 bg-gray-50 shadow-md"> 
+        <div className="flex justify-between items-center px-2 lg:px-10 lg:py-5 bg-gray-50 shadow-md h-25"> 
             {/* left-side */}
             <div className="flex items-center gap-5">
                 <button>
