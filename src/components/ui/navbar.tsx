@@ -5,12 +5,13 @@ import { useEffect, useState } from "react";
 import DynamicIcon from "../utill/DynamicIcons";
 
 import {  AlignJustify, X } from 'lucide-react'
+import { LogoutUser } from "@/app/api-calls/auth/logout/route";
 
 
 export default function NavBar(){
 
   const [userEmail, setUserEmail] = useState('');
-  const [userId,setUserId] = useState();
+  const [userId,setUserId] = useState('');
   const [roles , setRoles] = useState(['notLogin']);
   const [toggleSideMenu, setToggleSideMenu] = useState(false);
 
@@ -38,12 +39,11 @@ export default function NavBar(){
 
   const handleLogOut = ()=>{
 
-      fetch(`/api-calls/auth/logout/`,{
-        method: 'POST',
-        credentials: 'include'
-      })
+      const response = LogoutUser(userId);
+      console.log(response);
+
       setRoles(['notLogin'])
-      window.location.reload()
+    
 
     }
 
