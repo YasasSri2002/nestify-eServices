@@ -8,3 +8,23 @@ export interface UserDto{
 
     paymentMethod: string;
 }
+
+export interface UserResponseDto{
+
+     id: string;
+
+     address:string;
+
+     email:string;
+
+    paymentMethod: string;
+
+     firstName:string;
+
+     lastName:string;
+
+     username:string;
+
+    createdAt: Date;
+
+}

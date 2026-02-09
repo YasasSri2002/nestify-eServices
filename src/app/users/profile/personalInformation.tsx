@@ -1,5 +1,6 @@
+import { UserResponseDto } from "@/dto/UserDto"
 import Image from "next/image"
-export default function PerosonalInformationForm(){
+export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
     return(
         <div className="bg-gray-300 rounded-2xl p-2 md:p-5 ">
             <form>
@@ -23,8 +24,8 @@ export default function PerosonalInformationForm(){
                     className="rounded-full w-25 h-25"
                 ></Image>   
                 <div className="grid content-center mx-5">
-                    <h1 className="text-xl font-semibold">Name</h1>
-                    <h1>email</h1>
+                    <h1 className="text-xl font-semibold">{user.firstName}</h1>
+                    <h1>{user.email}</h1>
                 </div>
             </div>
             <div className="flex justify-center w-full">
@@ -36,7 +37,9 @@ export default function PerosonalInformationForm(){
                         <div className="flex justify-between gap-8 ">
                             <div className="grid flex-1 gap-2">
                                 <label htmlFor="firstName" className="pl-0.5">first Name</label>
-                                <input type="text"  className="border-white border w-full h-8 rounded-md bg-white pl-3" />
+                                <input type="text"  className="border-white border w-full h-8 rounded-md bg-white pl-3"
+                                    
+                                />
                             </div>
                             <div className="grid flex-1 gap-2">
                                 <label htmlFor="lastName" className="pl-0.5">last Name</label>
