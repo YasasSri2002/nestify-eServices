@@ -25,6 +25,6 @@ export interface UserResponseDto{
 
      username:string;
 
-    createdAt: Date;
+    createdAt: string;
 
 }

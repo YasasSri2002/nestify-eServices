@@ -1,4 +1,6 @@
-export default function AccountInfo(){
+import { UserResponseDto } from "@/dto/UserDto";
+
+export default function AccountInfo({createdDate}:{createdDate:string}){
     return(
         <div>
             <div className="grid gap-5 bg-gray-200 p-5 rounded-2xl ">
@@ -9,12 +11,12 @@ export default function AccountInfo(){
                 <div className="grid sm:grid-cols-2">
                     <div className="sm:col-1 grid gap-5">
                         <div className="grid gap-1">
-                            <h1>member since</h1>
-                            <h1>number</h1>
+                            <h1>Member since</h1>
+                            <h1>{createdDate}</h1>
                         </div>
                         <div className="grid gap-1">
                             <h1>total bookings</h1>
-                            <h1>223</h1>
+                            <h1>0</h1>
                         </div>
                     </div>
                     <div className="sm:col-2 grid gap-5">
