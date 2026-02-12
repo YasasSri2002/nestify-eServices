@@ -23,14 +23,24 @@ export default function NavBar(){
   useEffect(() => {
     
   const getUserData =async ()=>{
+   
     const response =  await fetch('/api-calls/users/data');
+
+    if(!response.ok){
+      console.log("not log in")
+    }
+
     const data  =  await response.json()
+
     console.log("from nav bar the user data function---> " , data);
+
     setUserEmail(data.userEmail);
+
     if(data.roles){
       const rolesList = JSON.parse(data.roles)
       setRoles(rolesList);
     }
+
     setUserId(data.userId);
     console.log(Array.isArray(data.rolesList));
   }
