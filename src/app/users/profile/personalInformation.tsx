@@ -1,19 +1,54 @@
-import { UserResponseDto } from "@/dto/UserDto"
+'use client'
+
 import Image from "next/image"
+import { FormEvent, useState } from "react"
+
+import { UserResponseDto } from "@/dto/UserDto"
+
 export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
+
+    const[isEditing,setIsEditing] = useState(false);
+
+    function handleEditProfile(){
+        setIsEditing(!isEditing);
+    }
+
+    function handleSubmit(event: FormEvent<HTMLFormElement> ){
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        console.log(formData);
+        setIsEditing(!isEditing);
+    }
+
     return(
         <div className="bg-gray-300 rounded-2xl p-2 md:p-5 ">
-            <form>
+            <form onSubmit={handleSubmit}>
             <div className="flex justify-between">
                 <div className="text-wrap">
                     <h1 className="md:text-xl">Perosonal Information</h1>
                     <h3 className="text-sm sm:text-md md:text-lg">update your personal information  and profile picture</h3>
                 </div>
                 
-                <button className="border border-slate-950 bg-gray-950 text-white text-sm px-2 py-2 
-                    sm:px-8 sm:py-2 rounded-md">
-                        Edit profile
-                 </button>
+                {
+                    !isEditing ? 
+                    <button className="border border-slate-950 bg-gray-950 text-white text-sm px-2 py-2 
+                        sm:px-8 sm:py-2 rounded-md" type="button" onClick={handleEditProfile} >
+                            Edit profile
+                    </button> : 
+                    <div className="flex gap-5">
+                        <button type="submit" 
+                        className="border border-slate-950 bg-gray-950 text-white text-sm px-2 py-2 
+                        sm:px-8 sm:py-2 rounded-md"
+                        >
+                            save
+                        </button>
+                        <button 
+                        className="bg-white text-slate-950 text-sm px-2 py-2 
+                        sm:px-8 sm:py-2 rounded-md" onClick={handleEditProfile} type="button" >
+                            cancel
+                        </button>
+                    </div>
+                }
                 
             </div>
             <div className="m-3 flex">
@@ -37,28 +72,56 @@ export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
                         <div className="flex justify-between gap-8 ">
                             <div className="grid flex-1 gap-2">
                                 <label htmlFor="firstName" className="pl-0.5">first Name</label>
-                                <input type="text"  className="border-white border w-full h-8 rounded-md bg-white pl-3"
+                                <input type="text" 
+                                    defaultValue={user.firstName}
+                                    disabled={!isEditing} 
+                                    name="firstName"
+                                    className="border-white border w-full h-8 rounded-md bg-white pl-3"
                                     
                                 />
                             </div>
                             <div className="grid flex-1 gap-2">
                                 <label htmlFor="lastName" className="pl-0.5">last Name</label>
-                                <input type="text"  className="border-white border w-full h-8 rounded-md bg-white pl-3" />
+                                <input type="text" 
+                                    defaultValue={user.lastName}
+                                    disabled={!isEditing}  
+                                    name="lastName"
+                                    className="border-white border w-full h-8 rounded-md bg-white pl-3" />
                             </div>
                         </div>
                         <div className="flex justify-between gap-8 ">
                             <div className="grid flex-1 gap-2">
                                 <label htmlFor="email" className="pl-0.5">email</label>
-                                <input type="text" className="border-white border w-full h-8 rounded-md bg-white pl-3" />
+                                <input type="text" 
+                                    defaultValue={user.email} 
+                                    disabled={!isEditing} 
+                                    name="email"
+                                    className="border-white border w-full h-8 rounded-md bg-white pl-3" />
                             </div>
                             <div className="grid flex-1 gap-2">
-                                <label htmlFor="contact" className="pl-0.5">contact</label>
-                                <input type="text"  className="border-white border w-full h-8 rounded-md bg-white pl-3" />
+                                <label htmlFor="address" className="pl-0.5">Address</label>
+                                <input type="text" 
+                                    defaultValue={user.address} 
+                                    disabled={!isEditing} 
+                                    name="address"
+                                    className="border-white border w-full h-8 rounded-md bg-white pl-3" />
                             </div>
+                        </div>
+                        <div className="grid  gap-2">
+                            <label htmlFor="paymentMethod" className="pl-0.5">Payment method</label>
+                            <select name="paymentMethod" 
+                                className="w-fit bg-white px-5 py-1 rounded-sm" 
+                                value={user.paymentMethod}
+                                disabled={!isEditing} >
+                                <option value="cash">cash</option>
+                                <option value="online">online</option>
+                                
+                            </select>
                         </div>
                         <div className="grid gap-2">
                             <label htmlFor="bio"  className="pl-0.5">bio</label>
                             <textarea name="bio" 
+                            disabled={!isEditing} 
                             className="border-white border w-full rounded-md bg-white pl-3 resize-none"
                             cols={30} rows={5}
                             ></textarea>
