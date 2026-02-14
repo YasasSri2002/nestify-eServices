@@ -146,7 +146,7 @@ export default function NavBar(){
 
       if(roles.some(role => role === "user")){
         return(
-            <div className="space-x-4 grid  justify-items-center h-full
+            <div className=" grid  justify-items-center h-full
                      md:h-1/2  content-end text-black ">
                 <button
                   className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800 text-black/80  py-2 px-5 
@@ -168,7 +168,7 @@ export default function NavBar(){
 
       if(roles.some(role => role === "provider")){
         return(
-            <div className="space-x-4 grid  justify-items-center h-full
+            <div className=" grid  justify-items-center h-full
                      md:h-1/2  content-end text-black ">
                 <button
                   className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800 text-black/80  py-2 px-5 
@@ -190,7 +190,7 @@ export default function NavBar(){
 
       if(roles.some(role => role === "admin")){
         return(
-            <div className="space-x-4 grid  justify-items-center h-full
+            <div className="  justify-items-center h-full
                      md:h-1/2  content-end text-black ">
                 <button
                   className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800 text-black/80  py-2 px-5 
@@ -212,7 +212,7 @@ export default function NavBar(){
 
       if(roles.some(role => role == 'notLogin')){
         return(
-          <div className="space-x-4 grid  justify-items-center h-full
+          <div className="grid  justify-items-center h-full
                      md:h-1/2  content-end text-black">
               <button
                 className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800  py-2 px-5 
