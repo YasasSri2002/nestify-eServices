@@ -57,7 +57,7 @@ export default function AccountInfo({createdDate, userId}:{createdDate:string, u
                         <div className="grid gap-1">
                             <h1>account status</h1>
                             <label htmlFor="status" className="border w-fit px-3 text-sm  text-green-900 bg-green-300 
-                            rounded-md">active</label>
+                            rounded-md">Active</label>
                         </div>
                         <div className="grid gap-1">
                             <h1>account type</h1>
