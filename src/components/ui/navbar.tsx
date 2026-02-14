@@ -73,7 +73,7 @@ export default function NavBar(){
                     hover:bg-[hsla(0,0%,71%,1)] active:scale-75 text-black/80"
                     onClick={handleLogOut}
                 >
-                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  <DynamicIcon name='CiLogout'></DynamicIcon>
                   Log out
                 </button>
           </div>
@@ -115,7 +115,7 @@ export default function NavBar(){
                     hover:bg-[hsla(0,0%,71%,1)] active:scale-75 text-black/80"
                     onClick={handleLogOut}
                 >
-                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  <DynamicIcon name='CiLogout'></DynamicIcon>
                   Log out
                 </button>
           </div>
