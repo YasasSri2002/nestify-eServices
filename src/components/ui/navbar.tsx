@@ -70,7 +70,7 @@ export default function NavBar(){
                 </button>
                 <button
                   className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] w-30 py-2 px-5
-                    hover:bg-[hsla(0,0%,71%,1)] active:scale-75 text-black/80"
+                    hover:bg-[hsla(0,0%,71%,1)] active:scale-75 text-black/80 flex justify-center items-center gap-2 "
                     onClick={handleLogOut}
                 >
                   <DynamicIcon name='CiLogout'></DynamicIcon>
@@ -85,7 +85,7 @@ export default function NavBar(){
             <div className="hidden xl:flex">
                 <button
                   className="mb-2 md:m-2 lg:m-2 rounded-lg border border-gray-800 w-30 py-2 px-5 
-                    hover:bg-[hsla(0,0%,67%,1)]  active:scale-75 text-black/80"
+                    hover:bg-[hsla(0,0%,67%,1)]  active:scale-75 text-black/80 flex justify-center items-center gap-2"
                 >
                   <Link href={`/providers/profile/${userId}`}>Dashboard</Link>
                 </button>
@@ -94,7 +94,7 @@ export default function NavBar(){
                     hover:bg-[hsla(0,0%,71%,1)] active:scale-75 text-black/80"
                     onClick={handleLogOut}
                 >
-                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  <DynamicIcon name='CiLogout'></DynamicIcon>
                   Log out
                 </button>
           </div>
@@ -112,7 +112,7 @@ export default function NavBar(){
                 </button>
                 <button
                   className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] w-30 py-2 px-5
-                    hover:bg-[hsla(0,0%,71%,1)] active:scale-75 text-black/80"
+                    hover:bg-[hsla(0,0%,71%,1)] active:scale-75 text-black/80 flex justify-center items-center gap-2"
                     onClick={handleLogOut}
                 >
                   <DynamicIcon name='CiLogout'></DynamicIcon>
@@ -156,10 +156,10 @@ export default function NavBar(){
                 </button>
                 <button
                   className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] py-2 px-5
-                    hover:bg-[hsla(0,0%,71%,1)] w-30"
+                    hover:bg-[hsla(0,0%,71%,1)] w-30 flex justify-center items-center gap-2"
                     onClick={handleLogOut}
                 >
-                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  <DynamicIcon name='CiLogout'></DynamicIcon>
                   Log out
                 </button>
           </div>
@@ -178,10 +178,10 @@ export default function NavBar(){
                 </button>
                 <button
                   className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] py-2 px-5
-                    hover:bg-[hsla(0,0%,71%,1)] w-30"
+                    hover:bg-[hsla(0,0%,71%,1)] w-30 flex justify-center items-center gap-2"
                     onClick={handleLogOut}
                 >
-                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  <DynamicIcon name='CiLogout'></DynamicIcon>
                   Log out
                 </button>
           </div>
@@ -200,10 +200,10 @@ export default function NavBar(){
                 </button>
                 <button
                   className="lg:m-2 md:m-2 rounded-lg bg-[hsla(0,0%,81%,1)] py-2 px-5
-                    hover:bg-[hsla(0,0%,71%,1)] w-30"
+                    hover:bg-[hsla(0,0%,71%,1)] w-30 flex justify-center items-center gap-2"
                     onClick={handleLogOut}
                 >
-                  <DynamicIcon name='FaLogout'></DynamicIcon>
+                  <DynamicIcon name='CiLogout'></DynamicIcon>
                   Log out
                 </button>
           </div>
