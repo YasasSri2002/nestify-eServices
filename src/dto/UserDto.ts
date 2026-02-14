@@ -15,6 +15,8 @@ export interface UserResponseDto{
 
      address:string;
 
+     contact: string;
+
      email:string;
 
     paymentMethod: string;

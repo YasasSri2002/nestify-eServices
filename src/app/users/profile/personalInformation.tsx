@@ -59,7 +59,7 @@ export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
                     className="rounded-full w-25 h-25"
                 ></Image>   
                 <div className="grid content-center mx-5">
-                    <h1 className="text-xl font-semibold">{user.firstName}</h1>
+                    <h1 className="text-xl font-semibold capitalize">{user.firstName} {user.lastName}</h1>
                     <h1>{user.email}</h1>
                 </div>
             </div>
@@ -71,7 +71,7 @@ export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
                     <div className="grid gap-3">
                         <div className="flex justify-between gap-8 ">
                             <div className="grid flex-1 gap-2">
-                                <label htmlFor="firstName" className="pl-0.5">first Name</label>
+                                <label htmlFor="firstName" className="pl-0.5">First Name</label>
                                 <input type="text" 
                                     defaultValue={user.firstName}
                                     disabled={!isEditing} 
@@ -81,7 +81,7 @@ export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
                                 />
                             </div>
                             <div className="grid flex-1 gap-2">
-                                <label htmlFor="lastName" className="pl-0.5">last Name</label>
+                                <label htmlFor="lastName" className="pl-0.5">Last Name</label>
                                 <input type="text" 
                                     defaultValue={user.lastName}
                                     disabled={!isEditing}  
@@ -91,7 +91,7 @@ export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
                         </div>
                         <div className="flex justify-between gap-8 ">
                             <div className="grid flex-1 gap-2">
-                                <label htmlFor="email" className="pl-0.5">email</label>
+                                <label htmlFor="email" className="pl-0.5">Email Address</label>
                                 <input type="text" 
                                     defaultValue={user.email} 
                                     disabled={!isEditing} 
@@ -99,33 +99,36 @@ export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
                                     className="border-white border w-full h-8 rounded-md bg-white pl-3" />
                             </div>
                             <div className="grid flex-1 gap-2">
-                                <label htmlFor="address" className="pl-0.5">Address</label>
-                                <input type="text" 
-                                    defaultValue={user.address} 
-                                    disabled={!isEditing} 
-                                    name="address"
-                                    className="border-white border w-full h-8 rounded-md bg-white pl-3" />
+                                    <label htmlFor="contact" className="pl-0.5">Contact No</label>
+                                    <input type="text" 
+                                        defaultValue={user.contact} 
+                                        disabled={!isEditing} 
+                                        name="contact"
+                                        className="border-white border w-full h-8 rounded-md bg-white pl-3" />
                             </div>
+                            
                         </div>
-                        <div className="grid  gap-2">
-                            <label htmlFor="paymentMethod" className="pl-0.5">Payment method</label>
-                            <select name="paymentMethod" 
-                                className="w-fit bg-white px-5 py-1 rounded-sm" 
-                                value={user.paymentMethod}
-                                disabled={!isEditing} >
-                                <option value="cash">cash</option>
-                                <option value="online">online</option>
-                                
-                            </select>
-                        </div>
-                        <div className="grid gap-2">
-                            <label htmlFor="bio"  className="pl-0.5">bio</label>
-                            <textarea name="bio" 
-                            disabled={!isEditing} 
-                            className="border-white border w-full rounded-md bg-white pl-3 resize-none"
-                            cols={30} rows={5}
-                            ></textarea>
-                        </div>
+                       <div className="flex justify-between gap-8">
+                            <div className="grid flex-1 gap-2">
+                                <label htmlFor="paymentMethod" className="pl-0.5">Payment method</label>
+                                <select name="paymentMethod" 
+                                    className="w-full bg-white px-5 py-1 rounded-sm" 
+                                    value={user.paymentMethod}
+                                    disabled={!isEditing} >
+                                    <option value="cash">cash</option>
+                                    <option value="online">online</option>
+                                    
+                                </select>
+                            </div>
+                            <div className="grid flex-1 gap-2">
+                                    <label htmlFor="address" className="pl-0.5">Address</label>
+                                    <input type="text" 
+                                        defaultValue={user.address} 
+                                        disabled={!isEditing} 
+                                        name="address"
+                                        className="border-white border w-full h-8 rounded-md bg-white pl-3" />
+                            </div>
+                       </div>
                         
                     </div> 
                 </div>
