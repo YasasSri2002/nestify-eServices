@@ -62,16 +62,28 @@ export default function UserProfile(){
 
                 <ul className="hidden md:flex gap-5">
                     <li>
-                        <Link href="">dashboard</Link>
+                        <button onClick={()=>setActivePage("dashboard")} 
+                        className="cursor-pointer">
+                            dashboard
+                        </button >
                     </li>
                     <li>
-                        <Link href="">security</Link>
+                        <button onClick={()=>setActivePage("security")} 
+                        className="cursor-pointer">
+                            security
+                        </button >
                     </li>
                     <li>
-                        <Link href="">bookings</Link>
+                        <button onClick={()=>setActivePage("dashboard")} 
+                        className="cursor-pointer">
+                            bookings
+                        </button >
                     </li>
                     <li>
-                        <Link href="">perferences</Link>
+                        <button  onClick={()=>setActivePage("dashboard")} 
+                        className="cursor-pointer">
+                            perferences
+                        </button >
                     </li>
                 </ul>
 
@@ -94,16 +106,28 @@ export default function UserProfile(){
                         </div>
                         <ul className="grid gap-8 justify-items-center py-5">
                             <li>
-                                <Link href="" className="cursor-pointer">dashboard</Link>
+                                <button onClick={()=>setActivePage("dashboard")}
+                                 className="cursor-pointer">
+                                    dashboard
+                                </button>
                             </li>
                             <li>
-                                <Link href="" className="cursor-pointer">security</Link>
+                                <button onClick={()=>setActivePage("dashboard")}
+                                 className="cursor-pointer">
+                                    security
+                                </button>
                             </li>
                             <li>
-                                <Link href="" className="cursor-pointer">bookings</Link>
+                                <button onClick={()=>setActivePage("dashboard")}
+                                 className="cursor-pointer">
+                                    bookings
+                                </button>
                             </li>
                             <li>
-                                <Link href="" className="cursor-pointer">preferences</Link>
+                                <button onClick={()=>setActivePage("dashboard")}
+                                 className="cursor-pointer">
+                                    preferences
+                                </button>
                             </li>
                         </ul>
                     </div>
