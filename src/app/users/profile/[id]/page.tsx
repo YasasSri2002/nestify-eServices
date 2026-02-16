@@ -9,6 +9,7 @@ import { useParams } from "next/navigation";
 import { getUserById } from "@/app/api-calls/users/by-id/route";
 import { UserResponseDto } from "@/dto/UserDto";
 import DynamicIcon from "@/components/utill/DynamicIcons";
+import UserSecurityPage from "../securityPage";
 
 
 
@@ -41,6 +42,8 @@ export default function UserProfile(){
         switch(actvePage){
             case("dashboard"):
                 return <ProfileDashboard user={user} />
+            case("security"):
+                return <UserSecurityPage/>
             
         }
     }
@@ -112,7 +115,7 @@ export default function UserProfile(){
                                 </button>
                             </li>
                             <li>
-                                <button onClick={()=>setActivePage("dashboard")}
+                                <button onClick={()=>setActivePage("security")}
                                  className="cursor-pointer">
                                     security
                                 </button>
