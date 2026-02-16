@@ -2,7 +2,7 @@ import DynamicIcon from "@/components/utill/DynamicIcons"
 
 export default function PasswordUpdateFrom(){
     return(
-         <div className="m-5  p-4 bg-white rounded-2xl shadow-2xl">
+         <div className="p-4 bg-white rounded-2xl shadow-2xl">
                 <h1 className="xl:text-2xl text-gray-900">Change your password</h1>
                 <h3 className="xl:text-xl text-gray-600">Update your password to keep your account secure</h3>
                 <div className="xl:w-6xl py-4">
