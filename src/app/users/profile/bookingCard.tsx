@@ -9,17 +9,17 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
     function renderStatusTag(){
         switch(bookingData.status){
             case("pending"):
-                return <label className="border border-amber-500 rounded-md px-4 h-8 text-amber-500 flex items-center gap-2">
-                    Pending
+                return <label className="border border-blue-700 bg-blue-200 rounded-md px-4 h-8 text-blue-800 flex items-center gap-2">
+                    Upcoming
                     <DynamicIcon name="FaRegClock"/>
                     </label>
             case("compeleted"):
-                return <label className="border border-green-500 rounded-md px-4 h-8 text-green-500 flex items-center gap-2">
+                return <label className="border border-green-700 bg-green-200 rounded-md px-4 h-8 text-green-700 flex items-center gap-2">
                     Completed
                     <DynamicIcon name="IoCheckmarkDoneOutline"/>
                     </label>
             case("cancelled"):
-                return <label className="border border-red-500 rounded-md px-4 h-8 text-red-500 flex items-center">
+                return <label className="border border-red-700 bg-red-200 rounded-md px-4 h-8 text-red-700 flex items-center">
                     Cancelled
                     </label>
         }
@@ -33,9 +33,9 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
                     <h1 className="text-lg xl:text-2xl capitalize">{bookingData.serviceGigResponseDto.title}</h1>
                     <h2 className="text-gray-600 text-md xl:text-xl">with {bookingData.providerDto.firstName}</h2>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-5">
                     <h1 className="flex gap-2 items-center"><DynamicIcon name="CiCalendar"/> {bookingData.startingDate}</h1>
-                    <h1 className="flex gap-2 items-center"><DynamicIcon name="FaClock"/> {bookingData.startingTime}</h1>
+                    <h1 className="flex gap-2 items-center"><DynamicIcon name="FaRegClock"/> {bookingData.startingTime}</h1>
                 </div>
             </div>
             {/* righside */}
@@ -49,9 +49,13 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
                         active:scale-75 active:bg-green-500 active:text-white ">
                         Mark as Completed <DynamicIcon name="IoCheckmarkDoneOutline"/>
                     </button>
+                    <button className="px-4 py-1  text-blue-500 border border-blue-500 rounded-md flex items-center gap-2 
+                        active:scale-75 active:bg-blue-500 active:text-white ">
+                        Reschedule<DynamicIcon name="FaRegClock"/>
+                    </button>
                      <button className="px-4 py-1 border   text-red-500 rounded-md flex items-center gap-2 active:scale-75
                      active:bg-red-500 active:text-white">
-                        Cancel the Booking <DynamicIcon name="MdClose"/>
+                        Cancel <DynamicIcon name="MdClose"/>
                     </button>
                 </div>
                 <div className="flex items-start justify-end">
