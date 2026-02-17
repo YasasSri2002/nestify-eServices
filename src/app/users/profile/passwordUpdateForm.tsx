@@ -12,21 +12,21 @@ export default function PasswordUpdateFrom(){
                                 <DynamicIcon name="FaLock"></DynamicIcon>
                                 <label htmlFor="currentPassword">Current password</label>
                             </div>
-                            <input type="text"  className="border border-black bg-white/50 p-1 rounded-sm"/>
+                            <input type="text"  className="border border-black bg-white/50 p-1 rounded-sm lg:outline-none"/>
                         </div>
                         <div className="grid gap-2">
                             <div className="flex gap-1 items-center">
                                 <DynamicIcon name="FaLock"></DynamicIcon>
                                 <label htmlFor="newPassword">New password</label>
                             </div>
-                            <input type="text"  className="border border-black bg-white/50 p-1 rounded-sm"/>
+                            <input type="text"  className="border border-black bg-white/50 p-1 rounded-sm lg:outline-none"/>
                         </div>
                         <div className="grid gap-2">
                             <div className="flex gap-1 items-center">
                                 <DynamicIcon name="FaLock"></DynamicIcon>
                                 <label htmlFor="repeatNewPassword">Confirm new password</label>
                             </div>
-                            <input type="text"  className="border border-black bg-white/50 p-1 rounded-sm"/>
+                            <input type="text"  className="border border-black bg-white/50 p-1 rounded-sm lg:outline-none"/>
                         </div>
                         <div>
                             <button type="submit" 

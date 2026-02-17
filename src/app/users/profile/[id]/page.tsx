@@ -10,6 +10,7 @@ import { getUserById } from "@/app/api-calls/users/by-id/route";
 import { UserResponseDto } from "@/dto/UserDto";
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import UserSecurityPage from "../securityPage";
+import BookingList from "../bookingList";
 
 
 
@@ -44,6 +45,8 @@ export default function UserProfile(){
                 return <ProfileDashboard user={user} />
             case("security"):
                 return <UserSecurityPage/>
+            case("bookings"):
+                return <BookingList id={userId}/>
             
         }
     }
@@ -77,7 +80,7 @@ export default function UserProfile(){
                         </button >
                     </li>
                     <li>
-                        <button onClick={()=>setActivePage("dashboard")} 
+                        <button onClick={()=>setActivePage("bookings")} 
                         className="cursor-pointer">
                             bookings
                         </button >
@@ -121,7 +124,7 @@ export default function UserProfile(){
                                 </button>
                             </li>
                             <li>
-                                <button onClick={()=>setActivePage("dashboard")}
+                                <button onClick={()=>setActivePage("bookings")}
                                  className="cursor-pointer">
                                     bookings
                                 </button>
@@ -137,7 +140,7 @@ export default function UserProfile(){
                 </div>
 
             </nav>
-            <div className="my-5 lg:my-10">
+            <div className="my-5 lg:my-10 ">
                 {
                     renderPage()
                 }

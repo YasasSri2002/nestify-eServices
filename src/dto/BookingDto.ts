@@ -1,3 +1,6 @@
+import { ProviderDto } from "./ProviderDto";
+import { ServiceGigResponseDto } from "./response/ServiceGigResponseDto";
+
 export interface BookingDto{
     id: string;
 
@@ -31,4 +34,9 @@ export interface BookingResponseDto{
     startingTime: string;
 
     startingDate: string;
+
+    providerDto: ProviderDto;
+
+    serviceGigResponseDto: ServiceGigResponseDto;
+
 }
