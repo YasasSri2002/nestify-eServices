@@ -33,7 +33,6 @@ export default function NavBar(){
 
     const data  =  await response.json()
 
-    console.log("from nav bar the user data function---> " , data);
 
     setUserEmail(data.userEmail);
 

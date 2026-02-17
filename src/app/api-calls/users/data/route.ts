@@ -6,6 +6,5 @@ export async function GET(request:NextRequest) {
   const roles = request.cookies.get('x-user-roles')?.value;
  
 
-  console.log("form -api ->"+userId)
     return NextResponse.json( {userId,userName , userEmail , roles})
 }
