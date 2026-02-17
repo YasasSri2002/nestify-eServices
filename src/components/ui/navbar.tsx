@@ -28,6 +28,7 @@ export default function NavBar(){
 
     if(!response.ok){
       console.log("not log in")
+      return null
     }
 
     const data  =  await response.json()
@@ -42,7 +43,6 @@ export default function NavBar(){
     }
 
     setUserId(data.userId);
-    console.log(Array.isArray(data.rolesList));
   }
     getUserData() 
   }, []);
