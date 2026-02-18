@@ -47,6 +47,11 @@ export default function UserProfile(){
 
     }
 
+    function handleMobileNavbtn(value:string){
+        setActivePage(value);
+        setShowMobileMenue(!showMobileMenue);
+    }
+
     function renderPage(){
         switch(actvePage){
             case("dashboard"):
@@ -120,25 +125,25 @@ export default function UserProfile(){
                         </div>
                         <ul className="grid gap-8 justify-items-center py-5">
                             <li>
-                                <button onClick={()=>setActivePage("dashboard")}
+                                <button onClick={()=>handleMobileNavbtn("dashboard")}
                                  className="cursor-pointer">
                                     dashboard
                                 </button>
                             </li>
                             <li>
-                                <button onClick={()=>setActivePage("security")}
+                                <button onClick={()=>handleMobileNavbtn("security")}
                                  className="cursor-pointer">
                                     security
                                 </button>
                             </li>
                             <li>
-                                <button onClick={()=>setActivePage("bookings")}
+                                <button onClick={()=>handleMobileNavbtn("bookings")}
                                  className="cursor-pointer">
                                     bookings
                                 </button>
                             </li>
                             <li>
-                                <button onClick={()=>setActivePage("dashboard")}
+                                <button onClick={()=>handleMobileNavbtn("dashboard")}
                                  className="cursor-pointer">
                                     preferences
                                 </button>
