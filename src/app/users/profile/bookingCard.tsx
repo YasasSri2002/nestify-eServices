@@ -26,9 +26,9 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
     }
 
     return(
-        <div className="grid rounded-lg w-full bg-gray-50 shadow-lg p-5 xl:p-8 grid-cols-9 xl:w-6xl">
+        <div className="grid rounded-lg w-full bg-gray-50 shadow-lg p-5 xl:p-8 sm:grid-cols-9 xl:w-6xl gap-4 md:gap-0">
             {/* leftside */}
-            <div className="col-span-5 grid gap-3">
+            <div className="sm:col-span-5 grid gap-3">
                 <div className="grid gap-2">
                     <h1 className="text-lg xl:text-2xl capitalize">{bookingData.serviceGigResponseDto.title}</h1>
                     <h2 className="text-gray-600 text-md xl:text-xl">with {bookingData.providerDto.firstName}</h2>
@@ -39,21 +39,21 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
                 </div>
             </div>
             {/* righside */}
-            <div className="grid col-span-4 gap-3  ">
+            <div className="grid sm:col-span-4 gap-3  ">
                 <div className="flex justify-center gap-3 items-center">
                         <h1>Status:</h1>
                         {renderStatusTag()}
                 </div>
-                <div className="flex justify-center gap-3">
-                    <button className="px-4 py-1  text-green-500 border border-green-500 rounded-md flex items-center gap-2 
+                <div className="flex justify-center gap-3 flex-wrap">
+                    <button className="px-2 md:px-4 md:py-1  text-green-500 border border-green-500 rounded-md flex items-center gap-2 
                         active:scale-75 active:bg-green-500 active:text-white ">
                         Mark as Completed <DynamicIcon name="IoCheckmarkDoneOutline"/>
                     </button>
-                    <button className="px-4 py-1  text-blue-500 border border-blue-500 rounded-md flex items-center gap-2 
+                    <button className="px-2 md:px-4 md:py-1  text-blue-500 border border-blue-500 rounded-md flex items-center gap-2 
                         active:scale-75 active:bg-blue-500 active:text-white ">
                         Reschedule<DynamicIcon name="FaRegClock"/>
                     </button>
-                     <button className="px-4 py-1 border   text-red-500 rounded-md flex items-center gap-2 active:scale-75
+                     <button className="px-2 md:px-4 md:py-1 border   text-red-500 rounded-md flex items-center gap-2 active:scale-75
                      active:bg-red-500 active:text-white">
                         Cancel <DynamicIcon name="MdClose"/>
                     </button>
