@@ -11,6 +11,7 @@ import { UserResponseDto } from "@/dto/UserDto";
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import UserSecurityPage from "../securityPage";
 import BookingList from "../bookingList";
+import { LogoutUser } from "@/app/api-calls/auth/logout/route";
 
 
 
@@ -38,6 +39,13 @@ export default function UserProfile(){
     },[])
 
     console.log(userId)
+
+    async function handleLogOut(){
+        const response = await LogoutUser(userId);
+        window.location.replace("/")
+        console.log("logout user" + response);
+
+    }
 
     function renderPage(){
         switch(actvePage){
@@ -94,7 +102,7 @@ export default function UserProfile(){
                 </ul>
 
                 <div className="flex gap-5">
-                        <button className="flex items-center px-3 py-1 gap-2 lg:text-xl">
+                        <button className="flex items-center px-3 py-1 gap-2 lg:text-xl active:scale-95" onClick={handleLogOut}>
                             <DynamicIcon name="CiLogout" className="lg:text-2xl"></DynamicIcon>
                                 Logout
                         </button>
