@@ -13,11 +13,13 @@ interface DecodedToken {
 }
 
 export async function POST(request: NextRequest) {
+
+  
   try {
     const { code } = await request.json();
     const keycloakUrl = process.env.NEXT_PUBLIC_KEYCLOAK_URL;
-    const realm = process.env.NEXT_PUBLIC_KEYCLOAK_REALM;
-    const clientId = process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID;
+    const realm = process.env.KEYCLOAK_REALM;
+    const clientId = process.env.KEYCLOAK_CLIENT_ID;
     const clientSecret = process.env.KEYCLOAK_CLIENT_SECRET;
     const redirectUri = `${process.env.NEXT_PUBLIC_APP_URL}/login-callback`;
 
@@ -52,9 +54,19 @@ export async function POST(request: NextRequest) {
 
     // Decode the access token to get user information
     const decodedToken = jwtDecode<DecodedToken>(tokens.access_token);
+
+      const now = Math.floor(Date.now() / 1000);
+
+    const accessMaxAge =
+      decodedToken.exp ? decodedToken.exp - now : tokens.expires_in;
+
+    const refreshMaxAge =
+      tokens.refresh_expires_in ?? 60 * 60 * 24; 
     
     // Create response
     const response = NextResponse.json({ success: true });
+
+    console.log("expire time", decodedToken.exp)
     
     // Set auth token as httpOnly cookie (secure)
     response.cookies.set('auth-token', tokens.access_token, {
@@ -62,8 +74,19 @@ export async function POST(request: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: tokens.expires_in,
+      maxAge: accessMaxAge,
     });
+
+    if (tokens.refresh_token) {
+      response.cookies.set('refresh-token', tokens.refresh_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+        maxAge: refreshMaxAge,
+        priority: 'high',
+      });
+    }
 
     // Set user info cookies (non-httpOnly so client can access)
     response.cookies.set('x-user-id', decodedToken.sub || '', {
@@ -71,7 +94,7 @@ export async function POST(request: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: tokens.expires_in,
+      maxAge: accessMaxAge,
     });
 
     response.cookies.set('x-user-name', decodedToken.name || '', {
@@ -79,7 +102,7 @@ export async function POST(request: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: tokens.expires_in,
+      maxAge: accessMaxAge,
     });
 
     response.cookies.set('x-user-email', decodedToken.email || '', {
@@ -87,7 +110,7 @@ export async function POST(request: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: tokens.expires_in,
+      maxAge: accessMaxAge,
     });
 
     response.cookies.set('x-user-roles', JSON.stringify(decodedToken.realm_access?.roles ?? [ ]),{
@@ -95,19 +118,10 @@ export async function POST(request: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: tokens.expires_in,
+      maxAge: accessMaxAge,
     });
 
-    // Optional: Store refresh token if needed
-    if (tokens.refresh_token) {
-      response.cookies.set('refresh-token', tokens.refresh_token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: '/',
-        maxAge: tokens.refresh_expires_in || 1800, // Usually 30 mins
-      });
-    }
+    
 
     console.log('✅ Cookies set successfully for user:', decodedToken.email);
     

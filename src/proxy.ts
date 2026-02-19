@@ -38,7 +38,7 @@ function validateToken(token: string){
     if(decoded.exp && decoded.exp *1000 < Date.now()){
     
       console.log("Token Expire");
-     
+      
       return null
     }
 
