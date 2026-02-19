@@ -12,6 +12,8 @@ import DynamicIcon from "@/components/utill/DynamicIcons";
 import UserSecurityPage from "../securityPage";
 import BookingList from "../bookingList";
 import { LogoutUser } from "@/app/api-calls/auth/logout/route";
+import { NotificationPerferences } from "../notificationPerferences";
+import PerferencesPage from "../perferencesPage";
 
 
 
@@ -60,6 +62,8 @@ export default function UserProfile(){
                 return <UserSecurityPage/>
             case("bookings"):
                 return <BookingList id={userId}/>
+            case("perferences"):
+                return <PerferencesPage/>
             
         }
     }
@@ -99,7 +103,7 @@ export default function UserProfile(){
                         </button >
                     </li>
                     <li>
-                        <button  onClick={()=>setActivePage("dashboard")} 
+                        <button  onClick={()=>setActivePage("perferences")} 
                         className="cursor-pointer">
                             perferences
                         </button >
@@ -143,7 +147,7 @@ export default function UserProfile(){
                                 </button>
                             </li>
                             <li>
-                                <button onClick={()=>handleMobileNavbtn("dashboard")}
+                                <button onClick={()=>handleMobileNavbtn("perferences")}
                                  className="cursor-pointer">
                                     preferences
                                 </button>
