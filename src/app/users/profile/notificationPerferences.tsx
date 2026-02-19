@@ -37,7 +37,7 @@ export function NotificationPerferences(){
                             <DynamicIcon name="CiBellOn"></DynamicIcon>
                             <h1>Booking Reminders</h1>
                         </div>
-                        <h1 className="lg:text-md text-gray-600">Get reminded before your scheduled booking </h1>
+                        <h1 className="text-sm lg:text-md text-gray-600">Get reminded before your scheduled booking </h1>
                     </div>
                     <div>
                         <ToggleButton checked={bookingConfirmationTogglebBtn} onChange={setBookingConfirmationTogglebBtn} 
@@ -50,7 +50,7 @@ export function NotificationPerferences(){
                             <DynamicIcon name="CiBellOn"></DynamicIcon>
                             <h1>Provider Updates</h1>
                         </div>
-                        <h1 className="lg:text-md text-gray-600">Recive updates from your service provider </h1>
+                        <h1 className=" text-sm lg:text-md text-gray-600">Recive updates from your service provider </h1>
                     </div>
                     <div>
                         <ToggleButton checked={providerUpdatesTogglebBtn} onChange={setProviderUpdatesTogglebBtn} size="sm"/>
@@ -63,7 +63,7 @@ export function NotificationPerferences(){
                             <DynamicIcon name="MdOutlineEmail"></DynamicIcon>
                             <h1>Marketing Emails</h1>
                         </div>
-                        <h1 className="lg:text-md text-gray-600">Recieve Promotional offers and service recommendations </h1>
+                        <h1 className=" text-sm lg:text-md text-gray-600">Recieve Promotional offers and service recommendations </h1>
                     </div>
                     <div>
                         <ToggleButton checked={marketingEmailTogglebBtn} onChange={setMarketingEmailTogglebBtn} size="sm"/>

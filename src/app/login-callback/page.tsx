@@ -2,26 +2,42 @@
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
+function decodeState(state: string | null) {
+  if (!state) return '/';
+
+  try {
+    const parsed = JSON.parse(atob(state));
+    return parsed.redirect || '/';
+  } catch {
+    return '/';
+  }
+}
+
 export default function LoginCallback() {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const params = useSearchParams();
+
+
 
   useEffect(() => {
     const handleCallback = async () => {
-      const code = searchParams.get('code');
-      const error = searchParams.get('error');
-      const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
 
-      // Handle login error from OAuth provider
+      const code = params.get('code');
+      const error = params.get('error');
+      const state = params.get('state');
+
+      const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL!;
+      const redirect = decodeState(state);
+
       if (error) {
         console.error('Login error:', error);
         router.push(`${loginUrl!}?error=` + encodeURIComponent(error));
         return;
+        
       }
 
-      // No code provided, redirect to login
       if (!code) {
-        router.replace(loginUrl!);
+        router.replace(loginUrl);
         return;
       }
 
@@ -35,7 +51,7 @@ export default function LoginCallback() {
 
         if (response.ok) {
           // Successful authentication, redirect to home page
-          router.push('/');
+          router.replace(redirect);
         } else {
           // Safely handle non-JSON responses
           let errorData: any = {};
@@ -57,7 +73,7 @@ export default function LoginCallback() {
     };
 
     handleCallback();
-  }, [searchParams, router]);
+  }, [params, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

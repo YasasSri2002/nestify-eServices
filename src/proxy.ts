@@ -20,6 +20,10 @@ interface DecodedToken {
     '/provider/profile',
   ]
 
+function encodeState(obj: any) {
+  return btoa(JSON.stringify(obj));
+}
+
 function hasRole(jwtDecoded: DecodedToken | null , roles: string[]){
     const accessRoles = jwtDecoded?.realm_access?.roles || [];
     return roles.some(role => accessRoles?.includes(role));
@@ -54,15 +58,10 @@ function checkifProtectedUrl(request: NextRequest, protectedRoutes: string[]){
 
 }
 
-function handleUnauthorizationEntries(pathname: string){
-      const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
-      const redirectUrl = new URL(loginUrl!);
-      redirectUrl.searchParams.set('redirect', pathname);
-      return NextResponse.redirect(redirectUrl);
-}
+
 
 function authorizationForRoutes(pathname: string , decodedToken:DecodedToken | null){
-   if(pathname.startsWith('/user/profile')){
+   if(pathname.startsWith('/users/profile')){
           return  hasRole(decodedToken,['user','admin']);
     }
     if(pathname.startsWith('/site-admin')){
@@ -82,7 +81,7 @@ export function proxy(request: NextRequest) {
 
   const token = request.cookies.get('auth-token')?.value;
 
-  const {pathname} = request.nextUrl;
+  const {pathname,search} = request.nextUrl;
 
   const decodedToken: DecodedToken | null = validateToken(token!);
 
@@ -90,10 +89,22 @@ export function proxy(request: NextRequest) {
   if(!checkifProtectedUrl(request,protectedRoutes)){
     return NextResponse.next();
   }
+
+  if (!decodedToken) {
+    const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL!;
+    const redirectTarget = pathname + search;
+
+    const state = encodeState({
+      redirect: redirectTarget,
+    });
+
+    const url = new URL(loginUrl);
+    url.searchParams.set('state', state);
+
+    return NextResponse.redirect(url);
+  }
+
   
-  if(!token){
-      return handleUnauthorizationEntries(pathname);      
-    }
 
     if(!authorizationForRoutes(pathname,decodedToken)){
       return NextResponse.redirect(new URL('/forbidden',request.url));
