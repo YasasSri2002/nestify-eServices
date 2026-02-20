@@ -1,37 +1,49 @@
 'use server'
-import { BookingDto, BookingResponseDto } from "@/dto/BookingDto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { NextResponse } from "next/server";
-const BACKEND_URL = process.env.SPRING_BOOT_API_URL;
 
-export async function getBookingDataByClientId(id:String): Promise<BookingResponseDto[]>{
+import { BookingResponseDto } from "@/dto/BookingDto";
+import { refreshKeycloakToken } from "../../auth/token-functions/refresh-token/route";
+import { IsExpired } from "../../auth/token-functions/is-expired/route";
 
-    const cookieStore = await cookies();
-    const token = cookieStore.get('auth-token')?.value;
+const BACKEND_URL = process.env.SPRING_BOOT_API_URL || 'http://localhost:8080';
 
-    
 
-    const response =  await fetch(`${BACKEND_URL}/api/v1/booking/by-client-id?id=${id}`,{
-        method: "GET",
-        headers:{
-            'Content-Type': 'application/json',
-            "Authorization": `Bearer ${token}`
-        }
-    })
+export async function getBookingDataByClientId(id: string): Promise<BookingResponseDto[]> {
+  const cookieStore = await cookies();
+  let token = cookieStore.get('auth-token')?.value;
 
-    if(!response.ok){
-        const errStatus = response.statusText;
-        const err = response.body
-        console.log(NextResponse.json({'errStatus':errStatus, "err body": err}))
+  if (!token) {
+    redirect(`/`);
+  }
+
+  if (await IsExpired(token)) {
+    const newToken = await refreshKeycloakToken();
+    if (!newToken) {
+      redirect(`/`);
     }
+    token = newToken!;
+  }
 
-    if(!token){
-        console.log('please log in first')
-        redirect(`/users/profile/${id}`)
-        
-    }
+  // Keep the fetch in its own try/catch, separate from redirect logic
+  let response: Response;
 
-    return response.json();
+  try {
+    response = await fetch(`${BACKEND_URL}/api/v1/booking/by-client-id?id=${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+  } catch (err) {
+    throw new Error(`Network error calling Booking API: ${err}`);
+  }
 
+  if (!response.ok) {
+    const errBody = await response.text();
+    throw new Error(`Booking API failed: ${response.status} - ${errBody}`);
+  }
+
+  return response.json();
 }

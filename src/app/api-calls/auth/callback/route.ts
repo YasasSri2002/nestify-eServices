@@ -66,6 +66,12 @@ export async function POST(request: NextRequest) {
     // Create response
     const response = NextResponse.json({ success: true });
 
+    const secondsLeft = decodedToken.exp! - now;
+    const expireDate = new Date(decodedToken.exp! * 1000);
+
+    console.log("Token expires at:", expireDate.toLocaleString());
+    console.log("Seconds remaining:", secondsLeft);
+
     console.log("expire time", decodedToken.exp)
     
     // Set auth token as httpOnly cookie (secure)
