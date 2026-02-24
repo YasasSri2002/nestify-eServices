@@ -43,43 +43,60 @@ export default function ClientForm() {
             <div className="w-full flex justify-end relative sm:-top-2 right-3">
               <LiaWindowCloseSolid size={34} />
             </div>
-            <div className="flex justify-evenly my-6 w-full ">
-              <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                id="email"
-                className="bg-white w-[250px] relative left-7.5  rounded-2xl px-2"
-              />
-            </div>
-            <div className="flex justify-evenly my-6  w-full">
-              <label htmlFor="address">Address</label>
-              <input
-                type="text"
-                id="address"
-                className="bg-white w-[250px] relative  left-6 rounded-2xl px-2"
-              />
-            </div>
-            <div className="flex  justify-evenly my-6 w-full ">
-              <label htmlFor="password">Password</label>
-              <input
-                type="text"
-                id="password"
-                className="bg-white w-[250px] relative left-5 rounded-2xl px-2"
-              />
-            </div>
-            <div className="flex justify-evenly my-6   w-full">
-              <label htmlFor="confirmPass">Confirm Password</label>
-              <input
-                type="text"
-                id="confirmPass"
-                className="bg-white w-[250px] relative  rounded-2xl px-2"
-              />
-            </div>
-            <div className="flex mb-2">
-              <button className="bg-white rounded-2xl p-2 w-[10em]">
-                Register
-              </button>
-            </div>
+            <form className="grid gap-3">
+                <div className="grid sm:flex gap-5 w-full">
+                <div className="grid  w-full gap-2 ">
+                  <label htmlFor="firstName" className="pl-1">First name</label>
+                  <input type="text" name="firstName" className="w-full rounded-md h-8 px-2 bg-white" />
+                </div>
+                <div className="grid   w-full gap-2">
+                  <label htmlFor="lastName" className="pl-1">Last name</label>
+                  <input type="text" name="lastName" className="w-full  rounded-md h-8 px-2 bg-white" />
+                </div>
+              </div>
+              
+                <div className="grid  w-full  gap-2">
+                <label htmlFor="userName" className="pl-1">Username</label>
+                <input
+                  type="text"
+                  id="userName"
+                  className="bg-white w-full h-8  rounded-md px-2"
+                />
+              </div>
+                <div className="grid   w-full gap-2 ">
+                <label htmlFor="email" className="pl-1">Email</label>
+                <input
+                  type="text"
+                  id="email"
+                  className="bg-white w-full h-8  rounded-md px-2"
+                />
+              </div>
+            
+              
+             <div className="grid sm:flex gap-5 w-full">
+               <div className="grid   w-full ">
+                <label htmlFor="password" className="pl-1">Password</label>
+                <input
+                  type="text"
+                  id="password"
+                  className="bg-white w-full h-8  rounded-md px-2"
+                />
+              </div>
+              <div className="grid   w-full">
+                <label htmlFor="confirmPass" className="pl-1">Confirm Password</label>
+                <input
+                  type="text"
+                  id="confirmPass"
+                  className="bg-white w-full h-8  rounded-md px-2"
+                />
+              </div>
+             </div>
+              <div className="flex justify-center mb-2 my-8">
+                <button className="bg-white rounded-2xl p-2 w-[10em]">
+                  Register
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
