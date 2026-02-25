@@ -30,3 +30,24 @@ export interface UserResponseDto{
     createdAt: string;
 
 }
+
+export interface UserRequestDto{
+    
+    address: string;
+
+    email: string;
+
+    username: string;
+
+    firstName: string;
+
+    lastName: string;
+
+    paymentMethod: string;
+
+    contact: string;
+
+    password: string;
+}
+
+export type UserData = Pick<UserRequestDto, 'firstName'| 'lastName' | 'username' | 'email' | 'password' >
