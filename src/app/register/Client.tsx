@@ -8,6 +8,8 @@ import { registerUser } from "../api-calls/users/register/route";
 import { UserData } from "@/dto/UserDto";
 
 import Swal from "sweetalert2";
+import { registerSchema } from "../lib/schema/registerSchema";
+import { RegisterFormErrors } from "../lib/schema/registerSchema";
 
 
 export default function ClientForm() {
@@ -17,6 +19,7 @@ export default function ClientForm() {
 
    // Use state to force remount when switching
   const [animationKey, setAnimationKey] = useState(Date.now());
+  const [errors, setErrors] = useState<RegisterFormErrors>({});
 
   // Reset animation when component mounts
   useEffect(() => {
@@ -30,12 +33,30 @@ export default function ClientForm() {
     event.preventDefault();
     const data = new FormData(event.currentTarget) 
     console.log("client register form data --->",data)
-     const userData: UserData = {
+
+     const formValues ={
       firstName: data.get("firstName") as string,
       lastName: data.get("lastName") as string,
       username: data.get("username") as string,
       email: data.get("email") as string,
       password: data.get("password") as string,
+    };
+
+    const result = registerSchema.safeParse(formValues)
+
+    if (!result.success) {
+      setErrors(result.error.flatten().fieldErrors);
+      return; // Stop here, don't call the API
+    }
+
+    setErrors({})
+
+    const userData: UserData = {
+      firstName: result.data.firstName,
+      lastName: result.data.lastName,
+      username: result.data.username,
+      email: result.data.email,
+      password: result.data.password,
     };
 
      Swal.fire({
@@ -121,10 +142,12 @@ export default function ClientForm() {
                   <div className="grid  w-full gap-2 ">
                     <label htmlFor="firstName" className="pl-1">First name</label>
                     <input type="text" name="firstName" className="w-full rounded-md h-8 px-2 bg-white" />
+                    {errors.firstName && <p className="text-red-500 text-sm pl-1">{errors.firstName[0]}</p>}
                   </div>
                   <div className="grid  w-full gap-2">
                     <label htmlFor="lastName" className="pl-1">Last name</label>
                     <input type="text" name="lastName" className="w-full  rounded-md h-8 px-2 bg-white" />
+                    {errors.lastName && <p className="text-red-500 text-sm pl-1">{errors.lastName[0]}</p>}
                   </div>
                 </div>
                 
@@ -135,6 +158,7 @@ export default function ClientForm() {
                     name="username"
                     className="bg-white w-full h-8  rounded-md px-2"
                   />
+                  {errors.username && <p className="text-red-500 text-sm pl-1">{errors.username[0]}</p>}
                 </div>
                   <div className="grid   w-full gap-2 ">
                   <label htmlFor="email" className="pl-1">Email</label>
@@ -143,6 +167,7 @@ export default function ClientForm() {
                     name="email"
                     className="bg-white w-full h-8  rounded-md px-2"
                   />
+                  {errors.email && <p className="text-red-500 text-sm pl-1">{errors.email[0]}</p>}
                 </div>
               
                 
@@ -154,6 +179,7 @@ export default function ClientForm() {
                     name="password"
                     className="bg-white w-full h-8  rounded-md px-2"
                   />
+                  {errors.password && <p className="text-red-500 text-sm pl-1">{errors.password[0]}</p>}
                 </div>
                 <div className="grid   w-full">
                   <label htmlFor="confirmPass" className="pl-1">Confirm Password</label>
@@ -162,6 +188,7 @@ export default function ClientForm() {
                     name="confirmPass"
                     className="bg-white w-full h-8  rounded-md px-2"
                   />
+                  {errors.confirmPass && <p className="text-red-500 text-sm pl-1">{errors.confirmPass[0]}</p>}
                 </div>
               </div>
                 <div className="flex justify-center mb-2 my-8">
