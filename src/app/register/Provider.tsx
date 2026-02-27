@@ -104,8 +104,8 @@ export default function ProviderForm() {
                                   <option value="0">SL(+94)</option>
                                 </select>
                                 <input type="text" name="contactNo" className="bg-white h-8 rounded-sm pl-2 sm:w-116.5" />
-                                {errors.contact && <p className="text-red-500 text-sm pl-1">{errors.contact[0]}</p>}
                               </div>
+                              {errors.contact && <p className="text-red-500 text-sm pl-1">{errors.contact[0]}</p>}
                             </div>
                             <div className="grid">
                               <label htmlFor="password" className="pl-1">Password</label>
