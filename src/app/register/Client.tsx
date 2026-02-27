@@ -8,8 +8,8 @@ import { registerUser } from "../api-calls/users/register/route";
 import { UserData } from "@/dto/UserDto";
 
 import Swal from "sweetalert2";
-import { registerSchema } from "../lib/schema/registerSchema";
-import { RegisterFormErrors } from "../lib/schema/registerSchema";
+import { clientRegisterSchema } from "../lib/schema/clientRegisterSchema";
+import { ClientRegisterFormErrors } from "../lib/schema/clientRegisterSchema";
 
 
 export default function ClientForm() {
@@ -19,7 +19,7 @@ export default function ClientForm() {
 
    // Use state to force remount when switching
   const [animationKey, setAnimationKey] = useState(Date.now());
-  const [errors, setErrors] = useState<RegisterFormErrors>({});
+  const [errors, setErrors] = useState<ClientRegisterFormErrors>({});
 
   // Reset animation when component mounts
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function ClientForm() {
       password: data.get("password") as string,
     };
 
-    const result = registerSchema.safeParse(formValues)
+    const result = clientRegisterSchema.safeParse(formValues)
 
     if (!result.success) {
       setErrors(result.error.flatten().fieldErrors);
