@@ -7,6 +7,8 @@ import DynamicIcon from "../utill/DynamicIcons";
 import {  AlignJustify, X } from 'lucide-react'
 import { LogoutUser } from "@/app/api-calls/auth/logout/route";
 
+import Swal from "sweetalert2";
+
 
 export default function NavBar(){
 
@@ -48,10 +50,54 @@ export default function NavBar(){
 
   const handleLogOut = ()=>{
 
-      const response = LogoutUser(userId);
-      console.log(response);
+    Swal.fire({
+      title: "Please wait till login out...",
+      color: "#000000",
+      background: "#fff",
+      allowOutsideClick: false,
+      didOpen: ()=>{
+        Swal.showLoading()
+      }
+    })
 
-      setRoles(['notLogin'])
+      try{
+
+        const response = LogoutUser(userId);
+        console.log(response);
+        setRoles(['notLogin'])
+        
+        Swal.close()
+
+        Swal.fire({
+          icon: 'success',
+          title: "Successfully Logged out",
+          text: "#000000",
+          background: "#fff",
+          confirmButtonColor: '#dc2626',
+          confirmButtonText: 'Go to Login',
+          timer: 2500,
+          timerProgressBar: true,
+          customClass: {
+            popup: 'border border-gray-700'
+          }
+          
+        })
+ 
+      }catch(err: unknown){
+        console.log(err)
+
+          Swal.fire({
+              icon: 'error',
+              title: 'Logging out Failed',
+              text: err instanceof Error ? err.message : 'An unexpected error occurred.',
+              background: '#fff',
+              color: '#000000',
+              confirmButtonColor: '#dc2626',
+              customClass: {
+                popup: 'border border-gray-700'
+              }
+            });
+      }
     
 
     }
