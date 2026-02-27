@@ -4,17 +4,15 @@ import { useState, useEffect, FormEvent } from "react";
 
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { LiaWindowCloseSolid } from "react-icons/lia";
+import { ProviderRegisterFormErrors, providerRegisterSchema } from "../lib/schema/providerRegisterSchema";
 
 
-function submit(event :FormEvent<HTMLFormElement>){
-  event.preventDefault();
-  const formData = new FormData(event.currentTarget);
-  console.log(formData);
-}
+
 
 export default function ProviderForm() {
   // Use state to force remount when switching
   const [animationKey, setAnimationKey] = useState(Date.now());
+  const[errors,setErrors] = useState<ProviderRegisterFormErrors>({});
  
  
 
@@ -25,6 +23,28 @@ export default function ProviderForm() {
       setAnimationKey(Date.now());
     };
   }, []);
+
+  function submit(event :FormEvent<HTMLFormElement>){
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log(data);
+    
+     const formValues ={
+      firstName: data.get("firstName") as string,
+      lastName: data.get("lastName") as string,
+      username: data.get("username") as string,
+      email: data.get("email") as string,
+      password: data.get("password") as string,
+    };
+
+    const result = providerRegisterSchema.safeParse(formValues);
+
+   if (!result.success) {
+      setErrors(result.error.flatten().fieldErrors);
+      return; // Stop here, don't call the API
+    }
+
+}
 
   return (
       <div className="max-w-[100vw]">
@@ -59,19 +79,23 @@ export default function ProviderForm() {
                               <div className="grid">
                                 <label htmlFor="firstName" className="pl-1">First name</label>
                                 <input type="text" name="firstName" className="bg-white h-8 sm:w-62.5 rounded-sm p-2"/>
+                                {errors.firstName && <p className="text-red-500 text-sm pl-1">{errors.firstName[0]}</p>}
                               </div>
                               <div className="grid">
                                 <label htmlFor="lastName" className="pl-1">Last name</label>
                                 <input type="text" name="lastName" className="bg-white h-8 sm:w-62.5 rounded-sm  p-2"/>
+                                {errors.lastName && <p className="text-red-500 text-sm pl-1">{errors.lastName[0]}</p>}
                               </div>
                             </div>
                             <div className="grid">
                               <label htmlFor="email" className="pl-1">Email</label>
                               <input type="text" name="email" className="bg-white md:w-135 h-8 rounded-sm pl-3"/>
+                              {errors.email && <p className="text-red-500 text-sm pl-1">{errors.email[0]}</p>}
                             </div>
                             <div className="grid">
                               <label htmlFor="username" className="pl-1">Username</label>
                               <input type="text" name="username" className="bg-white md:w-135 h-8 rounded-sm pl-3" />
+                              {errors.username && <p className="text-red-500 text-sm pl-1">{errors.username[0]}</p>}
                             </div>
                             <div className="grid">
                               <label htmlFor="contactNo">Phone Number</label>
@@ -80,11 +104,13 @@ export default function ProviderForm() {
                                   <option value="0">SL(+94)</option>
                                 </select>
                                 <input type="text" name="contactNo" className="bg-white h-8 rounded-sm pl-2 sm:w-116.5" />
+                                {errors.contact && <p className="text-red-500 text-sm pl-1">{errors.contact[0]}</p>}
                               </div>
                             </div>
                             <div className="grid">
                               <label htmlFor="password" className="pl-1">Password</label>
                               <input type="text" name="password" className="bg-white md:w-135 h-8 rounded-sm pl-3" />
+                              {errors.password && <p className="text-red-500 text-sm pl-1">{errors.password[0]}</p>}
                             </div>
                             <button type="submit" 
                                 className="border sm:hover:bg-white my-5 px-5 py-2 rounded-md 
