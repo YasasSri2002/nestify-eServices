@@ -26,4 +26,22 @@ export interface ProviderWithAllDetails{
   reviewDto: ReviewDto[];
   categoryDto: CategoryResponseDto[];
 
+  
+}
+
+export interface ProviderRegistrationDto{
+  
+     email: string;
+
+     userName: string;
+
+     firstName: string;
+
+     lastName: string;
+
+     password: string;
+
+     contactNo: string;
+
+
 }

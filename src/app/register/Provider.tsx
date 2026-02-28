@@ -5,6 +5,8 @@ import { useState, useEffect, FormEvent } from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { LiaWindowCloseSolid } from "react-icons/lia";
 import { ProviderRegisterFormErrors, providerRegisterSchema } from "../lib/schema/providerRegisterSchema";
+import { PersistProvider } from "../api-calls/provider/persist/route";
+import { ProviderRegistrationDto } from "@/dto/ProviderDto";
 
 
 
@@ -24,7 +26,7 @@ export default function ProviderForm() {
     };
   }, []);
 
-  function submit(event :FormEvent<HTMLFormElement>){
+  async function submit(event :FormEvent<HTMLFormElement>){
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log(data);
@@ -35,6 +37,7 @@ export default function ProviderForm() {
       username: data.get("username") as string,
       email: data.get("email") as string,
       password: data.get("password") as string,
+      contactNo: data.get("contactNo") as string
     };
 
     const result = providerRegisterSchema.safeParse(formValues);
@@ -42,6 +45,25 @@ export default function ProviderForm() {
    if (!result.success) {
       setErrors(result.error.flatten().fieldErrors);
       return; // Stop here, don't call the API
+    }
+
+    
+        setErrors({})
+    
+        const providerData: ProviderRegistrationDto = {
+          firstName: result.data.firstName,
+          lastName: result.data.lastName,
+          userName: result.data.username,
+          email: result.data.email,
+          password: result.data.password,
+          contactNo: result.data.contactNo
+        };
+
+    try{
+       await PersistProvider(providerData);
+
+    }catch(err: unknown){
+      console.log("err",err)
     }
 
 }
@@ -105,7 +127,7 @@ export default function ProviderForm() {
                                 </select>
                                 <input type="text" name="contactNo" className="bg-white h-8 rounded-sm pl-2 sm:w-116.5" />
                               </div>
-                              {errors.contact && <p className="text-red-500 text-sm pl-1">{errors.contact[0]}</p>}
+                              {errors.contactNo && <p className="text-red-500 text-sm pl-1">{errors.contactNo[0]}</p>}
                             </div>
                             <div className="grid">
                               <label htmlFor="password" className="pl-1">Password</label>
