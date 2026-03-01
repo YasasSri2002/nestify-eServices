@@ -7,11 +7,21 @@ import { LiaWindowCloseSolid } from "react-icons/lia";
 import { ProviderRegisterFormErrors, providerRegisterSchema } from "../lib/schema/providerRegisterSchema";
 import { PersistProvider } from "../api-calls/provider/persist/route";
 import { ProviderRegistrationDto } from "@/dto/ProviderDto";
+import { title } from "process";
+
+import Swal from "sweetalert2";
+import { success } from "zod";
+import { useRouter } from "next/router";
 
 
 
 
 export default function ProviderForm() {
+
+  const router = useRouter();
+
+  const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+
   // Use state to force remount when switching
   const [animationKey, setAnimationKey] = useState(Date.now());
   const[errors,setErrors] = useState<ProviderRegisterFormErrors>({});
@@ -40,6 +50,15 @@ export default function ProviderForm() {
       contactNo: data.get("contactNo") as string
     };
 
+    Swal.fire({
+      title: "Registering.....",
+      text: "Please wait till we register your Data",
+      allowOutsideClick: false,
+      didOpen: ()=>{
+        Swal.showLoading();
+      }
+    })
+
     const result = providerRegisterSchema.safeParse(formValues);
 
    if (!result.success) {
@@ -60,10 +79,42 @@ export default function ProviderForm() {
         };
 
     try{
+       
        await PersistProvider(providerData);
+        Swal.close()
+
+       Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful!',
+        text: 'Welcome to our Nestify community. Redirecting to login...',
+        background: '#fff',
+        color: '#000000',
+        confirmButtonColor: '#dc2626',
+        confirmButtonText: 'Go to Login',
+        timer: 2500,
+        timerProgressBar: true,
+        customClass: {
+          popup: 'border border-gray-700'
+      }})
+
+       router.push(loginUrl!);
 
     }catch(err: unknown){
+      
       console.log("err",err)
+
+      Swal.fire({
+            icon: 'error',
+            title: 'Registration Failed',
+            text: err instanceof Error ? err.message : 'An unexpected error occurred.',
+            background: '#fff',
+            color: '#000000',
+            confirmButtonColor: '#dc2626',
+            customClass: {
+              popup: 'border border-gray-700'
+            }
+          });
+        
     }
 
 }

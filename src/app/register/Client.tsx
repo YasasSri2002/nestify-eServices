@@ -79,7 +79,7 @@ export default function ClientForm() {
     await Swal.fire({
       icon: 'success',
       title: 'Registration Successful!',
-      text: 'Welcome to our blood donor community. Redirecting to login...',
+      text: 'Welcome to our Nestify community. Redirecting to login...',
       background: '#fff',
       color: '#000000',
       confirmButtonColor: '#dc2626',
