@@ -15,6 +15,8 @@ import { LogoutUser } from "@/app/api-calls/auth/logout/route";
 import { NotificationPerferences } from "../notificationPerferences";
 import PerferencesPage from "../perferencesPage";
 
+import Swal from "sweetalert2";
+
 
 
 export default function UserProfile(){
@@ -43,9 +45,53 @@ export default function UserProfile(){
     console.log(userId)
 
     async function handleLogOut(){
-        const response = await LogoutUser(userId);
-        window.location.replace("/")
-        console.log("logout user" + response);
+        
+        Swal.fire({
+            title: "Logging Out..!",
+            color: "#000000",
+            background: "#fff",
+            allowOutsideClick: false,
+            didOpen: ()=> {
+                Swal.showLoading();
+            },
+
+        })
+
+       try{
+
+            const response = await LogoutUser(userId);
+            window.location.replace("/")
+            console.log("logout user" + response);
+
+            Swal.close();
+
+            Swal.fire({
+                text: "Successfully log out",
+                icon: "success",
+                color: "#88E788",
+                background: "#fff",
+                timer: 2500,
+                timerProgressBar: true,
+            })
+
+            
+       }catch(err: unknown){
+         console.log(err);
+
+         
+        Swal.fire({
+            icon: 'error',
+            title: 'Logging out Failed',
+            text: err instanceof Error ? err.message : 'An unexpected error occurred.',
+            background: '#fff',
+            color: '#000000',
+            confirmButtonColor: '#dc2626',
+            customClass: {
+                popup: 'border border-gray-700'
+            }
+        });
+
+       }
 
     }
 
