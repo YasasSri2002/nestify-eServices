@@ -5,14 +5,22 @@ import { FormEvent, useState } from "react";
 import DynamicIcon from "@/components/utill/DynamicIcons"
 import { PasswordSchemaFormErrors } from "@/app/lib/schema/PasswordSchema";
 import { passwordSchema } from "@/app/lib/schema/PasswordSchema";
+import { ResetPassword } from "@/app/api-calls/auth/reset-password/route";
+import { useParams } from "next/navigation";
+import Swal from "sweetalert2";
 
 export default function PasswordUpdateFrom(){
+
+    const params = useParams();
+
+    const id = params.id as string;
 
     const[errors,setErrors] = useState<PasswordSchemaFormErrors>();
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>){
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
+        const form = event.currentTarget;
+        const formData = new FormData(form);
 
         const formValues = {
             newPassword: formData.get("newPassword") as string,
@@ -27,6 +35,30 @@ export default function PasswordUpdateFrom(){
         }
 
         setErrors({})
+
+        try{
+
+            console.log("from the form page--->",safeData.data.newPassword)
+            const result = await ResetPassword(id,safeData.data.newPassword);
+            form.reset();
+            
+            Swal.fire({
+                title: "reset successfull",
+                icon: "success",
+                timer: 3000,
+                timerProgressBar: true,
+                text: result["success"]
+
+            });
+            
+            
+            
+
+        }catch(err: unknown){
+            console.log(err)
+        }
+
+
 
     }
 
