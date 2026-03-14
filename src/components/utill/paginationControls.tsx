@@ -2,6 +2,7 @@
 
 import { FC } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import DynamicIcon from './DynamicIcons'
 
 interface PaginationControlsProps {
   hasNextPage: boolean
@@ -36,7 +37,7 @@ const PaginationControls: FC<PaginationControlsProps> = (
         onClick={() => {
           router.push(`/${routerPath}/?page=${Number(page) - 1}&per_page=${per_page}`)
         }}>
-        prev page
+        <DynamicIcon name="FaChevronLeft" className='w-4 h-4'></DynamicIcon>
       </button>
 
       <div>
@@ -49,7 +50,7 @@ const PaginationControls: FC<PaginationControlsProps> = (
         onClick={() => {
           router.push(`/${routerPath}/?page=${Number(page) + 1}&per_page=${per_page}`)
         }}>
-        next page
+        <DynamicIcon name="FaChevronRight" className='w-4 h-4'></DynamicIcon>
       </button>
     </div>
   )
