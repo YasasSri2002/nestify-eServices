@@ -5,8 +5,9 @@ import { getBookingDataByClientId } from "@/app/api-calls/booking/by-client-id/r
 import { LoadingPage } from "@/components/utill/loadingPage";
 import PaginationControls from "@/components/utill/paginationControls";
 import { BookingResponseDto } from "@/dto/BookingDto";
+import { BookingStatus } from "@/types/booking";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 
 export default  function BookingList({ id }: { id: string }) {
 
@@ -14,14 +15,47 @@ export default  function BookingList({ id }: { id: string }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const page = Number(searchParams.get('page')?? '1');
-    const perPage = Number(searchParams.get('perPage')?? '10');
+    const perPage = Number(searchParams.get('perPage')?? '5');
+    const isFirstRenderRef =useRef(true);
+    const searchParamsRef = useRef(searchParams);
 
     const [bookingList,setBookingList] =useState<BookingResponseDto[]>([]); 
     const[isLoading,setIsLoading] = useState(false);
+    const[statusFilter,setStatusFilter] = useState<BookingStatus>('' as BookingStatus);
+
+     const resetPage = useCallback(() => {
+        if (isFirstRenderRef.current) {
+            isFirstRenderRef.current = false;
+            return;
+        }
+    const params = new URLSearchParams(searchParamsRef.current.toString());
+        params.set('page', '1');
+        router.replace(`${pathname}?${params.toString()}`);
+    }, [pathname, router]); // searchParams intentionally omitted — read via ref
+
+  useEffect(() => {
+        resetPage();
+    }, [statusFilter, resetPage]);
+
+    const filteredBookingList = useMemo(()=>{
+        
+        let resultData = [...bookingList];
+
+        if(statusFilter){
+            const matched =resultData.filter(bookingData => bookingData.status === statusFilter);
+            const others = resultData.filter(bookinData => bookinData.status !== statusFilter);
+            resultData = [...matched,...others];
+
+        }
+
+        return resultData;
+
+
+    },[bookingList, statusFilter])
 
     const paginateBookings = useMemo(()=>{
-        return bookingList.slice((page - 1) * perPage, page * perPage);
-    },[bookingList])
+        return filteredBookingList.slice((page - 1) * perPage, page * perPage);
+    },[filteredBookingList,page,perPage])
 
     
     useEffect(()=>{
@@ -57,8 +91,23 @@ export default  function BookingList({ id }: { id: string }) {
                 <p className="text-gray-600 mb-4">View and manage your bookings</p>
             </header>
 
+            <div className="grid h-10 justify-items-end">
+                <div>
+                    <select
+                    value={statusFilter}
+                    onChange={e => setStatusFilter(e.target.value as BookingStatus)}
+                    className="shadow-md rounded p-2"
+                    >
+                        <option value="">All Status</option>
+                        <option value="pending">Upcoming</option>
+                        <option value="cancelled">Cancelled</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+            </div>
+
             <div className="m-5 grid justify-items-center gap-4 max:h-4xl">
-                {bookingList.length === 0 ? (
+                {filteredBookingList.length === 0 ? (
                     <p>No bookings found.</p>
                 ) : (
                     paginateBookings.map((entity) => (

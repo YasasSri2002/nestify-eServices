@@ -13,7 +13,7 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
                     Upcoming
                     <DynamicIcon name="FaRegClock"/>
                     </label>
-            case("compeleted"):
+            case("completed"):
                 return <label className="border border-green-700 bg-green-200 rounded-md px-4 h-8 text-green-700 flex items-center gap-2">
                     Completed
                     <DynamicIcon name="IoCheckmarkDoneOutline"/>
