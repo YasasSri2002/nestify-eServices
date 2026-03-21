@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import { UserResponseDto } from "@/dto/UserDto";
 import AccountInfo from "./accountInfo";
 import PerosonalInformationForm from "./personalInformation";
-import { getBookingCountWithUserId } from "@/app/api-calls/users/booking-count-with-id/route";
 import { LoadingPage } from "@/components/utill/loadingPage";
 
 

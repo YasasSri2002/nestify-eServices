@@ -1,4 +1,4 @@
-"use client"; // Optional if you use any client hooks — remove if pure server
+"use client"; 
 
 import BookingCard from "./bookingCard";
 import { getBookingDataByClientId } from "@/app/api-calls/booking/by-client-id/route";
@@ -6,11 +6,12 @@ import { LoadingPage } from "@/components/utill/loadingPage";
 import PaginationControls from "@/components/utill/paginationControls";
 import { BookingResponseDto } from "@/dto/BookingDto";
 import { BookingStatus } from "@/types/booking";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 
-export default  function BookingList({ id }: { id: string }) {
-
+export default  function BookingList() {
+    const params = useParams();
+    const userId = params.id as string;
     const router = useRouter();
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -62,7 +63,7 @@ export default  function BookingList({ id }: { id: string }) {
         async function getBookingList(){
             try{
                 setIsLoading(true);
-                const response = await getBookingDataByClientId(id);
+                const response = await getBookingDataByClientId(userId);
                 console.log(response);
                 setBookingList(response)
             }catch(err:unknown){
