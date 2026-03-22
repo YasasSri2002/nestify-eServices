@@ -1,25 +1,64 @@
-
+'use client'
+import { markBookingComplete } from "@/app/api-calls/booking/mark-complete/route"
 import DynamicIcon from "@/components/utill/DynamicIcons"
 import { BookingResponseDto } from "@/dto/BookingDto"
+import { stat } from "fs";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+
 
 
 export default function BookingCard({bookingData}:{bookingData:BookingResponseDto}){
 
+    const[status,setStatus] = useState('');
+
+    useEffect(()=>{
+        setStatus(bookingData.status)
+        
+    },[bookingData,status])
+
+    async function handleMarkAsComplete(){
+        try{
+            await markBookingComplete(bookingData.id);
+            await Swal.fire({
+                title: "Successful",
+                icon: "success",
+                text: `${bookingData.name} is marked completed`,
+                timer: 3000,
+            })
+            setStatus("completed");
+
+        }catch(err: unknown){
+            if(err instanceof Error){
+            await Swal.fire({
+                title: `Error`,
+                icon: "error",
+                text: `${err.message}`,
+                timer: 3000,
+            })
+        }
+        }
+
+    }
+
 
     function renderStatusTag(){
-        switch(bookingData.status){
+        switch(status){
             case("pending"):
                 return <label className="border border-blue-700 bg-blue-200 rounded-md px-4 h-8 text-blue-800 flex items-center gap-2">
-                    Upcoming
                     <DynamicIcon name="FaRegClock"/>
+                    Upcoming
                     </label>
             case("completed"):
                 return <label className="border border-green-700 bg-green-200 rounded-md px-4 h-8 text-green-700 flex items-center gap-2">
-                    Completed
                     <DynamicIcon name="IoCheckmarkDoneOutline"/>
+                    Completed
+                    
                     </label>
             case("cancelled"):
-                return <label className="border border-red-700 bg-red-200 rounded-md px-4 h-8 text-red-700 flex items-center">
+                return <label className="border border-red-700 bg-red-200 rounded-md px-4 h-8 
+                    text-red-700 flex items-center">
+                    <DynamicIcon name="MdClose"/>
                     Cancelled
                     </label>
         }
@@ -39,23 +78,29 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
                 </div>
             </div>
             {/* righside */}
-            <div className="grid sm:col-span-4 gap-3  ">
-                <div className="flex justify-center gap-3 items-center">
-                        <h1>Status:</h1>
+            <div className="grid  sm:col-span-4 gap-3  ">
+                <div className="flex justify-end gap-3 items-center">
                         {renderStatusTag()}
                 </div>
-                <div className="flex justify-center gap-3 flex-wrap">
+                <div className="flex justify-end gap-3 flex-wrap">
                     <button className="px-2 md:px-4 md:py-1  text-green-500 border border-green-500 rounded-md flex items-center gap-2 
-                        active:scale-75 active:bg-green-500 active:text-white ">
-                        Mark as Completed <DynamicIcon name="IoCheckmarkDoneOutline"/>
+                        active:scale-75 active:bg-green-500 active:text-white "
+                        onClick={handleMarkAsComplete}
+                        title="Mark as complete"
+                        >
+                        <DynamicIcon name="IoCheckmarkDoneOutline"/>
                     </button>
                     <button className="px-2 md:px-4 md:py-1  text-blue-500 border border-blue-500 rounded-md flex items-center gap-2 
-                        active:scale-75 active:bg-blue-500 active:text-white ">
-                        Reschedule<DynamicIcon name="FaRegClock"/>
+                        active:scale-75 active:bg-blue-500 active:text-white"
+                        title="Reschedule"
+                        >
+                       <DynamicIcon name="FaRegClock"/>
                     </button>
                      <button className="px-2 md:px-4 md:py-1 border   text-red-500 rounded-md flex items-center gap-2 active:scale-75
-                     active:bg-red-500 active:text-white">
-                        Cancel <DynamicIcon name="MdClose"/>
+                     active:bg-red-500 active:text-white"
+                     title="Cancel"
+                     >
+                       <DynamicIcon name="MdClose"/>
                     </button>
                 </div>
                 <div className="flex items-start justify-end">

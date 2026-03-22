@@ -1,0 +1,51 @@
+"use server"
+
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { IsExpired } from "../../auth/token-functions/is-expired/route";
+import { refreshKeycloakToken } from "../../auth/token-functions/refresh-token/route";
+
+
+
+const BACKEND_URL = process.env.SPRING_BOOT_API_URL || 'http://localhost:8080';
+
+export async function markBookingComplete(id: string){
+
+      const cookieStore = await cookies();
+      let token = cookieStore.get('auth-token')?.value;
+    
+      if (!token) {
+        redirect(`/`);
+      }
+    
+      if (await IsExpired(token)) {
+        const newToken = await refreshKeycloakToken();
+        if (!newToken) {
+          redirect(`/`);
+        }
+        token = newToken!;
+      }
+
+    let response: Response;
+
+    try {
+        response = await fetch(`${BACKEND_URL}/api/v1/booking/completed?id=${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        });
+    } catch (err) {
+        throw new Error(`Network error calling mark booking as completed API: ${err}`);
+    }
+
+    if (!response.ok) {
+        const errBody = await response.text();
+        throw new Error(`Mark booking as Completed API failed: ${response.status} - ${errBody}`);
+    }
+
+    return response.json();
+
+
+}
