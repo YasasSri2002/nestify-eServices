@@ -1,7 +1,9 @@
 'use client'
+import { cancelBooking } from "@/app/api-calls/booking/cancel/route";
 import { markBookingComplete } from "@/app/api-calls/booking/mark-complete/route"
 import DynamicIcon from "@/components/utill/DynamicIcons"
 import { BookingResponseDto } from "@/dto/BookingDto"
+import { BookingStatus } from "@/types/booking";
 import { stat } from "fs";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -10,10 +12,10 @@ import Swal from "sweetalert2";
 
 export default function BookingCard({bookingData}:{bookingData:BookingResponseDto}){
 
-    const[status,setStatus] = useState('');
+    const[status,setStatus] = useState<BookingStatus>('' as BookingStatus);
 
     useEffect(()=>{
-        setStatus(bookingData.status)
+        setStatus(bookingData.status as BookingStatus)
         
     },[bookingData,status])
 
@@ -23,10 +25,35 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
             await Swal.fire({
                 title: "Successful",
                 icon: "success",
-                text: `${bookingData.name} is marked completed`,
+                text: `${bookingData.name} is mark completed`,
                 timer: 3000,
             })
             setStatus("completed");
+
+        }catch(err: unknown){
+            if(err instanceof Error){
+            await Swal.fire({
+                title: `Error`,
+                icon: "error",
+                text: `${err.message}`,
+                timer: 3000,
+            })
+        }
+        }
+
+    }
+
+
+    async function handleCancelBooking(){
+        try{
+            await cancelBooking(bookingData.id);
+            await Swal.fire({
+                title: "Successful",
+                icon: "success",
+                text: `${bookingData.name} is canceled`,
+                timer: 3000,
+            })
+            setStatus("cancelled");
 
         }catch(err: unknown){
             if(err instanceof Error){
@@ -99,6 +126,7 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
                      <button className="px-2 md:px-4 md:py-1 border   text-red-500 rounded-md flex items-center gap-2 active:scale-75
                      active:bg-red-500 active:text-white"
                      title="Cancel"
+                     onClick={handleCancelBooking}
                      >
                        <DynamicIcon name="MdClose"/>
                     </button>
