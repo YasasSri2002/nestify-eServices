@@ -20,16 +20,16 @@ export default function UserProfile(){
     const[user,setUser] = useState<UserResponseDto>({} as UserResponseDto);
 
     useEffect(()=>{
-        async function getUserData(id:string){
+        async function getUserData(){
             try{
-                const response = await getUserById(id);
+                const response = await getUserById();
                 setUser(response);
                 console.log(user,"from get user profile")
             }catch(err:unknown){
                 console.log(err);
             }
         }
-        getUserData(userId);
+        getUserData();
     },[])
 
     console.log(userId)

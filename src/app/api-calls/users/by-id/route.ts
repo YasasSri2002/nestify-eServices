@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 const BACKEND_URL = process.env.SPRING_BOOT_API_URL;
 
-export async function getUserById(id:string): Promise<UserResponseDto>{
+export async function getUserById(): Promise<UserResponseDto>{
 
     const cookieStore = await cookies();
     const token = cookieStore.get('auth-token')?.value;
@@ -16,7 +16,7 @@ export async function getUserById(id:string): Promise<UserResponseDto>{
         }))
     }
 
-    const response = await fetch(`${BACKEND_URL}/api/v1/client/by-id?id=${id}`,{
+    const response = await fetch(`${BACKEND_URL}/api/v1/client/by-id`,{
         method: "GET",
         credentials: 'include',
         headers:{
