@@ -9,7 +9,7 @@ import { IsExpired } from "../../auth/token-functions/is-expired/route";
 const BACKEND_URL = process.env.SPRING_BOOT_API_URL || 'http://localhost:8080';
 
 
-export async function getBookingDataByClientId(id: string): Promise<BookingResponseDto[]> {
+export async function getBookingDataByClientId(): Promise<BookingResponseDto[]> {
   const cookieStore = await cookies();
   let token = cookieStore.get('auth-token')?.value;
 
@@ -29,7 +29,7 @@ export async function getBookingDataByClientId(id: string): Promise<BookingRespo
   let response: Response;
 
   try {
-    response = await fetch(`${BACKEND_URL}/api/v1/booking/by-client-id?id=${id}`, {
+    response = await fetch(`${BACKEND_URL}/api/v1/booking/by-client-id`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

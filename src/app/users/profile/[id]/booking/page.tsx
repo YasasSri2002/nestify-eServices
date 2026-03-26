@@ -10,8 +10,7 @@ import { useParams, usePathname, useRouter, useSearchParams } from "next/navigat
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 
 export default  function BookingList() {
-    const params = useParams();
-    const userId = params.id as string;
+    
     const router = useRouter();
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -63,7 +62,7 @@ export default  function BookingList() {
         async function getBookingList(){
             try{
                 setIsLoading(true);
-                const response = await getBookingDataByClientId(userId);
+                const response = await getBookingDataByClientId();
                 console.log(response);
                 setBookingList(response)
             }catch(err:unknown){

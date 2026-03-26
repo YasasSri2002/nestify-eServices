@@ -3,14 +3,9 @@
 import { useEffect, useState } from "react";
 
 import ProfileDashboard from "./dashboard/dashboard";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { getUserById } from "@/app/api-calls/users/by-id/route";
 import { UserResponseDto } from "@/dto/UserDto";
-
-
-import { ProfileNavBar } from "./profileNavBar";
-
-
 
 
 export default function UserProfile(){
@@ -40,6 +35,5 @@ export default function UserProfile(){
 
             <ProfileDashboard user={user}/>
 
-        
     );
 }
