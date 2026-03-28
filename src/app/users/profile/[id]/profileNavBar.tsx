@@ -120,7 +120,7 @@ export function ProfileNavBar(){
                         </button>
                 </div>
 
-                <div id="mobile-menu" className={`${showMobileMenue ? 'absolute top-25 w-full right-1' : 'hidden'}`}>
+                <div id="mobile-menu" className={`${showMobileMenue ? 'absolute top-25 w-full right-1 z-50' : 'hidden'}`}>
                     <div  className="grid gap-2  bg-white text-black">
                         <div className="flex justify-end text-white py-2 px-1" >
                             <button onClick={()=> setShowMobileMenue(!showMobileMenue)}>

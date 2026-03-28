@@ -8,7 +8,6 @@ import { LoadingPage } from "@/components/utill/loadingPage";
 
 export default  function ProfileDashboard({user}: {user:UserResponseDto}){
 
-    console.log("from profile dashboard user id ----> ", user.id)
 
     return(
         
