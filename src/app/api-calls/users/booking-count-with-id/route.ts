@@ -4,13 +4,8 @@ import { cookies } from "next/headers";
 
 const BACKEND_URL = process.env.SPRING_BOOT_API_URL;
 
-export async function getBookingCountWithUserId(id?: string){   // make id optional
-    if (!id) {
-        console.log("ID is missing in server action");
-        return { error: "id missing" };
-    }
-
-    console.log("from the api get booking count", id);
+export async function getBookingCountWithUserId(){   // make id optional
+   
 
     const cookieStore = await cookies();
     const token = cookieStore.get('auth-token')?.value;
@@ -19,7 +14,7 @@ export async function getBookingCountWithUserId(id?: string){   // make id optio
         return { error: "back end url is not set" };
     }
 
-    const response = await fetch(`${BACKEND_URL}/api/v1/booking/user/booking-count?id=${id}`,{
+    const response = await fetch(`${BACKEND_URL}/api/v1/booking/user/booking-count`,{
         method: "GET",
         credentials: 'include',
         headers:{

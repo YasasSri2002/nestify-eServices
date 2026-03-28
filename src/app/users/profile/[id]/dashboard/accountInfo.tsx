@@ -18,9 +18,9 @@ export default function AccountInfo({createdDate, userId}:{createdDate:string, u
             
             console.log("from useeffect account info", userId)
             
-            async function getBookingCount(id:string){
-                console.log("from the inside of the booking count async function---->", id)
-                const response = await getBookingCountWithUserId(id);
+            async function getBookingCount(){
+                
+                const response = await getBookingCountWithUserId();
                 
                 if (response?.error) {
                     console.error("Error:", response.error);
@@ -31,7 +31,7 @@ export default function AccountInfo({createdDate, userId}:{createdDate:string, u
                 console.log(response)
             }
             
-            getBookingCount(userId);
+            getBookingCount();
     
     }, [userId])
 
