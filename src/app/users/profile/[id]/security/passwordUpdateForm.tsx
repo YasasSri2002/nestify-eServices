@@ -3,8 +3,8 @@
 import { FormEvent, useState } from "react";
 
 import DynamicIcon from "@/components/utill/DynamicIcons"
-import { PasswordSchemaFormErrors } from "@/app/lib/schema/PasswordSchema";
-import { passwordSchema } from "@/app/lib/schema/PasswordSchema";
+import { PasswordSchemaFormErrors } from "@/lib/schema/PasswordSchema";
+import { passwordSchema } from "@/lib/schema/PasswordSchema";
 import { ResetPassword } from "@/app/api-calls/auth/reset-password/route";
 import { useParams } from "next/navigation";
 import Swal from "sweetalert2";

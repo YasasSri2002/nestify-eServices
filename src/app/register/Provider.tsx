@@ -4,7 +4,7 @@ import { useState, useEffect, FormEvent } from "react";
 
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { LiaWindowCloseSolid } from "react-icons/lia";
-import { ProviderRegisterFormErrors, providerRegisterSchema } from "../lib/schema/providerRegisterSchema";
+import { ProviderRegisterFormErrors, providerRegisterSchema } from "../../lib/schema/providerRegisterSchema";
 import { PersistProvider } from "../api-calls/provider/persist/route";
 import { ProviderRegistrationDto } from "@/dto/ProviderDto";
 import { title } from "process";

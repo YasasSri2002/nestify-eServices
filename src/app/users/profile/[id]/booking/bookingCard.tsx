@@ -1,6 +1,8 @@
 'use client'
 import { cancelBooking } from "@/app/api-calls/booking/cancel/route";
 import { markBookingComplete } from "@/app/api-calls/booking/mark-complete/route"
+import { rescheduleTheBooking } from "@/app/api-calls/booking/reschedule/route";
+import { RescheduleForm } from "@/components/ui/booking/rescheduleForm";
 import DynamicIcon from "@/components/utill/DynamicIcons"
 import { BookingResponseDto } from "@/dto/BookingDto"
 import { BookingStatus } from "@/types/booking";
@@ -13,6 +15,7 @@ import Swal from "sweetalert2";
 export default function BookingCard({bookingData}:{bookingData:BookingResponseDto}){
 
     const[status,setStatus] = useState<BookingStatus>('' as BookingStatus);
+    const[showRescheduleForm,setShowRescheduleForm] =useState(false);
 
     useEffect(()=>{
         setStatus(bookingData.status as BookingStatus)
@@ -68,6 +71,35 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
 
     }
 
+    async function handleReschedule(rescheduleDate: string , rescheduleTime: string){
+        console.log(rescheduleDate, rescheduleTime);
+
+         Swal.fire({
+            title: "Rescheduling...!",
+            color: "#000000",
+            background: "#fff",
+            allowOutsideClick: false,
+            didOpen: ()=> {
+                Swal.showLoading();
+            },
+            
+        })
+
+        const response =await rescheduleTheBooking(bookingData.id,rescheduleDate,rescheduleTime);
+        
+        if(response.ok){
+
+            Swal.close();
+
+            Swal.fire({
+                title: 'Rescheduling Success!',
+                icon: "success"
+            })
+        }
+
+        Swal.close()
+    }
+
 
     function renderStatusTag(){
         switch(status){
@@ -92,7 +124,7 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
     }
 
     return(
-        <div className="grid rounded-lg w-full bg-gray-50 shadow-lg p-5 xl:p-8 sm:grid-cols-9 xl:w-6xl gap-4 md:gap-0">
+        <main className="grid rounded-lg w-full bg-gray-50 shadow-lg p-5 xl:p-8 sm:grid-cols-9 xl:w-6xl gap-4 md:gap-0">
             {/* leftside */}
             <div className="sm:col-span-5 grid gap-3">
                 <div className="grid gap-2">
@@ -120,6 +152,7 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
                     <button className="px-2 md:px-4 md:py-1  text-blue-500 border border-blue-500 rounded-md flex items-center gap-2 
                         active:scale-75 active:bg-blue-500 active:text-white"
                         title="Reschedule"
+                        onClick={()=> setShowRescheduleForm(true)}
                         >
                        <DynamicIcon name="FaRegClock"/>
                     </button>
@@ -136,7 +169,15 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
                 </div>
             </div>
 
+            {
+                showRescheduleForm && 
+                <RescheduleForm 
+                    onSubmit={handleReschedule}
+                onCancel={()=>setShowRescheduleForm(false)}/>
+            }
 
-        </div>
+
+
+        </main>
     )
 }

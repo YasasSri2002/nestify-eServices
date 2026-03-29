@@ -85,7 +85,7 @@ export default  function BookingList() {
     }
 
     return (
-        <div className="grid  bg-white/85 md:m-5 lg:m-10 rounded-2xl border border-gray-700 p-5">
+        <div className="grid  md:m-5 lg:m-10 rounded-2xl p-5">
             <header>
                 <h1 className="text-2xl font-semibold">Booking History</h1>
                 <p className="text-gray-600 mb-4">View and manage your bookings</p>
