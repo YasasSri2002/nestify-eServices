@@ -85,26 +85,26 @@ export function ProfileNavBar(){
                 <ul className="hidden md:flex gap-5">
                     <li>
                         <button onClick={()=> router.push(`/users/profile/${userId}`)} 
-                        className="cursor-pointer">
-                            dashboard
+                        className="cursor-pointer active:scale-95">
+                            Dashboard
                         </button >
                     </li>
                     <li>
                         <button onClick={()=> router.push(`/users/profile/${userId}/security`)} 
-                        className="cursor-pointer">
-                            security
+                        className="cursor-pointer active:scale-95">
+                            Security
                         </button >
                     </li>
                     <li>
                         <button onClick={()=>router.push(`/users/profile/${userId}/booking`)} 
-                        className="cursor-pointer">
-                            bookings
+                        className="cursor-pointer active:scale-95">
+                            Bookings
                         </button >
                     </li>
                     <li>
                         <button  onClick={()=>router.push(`/users/profile/${userId}/perferences`)} 
-                        className="cursor-pointer">
-                            perferences
+                        className="cursor-pointer active:scale-95">
+                            Perferences
                         </button >
                     </li>
                 </ul>
@@ -130,26 +130,26 @@ export function ProfileNavBar(){
                         <ul className="grid gap-8 justify-items-center py-5">
                             <li>
                                 <button onClick={()=> router.push(`/users/profile/${userId}`)}
-                                 className="cursor-pointer">
-                                    dashboard
+                                 className="cursor-pointer active:scale-95">
+                                    Dashboard
                                 </button>
                             </li>
                             <li>
                                 <button onClick={()=>router.push(`/users/profile/${userId}/security`)}
-                                 className="cursor-pointer">
-                                    security
+                                 className="cursor-pointer active:scale-95">
+                                    Security
                                 </button>
                             </li>
                             <li>
                                 <button onClick={()=>router.push(`/users/profile/${userId}/booking`)}
-                                 className="cursor-pointer">
-                                    bookings
+                                 className="cursor-pointer active:scale-95">
+                                    Bookings
                                 </button>
                             </li>
                             <li>
                                 <button onClick={()=>router.push(`/users/profile/${userId}/perferences`)}
-                                 className="cursor-pointer">
-                                    preferences
+                                 className="cursor-pointer active:scale-95">
+                                    Preferences
                                 </button>
                             </li>
                         </ul>
