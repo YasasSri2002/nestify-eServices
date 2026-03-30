@@ -23,6 +23,21 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
     },[bookingData,status])
 
     async function handleMarkAsComplete(){
+
+        const result = await Swal.fire({
+            title: "Completed?",
+            text: "Mark the booking as complete",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+            })
+
+        if(!result.isConfirmed){
+            return
+        }
+
         try{
             await markBookingComplete(bookingData.id);
             await Swal.fire({
@@ -48,6 +63,21 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
 
 
     async function handleCancelBooking(){
+
+         const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "Cancel the booking!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+            })
+
+        if(!result.isConfirmed){
+            return
+        }
+
         try{
             await cancelBooking(bookingData.id);
             await Swal.fire({
@@ -173,7 +203,7 @@ export default function BookingCard({bookingData}:{bookingData:BookingResponseDt
                 showRescheduleForm && 
                 <RescheduleForm 
                     onSubmit={handleReschedule}
-                onCancel={()=>setShowRescheduleForm(false)}/>
+                    onCancel={()=>setShowRescheduleForm(false)}/>
             }
 
 
