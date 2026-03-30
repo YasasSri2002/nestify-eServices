@@ -48,4 +48,3 @@ export interface UserRequestDto{
     password: string;
 }
 
-export type UserData = Pick<UserRequestDto, 'firstName'| 'lastName' | 'username' | 'email' | 'password' >

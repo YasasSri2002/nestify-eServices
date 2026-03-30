@@ -5,11 +5,12 @@ import { useRouter } from 'next/navigation';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { LiaWindowCloseSolid } from "react-icons/lia";
 import { registerUser } from "../api-calls/users/register/route";
-import { UserData } from "@/dto/UserDto";
+
 
 import Swal from "sweetalert2";
 import { clientRegisterSchema } from "../../lib/schema/clientRegisterSchema";
 import { ClientRegisterFormErrors } from "../../lib/schema/clientRegisterSchema";
+import { UserData } from "@/types/user";
 
 
 export default function ClientForm() {
