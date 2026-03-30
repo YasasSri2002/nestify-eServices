@@ -43,8 +43,6 @@ export interface UserRequestDto{
 
     lastName: string;
 
-    paymentMethod: string;
-
     contact: string;
 
     password: string;

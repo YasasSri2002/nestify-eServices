@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { FormEvent, useState } from "react"
 
-import { UserResponseDto } from "@/dto/UserDto"
+import { UserRequestDto, UserResponseDto } from "@/dto/UserDto"
 import DynamicIcon from "@/components/utill/DynamicIcons";
 
 export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
@@ -18,6 +18,8 @@ export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         console.log(formData);
+
+
         setIsEditing(!isEditing);
     }
 
@@ -74,7 +76,7 @@ export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
 
                 </div>
                 <div className="grid content-center mx-5">
-                    <h1 className="text-xl font-semibold capitalize">{user.firstName} {user.lastName}</h1>
+                    <h1 className="text-xl font-semibold capitalize">{user.username}</h1>
                     <h1>{user.email}</h1>
                 </div>
             </div>
@@ -84,39 +86,47 @@ export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
                 <div className="m-3">
                 
                     <div className="grid gap-3">
-                        <div className="flex justify-between gap-8 ">
-                            <div className="grid flex-1 gap-2">
-                                <label htmlFor="firstName" className="pl-0.5">First Name</label>
-                                <input type="text" 
-                                    defaultValue={user.firstName}
-                                    disabled={!isEditing} 
-                                    name="firstName"
-                                    className={`border-white border w-full h-8 rounded-md bg-white pl-3
-                                         ${isEditing ? 'outline-2 outline-blue-500 focus:outline-0' : ''}`}
-                                    
-                                />
+                        <div className="grid my-5 gap-3">
+                            <h1 className="text-lg md:text-xl lg:text-2xl text-black/95 mb-3">Account Information</h1>
+                            <div className="grid sm:flex  sm:justify-between sm:gap-8 gap-3">
+                                <div className="grid flex-1 gap-2">
+                                    <label htmlFor="firstName" className="pl-0.5">First Name</label>
+                                    <input type="text" 
+                                        defaultValue={user.firstName}
+                                        disabled={!isEditing} 
+                                        name="firstName"
+                                        className={`border-white border w-full h-8 rounded-md bg-white pl-3
+                                            ${isEditing ? 'outline-2 outline-blue-500 focus:outline-0' : ''}`}
+                                        
+                                    />
+                                </div>
+                                <div className="grid flex-1 gap-2">
+                                    <label htmlFor="lastName" className="pl-0.5">Last Name</label>
+                                    <input type="text" 
+                                        defaultValue={user.lastName}
+                                        disabled={!isEditing}  
+                                        name="lastName"
+                                        className={`border-white border w-full h-8 rounded-md bg-white pl-3 
+                                            ${isEditing ? 'outline-2 outline-blue-500 focus:outline-0' : ''}`} />
+                                </div>
                             </div>
                             <div className="grid flex-1 gap-2">
-                                <label htmlFor="lastName" className="pl-0.5">Last Name</label>
+                                <label htmlFor="username" className="pl-0.5">Username</label>
                                 <input type="text" 
-                                    defaultValue={user.lastName}
-                                    disabled={!isEditing}  
-                                    name="lastName"
-                                    className={`border-white border w-full h-8 rounded-md bg-white pl-3 
-                                        ${isEditing ? 'outline-2 outline-blue-500 focus:outline-0' : ''}`} />
+                                        defaultValue={user.username} 
+                                        disabled={!isEditing} 
+                                        name="username"
+                                        className={`border-white border w-full h-8 rounded-md bg-white pl-3
+                                        ${isEditing ? 'outline-2 outline-blue-500 focus:outline-0 ' : ''}`} />
                             </div>
                         </div>
-                        <div className="flex justify-between gap-8 ">
-                            <div className="grid flex-1 gap-2">
-                                <label htmlFor="email" className="pl-0.5">Email Address</label>
-                                <input type="text" 
-                                    defaultValue={user.email} 
-                                    disabled={!isEditing} 
-                                    name="email"
-                                    className={`border-white border w-full h-8 rounded-md bg-white pl-3
-                                        ${isEditing ? 'outline-2 outline-blue-500 focus:outline-0' : ''}`} />
-                            </div>
-                            <div className="grid flex-1 gap-2">
+                        <div className="grid my-5 gap-3">
+                            <h1 className="text-lg md:text-xl lg:text-2xl text-black/95 mb-3" >
+                            Contact information
+                            </h1>
+
+                            <div className="grid sm:flex  sm:justify-between sm:gap-8 gap-3">
+                               <div className="grid flex-1 gap-2">
                                     <label htmlFor="contact" className="pl-0.5">Contact No</label>
                                     <input type="text" 
                                         defaultValue={user.contact} 
@@ -124,20 +134,21 @@ export default function PerosonalInformationForm({user}:{user:UserResponseDto}){
                                         name="contact"
                                         className={`border-white border w-full h-8 rounded-md bg-white pl-3
                                         ${isEditing ? 'outline-2 outline-blue-500 focus:outline-0' : ''}`} />
-                            </div>
+                                </div>
+
+                                <div className="grid flex-1 gap-2">
+                                    <label htmlFor="address" className="pl-0.5">Address</label>
+                                    <input type="text" 
+                                            defaultValue={user.address} 
+                                            disabled={!isEditing} 
+                                            name="address"
+                                            className={`border-white border w-full h-8 rounded-md bg-white pl-3
+                                            ${isEditing ? 'outline-2 outline-blue-500 focus:outline-0 ' : ''}`} />
+                                </div>
                             
-                        </div>
-            
-                        <div className="grid flex-1 gap-2">
-                            <label htmlFor="address" className="pl-0.5">Address</label>
-                            <input type="text" 
-                                    defaultValue={user.address} 
-                                    disabled={!isEditing} 
-                                    name="address"
-                                    className={`border-white border w-full h-8 rounded-md bg-white pl-3
-                                    ${isEditing ? 'outline-2 outline-blue-500 focus:outline-0 ' : ''}`} />
+                                
                             </div>
-                       
+                        </div>
                         
                     </div> 
                 </div>
