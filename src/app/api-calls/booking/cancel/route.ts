@@ -29,7 +29,7 @@ export async function cancelBooking(id: string){
     let response: Response;
 
     try {
-        response = await fetch(`${BACKEND_URL}/api/v1/booking/cancel?id=${id}`, {
+        response = await fetch(`${BACKEND_URL}/api/v1/booking/cancel?taskId=${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
