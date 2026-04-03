@@ -24,7 +24,7 @@ export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigRe
 
     const showForm = async ()=> {
         
-        const tokenExsist = await isTokenExsist();
+        const tokenExsist = await isTokenExsist(`/service-gigs/details/${gig.id}`);
 
         if(!tokenExsist){
             Swal.fire({
