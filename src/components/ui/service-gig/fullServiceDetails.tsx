@@ -6,8 +6,8 @@ import DynamicIcon from "@/components/utill/DynamicIcons";
 import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
 import { useState } from "react";
 import BookingForm from "../booking/bookingForm";
-import Cookies from "js-cookie" ;
 import Swal from "sweetalert2";
+import { isTokenExsist } from "@/app/api-calls/auth/token-functions/check-if-exsist/route";
 
 
 function showProviderDetails(){
@@ -22,9 +22,11 @@ export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigRe
     const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
 
 
-    const showForm = ()=> {
-        const token =Cookies.get('auth-token');
-        if(!token){
+    const showForm = async ()=> {
+        
+        const tokenExsist = await isTokenExsist();
+
+        if(!tokenExsist){
             Swal.fire({
                 title: "Login Required",
                 html: " <p class=\"text-gray-600\"> You need to log in or create an account to book this service.</p>",
