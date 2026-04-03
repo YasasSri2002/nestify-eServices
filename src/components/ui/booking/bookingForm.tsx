@@ -5,6 +5,7 @@ import DynamicIcon from "@/components/utill/DynamicIcons";
 
 
 
+
 export default function BookingForm(
     {onClose,onSubmit}: {onClose: () => void , onSubmit: (bookingRequestDto: any) => void }){
 
@@ -12,6 +13,7 @@ export default function BookingForm(
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
         console.log(formData);
+
 
         onSubmit(formData);
     }
@@ -36,16 +38,11 @@ export default function BookingForm(
                     <h1 className="text-center text-lg md:text-xl lg:text-2xl" >Booking Information</h1>
                 </header>
                 <form onSubmit={onFormSubmit} className="w-full gap-5 grid">
-                    <div className="flex justify-between gap-10">
-                        <div className="grid flex-1">
-                            <label htmlFor="firstName">First name</label>
-                            <input type="text" name="firstName" placeholder="Enter your name" className="border-[0.5px] h-8 rounded-sm outline-none pl-2"/>
-                        </div>
-                        <div className="grid flex-1">
-                            <label htmlFor="lastName">Last name</label>
-                            <input type="text" name="lastName" placeholder="Enter your name" className="border-[0.5px] h-8 rounded-sm outline-none pl-2"/>
-                        </div>
+                    <div className="grid flex-1">
+                        <label htmlFor="name">Full name</label>
+                        <input type="text" name="name" placeholder="Enter your name" className="border-[0.5px] h-8 rounded-sm outline-none pl-2"/>
                     </div>
+                    
                     <div className="flex justify-between gap-10">
                     <div className="grid flex-1 ">
                         <label htmlFor="email">Email address</label>

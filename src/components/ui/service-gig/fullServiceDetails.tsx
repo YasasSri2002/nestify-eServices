@@ -6,6 +6,9 @@ import DynamicIcon from "@/components/utill/DynamicIcons";
 import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
 import { useState } from "react";
 import BookingForm from "../booking/bookingForm";
+import Cookies from "js-cookie" ;
+import Swal from "sweetalert2";
+
 
 function showProviderDetails(){
         const providerDetailsPanel = document.getElementById(`providerDetails`);
@@ -14,7 +17,35 @@ function showProviderDetails(){
 
 export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigResponseDto}){
 
+    
     const [showBookingForm,setShowBookingForm] = useState(false);
+    const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+
+
+    const showForm = ()=> {
+        const token =Cookies.get('auth-token');
+        if(!token){
+            Swal.fire({
+                title: "Login Required",
+                html: " <p class=\"text-gray-600\"> You need to log in or create an account to book this service.</p>",
+                showConfirmButton: true,
+                confirmButtonText: "Sign in",
+                footer: "Don't have an account?<a href=\"/register\" class=\"text-blue-600 ml-2\" autofocus>Sign up</a>",
+                reverseButtons: true,
+                buttonsStyling: false,
+                customClass:{
+                    confirmButton: "bg-black rounded-md px-4 py-2 text-white active:scale-95 transition-all duration-300 hover:bg-gray-600/10 hover:backdrop-blur-md hover:border hover:border-white/20 hover:shadow-lg hover:text-black",
+                    
+                }
+            }).then((result)=>{
+                if(result.isConfirmed){
+                    window.location.replace(loginUrl!);
+                }
+            });
+            return null
+        }
+        setShowBookingForm(!showBookingForm);
+    }
 
     return(
         <>
@@ -111,7 +142,7 @@ export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigRe
                         </div>
                         <div className="flex justify-end w-full">
                             <button className="bg-black/85 rounded-md px-4 py-1 text-white active:scale-85"
-                            onClick={()=> setShowBookingForm(!showBookingForm)}
+                            onClick={showForm}
                             >
                                 Book
                             </button>
