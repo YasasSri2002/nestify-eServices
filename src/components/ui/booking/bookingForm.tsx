@@ -20,7 +20,10 @@ export default function BookingForm(
         <div className="fixed inset-0 flex items-center justify-center w-full z-50"
             onClick={onClose}
         >
-            <main className="max-h-[90vh] max-w-5xl grid bg-white rounded-xl shadow-xl overflow-y-auto mx-4 p-5 gap-10  ">
+            <main className="max-h-[90vh] max-w-5xl grid bg-white rounded-xl shadow-xl overflow-y-auto mx-4 p-5
+             gap-10"
+             onClick={(event)=> event.stopPropagation()}
+             >
                 <div className="flex justify-end">
                     <button onClick={onClose} >
                         <DynamicIcon name="IoClose" className="w-5 h-5"/>
