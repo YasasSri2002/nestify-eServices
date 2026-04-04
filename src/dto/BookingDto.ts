@@ -1,3 +1,4 @@
+import { BookingStatus } from "@/types/booking";
 import { ProviderDto } from "./ProviderDto";
 import { ServiceGigResponseDto } from "./response/ServiceGigResponseDto";
 
@@ -39,4 +40,27 @@ export interface BookingResponseDto{
 
     serviceGigResponseDto: ServiceGigResponseDto;
 
+}
+
+export interface BookingRequestDto{
+    name: string;
+
+    email: string;
+
+    contactNo: string;
+
+    address: string; // if above field were null it will be replaced with client's info
+
+    additionalInformation: string; // can be null
+
+    status: BookingStatus; //pending, approved , rejected , canceled
+
+    startingTime: string; //clients convenient starting time
+
+    startingDate: string; //booking date
+
+
+    providerId: string;
+
+    gigId: string;
 }
