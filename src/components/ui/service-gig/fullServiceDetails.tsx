@@ -8,6 +8,10 @@ import { useState } from "react";
 import BookingForm from "../booking/bookingForm";
 import Swal from "sweetalert2";
 import { isTokenExsist } from "@/app/api-calls/auth/token-functions/check-if-exsist/route";
+import { BookingData } from "@/types/booking";
+import { Hand } from "lucide-react";
+import { addBooking } from "@/app/api-calls/booking/persist/route";
+import { BookingRequestDto } from "@/dto/BookingDto";
 
 
 function showProviderDetails(){
@@ -47,6 +51,37 @@ export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigRe
             return null
         }
         setShowBookingForm(!showBookingForm);
+    }
+
+    async function handleSubmit(data: BookingData){
+        try{
+            const bookingRequestDto: BookingRequestDto ={
+                name: data.name,
+                email: data.email,
+                address: data.address,
+                additionalInformation:data.additionalInformation,
+                gigId: gig.id,
+                providerId: gig.provider.id,
+                status: "pending",
+                startingDate: data.startingDate,
+                startingTime: data.startingTime,
+                contactNo: data.contactNo
+            }
+            await addBooking(bookingRequestDto);
+            Swal.fire({
+                title: "Booking Completed",
+                text: "Successfully booked",
+                icon: "success"
+            })
+        }catch(err:unknown){
+          if(err instanceof Error){
+            Swal.fire({
+                title: `Error ${err.name}`,
+                text: `${err.message}`,
+                icon: "error"
+            })
+          }
+        }
     }
 
     return(
@@ -156,7 +191,7 @@ export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigRe
             {
                 showBookingForm && 
                 <BookingForm onClose={()=> setShowBookingForm(!showBookingForm)}
-                onSubmit={(bookingRequestDto: any)=>console.log(bookingRequestDto)}
+                onSubmit={handleSubmit}
                 />
             }
 
