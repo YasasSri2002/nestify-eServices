@@ -10,15 +10,15 @@ import { BookingRequestDto } from "@/dto/BookingDto";
 const BACKEND_URL = process.env.SPRING_BOOT_API_URL || 'http://localhost:8080';
 
 
-export async function addBooking(bookingRequestDto: BookingRequestDto ){
+export async function addBooking(bookingRequestDto: BookingRequestDto) {
   const cookieStore = await cookies();
   let token = cookieStore.get('auth-token')?.value;
 
   if (!token) {
-    redirect(`/`);
+    return { error: "UNAUTHORIZED" };
   }
 
-  if (await IsExpired(token)) {
+  if (await IsExpired(token!)) {
     const newToken = await refreshKeycloakToken();
     if (!newToken) {
       redirect(`/`);
@@ -43,8 +43,16 @@ export async function addBooking(bookingRequestDto: BookingRequestDto ){
   }
 
   if (!response.ok) {
-    const errBody = await response.text();
-    throw new Error(`Booking API failed: ${response.status} - ${errBody}`);
+    let message = "Booking failed";
+
+    try {
+      const errJson = await response.json();
+      message = errJson?.message || message;
+    } catch {
+      message = "Unexcepted Error"
+    }
+
+    throw new Error(`Booking API failed: ${response.status} - ${message}`);
   }
 
   return response.json();

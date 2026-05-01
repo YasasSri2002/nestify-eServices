@@ -9,28 +9,27 @@ import BookingForm from "../booking/bookingForm";
 import Swal from "sweetalert2";
 import { isTokenExsist } from "@/app/api-calls/auth/token-functions/check-if-exsist/route";
 import { BookingData } from "@/types/booking";
-import { Hand } from "lucide-react";
 import { addBooking } from "@/app/api-calls/booking/persist/route";
 import { BookingRequestDto } from "@/dto/BookingDto";
 
 
-function showProviderDetails(){
-        const providerDetailsPanel = document.getElementById(`providerDetails`);
-        providerDetailsPanel?.classList.toggle('sr-only')
-    }
+function showProviderDetails() {
+    const providerDetailsPanel = document.getElementById(`providerDetails`);
+    providerDetailsPanel?.classList.toggle('sr-only')
+}
 
-export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigResponseDto}){
+export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceGigResponseDto }) {
 
-    
-    const [showBookingForm,setShowBookingForm] = useState(false);
+
+    const [showBookingForm, setShowBookingForm] = useState(false);
     const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
 
 
-    const showForm = async ()=> {
-        
+    const showForm = async () => {
+
         const tokenExsist = await isTokenExsist(`/service-gigs/details/${gig.id}`);
 
-        if(!tokenExsist){
+        if (!tokenExsist) {
             Swal.fire({
                 title: "Login Required",
                 html: " <p class=\"text-gray-600\"> You need to log in or create an account to book this service.</p>",
@@ -39,12 +38,12 @@ export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigRe
                 footer: "Don't have an account?<a href=\"/register\" class=\"text-blue-600 ml-2\" autofocus>Sign up</a>",
                 reverseButtons: true,
                 buttonsStyling: false,
-                customClass:{
+                customClass: {
                     confirmButton: "bg-black rounded-md px-4 py-2 text-white active:scale-95 transition-all duration-300 hover:bg-gray-600/10 hover:backdrop-blur-md hover:border hover:border-white/20 hover:shadow-lg hover:text-black",
-                    
+
                 }
-            }).then((result)=>{
-                if(result.isConfirmed){
+            }).then((result) => {
+                if (result.isConfirmed) {
                     window.location.replace(loginUrl!);
                 }
             });
@@ -53,13 +52,13 @@ export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigRe
         setShowBookingForm(!showBookingForm);
     }
 
-    async function handleSubmit(data: BookingData){
-        try{
-            const bookingRequestDto: BookingRequestDto ={
+    async function handleSubmit(data: BookingData) {
+        try {
+            const bookingRequestDto: BookingRequestDto = {
                 name: data.name,
                 email: data.email,
                 address: data.address,
-                additionalInformation:data.additionalInformation,
+                additionalInformation: data.additionalInformation,
                 gigId: gig.id,
                 providerId: gig.provider.id,
                 status: "pending",
@@ -67,55 +66,59 @@ export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigRe
                 startingTime: data.startingTime,
                 contactNo: data.contactNo
             }
-            await addBooking(bookingRequestDto);
+            const response = await addBooking(bookingRequestDto);
+            if (response.ok) {
+                Swal.fire({
+                    title: "Booking Completed",
+                    text: "Successfully booked",
+                    icon: "success"
+                })
+            }
+            setShowBookingForm(!showBookingForm);
+        } catch (err: any) {
+            console.log(err)
+
+
             Swal.fire({
-                title: "Booking Completed",
-                text: "Successfully booked",
-                icon: "success"
-            })
-        }catch(err:unknown){
-          if(err instanceof Error){
-            Swal.fire({
-                title: `Error ${err.name}`,
-                text: `${err.message}`,
+                title: "Error",
+                text: err.message,
                 icon: "error"
-            })
-          }
+            });
         }
     }
 
-    return(
+    return (
         <>
             <main>
                 <div className="grid grid-cols-6 bg-linear-to-br to-gray-200 from-gray-300 via-blue-50">
                     {/* mobile-menue */}
                     <div className="h-full sm:hidden bg-gray-300 grid justify-items-center content-between py-2">
                         <button onClick={showProviderDetails}>
-                            <DynamicIcon name="BiMenu" className="text-3xl"/>
+                            <DynamicIcon name="BiMenu" className="text-3xl" />
                         </button>
                         <div className="w-10 h-10 rounded-full">
-                            <Image src={"https://avatar.iran.liara.run/public/boy"} 
+                            <Image src={"https://avatar.iran.liara.run/public/boy"}
                                 width={100}
                                 height={100}
-                                alt="provider's profile picture"/>
+                                alt="provider's profile picture" />
                         </div>
                     </div>
 
                     {/* left-side */}
 
-                <div id="providerDetails" className="col-span-2 grid justify-items-center order-2 
+                    <div id="providerDetails" className="col-span-2 grid justify-items-center order-2 
                             sm:order-1 absolute bg-gray-300 sm:bg-white/5 z-50 sr-only sm:not-sr-only gap-5 sm:p-4 h-full
                             ">
                         <div className="w-full flex justify-end sm:sr-only ">
                             <button onClick={showProviderDetails}>
-                                <DynamicIcon name="IoMdClose" className="text-xl"/>
+                                <DynamicIcon name="IoMdClose" className="text-xl" />
                             </button>
                         </div>
                         <div className="w-30 h-30 rounded-full">
-                            <Image src={"https://avatar.iran.liara.run/public/boy"} 
+                            <Image src={"https://avatar.iran.liara.run/public/boy"}
                                 width={100}
                                 height={100}
-                                alt="provider's profile picture"/>
+                                alt="provider's profile picture" />
                         </div>
                         <div className="grid gap-5">
                             <div className="flex space-x-4 justify-center">
@@ -123,8 +126,8 @@ export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigRe
                                     Get to know<span className="capitalize"> {gig.provider.userName}</span>
                                 </h1>
                                 {
-                                    gig.provider.isVerified ? 
-                                    <DynamicIcon name="BiBadgeCheck" className="text-green-400 text-2xl" /> : ""
+                                    gig.provider.isVerified ?
+                                        <DynamicIcon name="BiBadgeCheck" className="text-green-400 text-2xl" /> : ""
                                 }
                             </div>
                             <p>{gig.provider.shortDescription}</p>
@@ -137,7 +140,7 @@ export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigRe
                             </div>
                             <div className="xl:col-2 gap-2 grid">
                                 <h1>Up to date {gig.provider.jobCount} jobs has successfully compeleted</h1>
-                                
+
                                 <div className="grid justify-items-center w-fit gap-2">
                                     <h1>Contacts</h1>
                                     <div className="flex justify-between w-full lg:">
@@ -148,56 +151,56 @@ export default function FullServiceGigsDetails({gig}:{readonly gig: ServiceGigRe
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
-                </div>
-                
-                {/* right-side */}
-                <div className="col-span-5 sm:col-span-4  sm:order-2 p-5 ">
+                    </div>
+
+                    {/* right-side */}
+                    <div className="col-span-5 sm:col-span-4  sm:order-2 p-5 ">
                         <h1 className="lg:text-2xl text-center capitalize mt-2 mb-10 ">{gig.title}</h1>
                         <div className="grid gap-5 md:grid-cols-2">
                             <div className="md:col-1 grid gap-4 ">
-                                    <div className="grid gap-2">
-                                        <h1 className="lg:text-2xl ">About this gig</h1>
-                                        <p className="text-gray-600 md:text-lg">{gig.fullDescription}</p>
+                                <div className="grid gap-2">
+                                    <h1 className="lg:text-2xl ">About this gig</h1>
+                                    <p className="text-gray-600 md:text-lg">{gig.fullDescription}</p>
+                                </div>
+
+                            </div>
+                            <div className="md:col-2 sticky grid content-center h-full ">
+                                <div className="bg-gray-300 p-5 rounded-2xl">
+                                    <h1 className="lg:text-2xl">Abour Prices</h1>
+                                    <div className="ml-3">
+                                        <h1>The base price: {gig.basePrice} {gig.currency}</h1>
+                                        <h1>How price adding: {gig.priceType}</h1>
                                     </div>
-                                    
-                                </div> 
-                                <div className="md:col-2 sticky grid content-center h-full ">
-                                    <div className="bg-gray-300 p-5 rounded-2xl">
-                                        <h1 className="lg:text-2xl">Abour Prices</h1>
-                                        <div className="ml-3">
-                                            <h1>The base price: {gig.basePrice} {gig.currency}</h1>
-                                            <h1>How price adding: {gig.priceType}</h1>
-                                        </div>
-                                    </div>
-                                </div>  
+                                </div>
+                            </div>
                         </div>
                         <div className="flex space-x-5 w-full items-center  my-10">
-                            <h1>Category: </h1>  
+                            <h1>Category: </h1>
                             <h1 className="bg-gray-200 rounded-xl px-4 py-1">{gig.category.name}</h1>
                         </div>
                         <div className="flex justify-end w-full">
                             <button className="bg-black/85 rounded-md px-4 py-1 text-white active:scale-85"
-                            onClick={showForm}
+                                onClick={showForm}
                             >
                                 Book
                             </button>
                         </div>
-                </div>
+                    </div>
                 </div>
 
             </main>
             {
-                showBookingForm && 
-                <BookingForm onClose={()=> setShowBookingForm(!showBookingForm)}
-                onSubmit={handleSubmit}
+                showBookingForm &&
+                <BookingForm onClose={() => setShowBookingForm(!showBookingForm)}
+                    onSubmit={handleSubmit}
                 />
             }
 
 
         </>
-        
+
 
     )
 }
