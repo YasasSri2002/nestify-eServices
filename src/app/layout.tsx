@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { CategoryProvider } from "@/context/categoryContext";
 
 
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <CategoryProvider>
         {children}
+        </CategoryProvider>
         </body>
     </html>
   );
