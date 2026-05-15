@@ -2,20 +2,20 @@ import { CategoryResponseDto } from "../CategoryDto";
 import { ProviderDto } from "../ProviderDto";
 
 
-export interface ServiceGigResponseDto{
-    id : string;
-    
+export interface ServiceGigResponseDto {
+    id: string;
+
     title: string;
 
-    shortDescription: string;
+    serviceLocation: string;
 
-    fullDescription:string;
+    description: string;
 
     basePrice: number;
 
     priceType: string; //Hourly, per Job or for day
 
-    durationByHours: number;
+    totalBookingCount: number;
 
     currency: string; // LKR, USD
 

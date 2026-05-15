@@ -162,7 +162,7 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
                             <div className="md:col-1 grid gap-4 ">
                                 <div className="grid gap-2">
                                     <h1 className="lg:text-2xl ">About this gig</h1>
-                                    <p className="text-gray-600 md:text-lg">{gig.fullDescription}</p>
+                                    <p className="text-gray-600 md:text-lg">{gig.description}</p>
                                 </div>
 
                             </div>
