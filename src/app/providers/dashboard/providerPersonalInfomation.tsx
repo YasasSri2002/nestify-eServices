@@ -100,7 +100,7 @@ export default function ProviderPerosonalInformationForm({provider}:{provider:Pr
                                     width={100}
                                     height={100}
                                     alt="profile photo"
-                                    className="rounded-full w-25 h-25"
+                                    className="rounded-xl w-25 h-25"
                             ></Image> 
                             
                             {
