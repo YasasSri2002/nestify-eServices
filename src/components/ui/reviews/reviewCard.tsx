@@ -6,34 +6,37 @@ import Image from "next/image";
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import { ReviewDto } from "@/dto/ReviewDto";
 
-export default function ReviewCard({review}: {readonly review: ReviewDto}){
+export default function ReviewCard({ review }: { readonly review: ReviewDto }) {
 
-    const [rating,setRating] = useState(0);  
+    const [rating, setRating] = useState(0);
 
-    useEffect(()=>{
+    useEffect(() => {
         setRating(review.rating);
-    },[])
+    }, [])
 
-    return(
-        
-        <div className=" rounded-2xl  grid gap-3 w-full px-15 bg-gray-100 py-5 h-50">
+    return (
+
+        <div className=" rounded-2xl  grid gap-3 w-full px-15 bg-white py-5 h-50">
             <div className="grid gap-2">
                 <div className="flex items-center space-x-4 ">
-                     <div className="w-10 h-10 rounded-full">
-                        <Image src={"https://avatar.iran.liara.run/public/boy"} 
-                                width={100}
-                                height={100}
-                                alt="provider's profile picture"/>
+                    <div className="w-20 h-20 rounded-full">
+                        <Image src={"/user.jpg"}
+                            width={100}
+                            height={100}
+                            alt="provider's profile picture" className="w-full h-full rounded-full object-cover" />
                     </div>
-                     <h1>{review.reviewsClient.email}</h1>
+                    <div className="grid">
+                        <h1>{review.reviewsClient.email}</h1>
+                        <h1>{new Date(review.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}</h1>
+                    </div>
                 </div>
 
                 <div className="flex space-x-5 items-center">
-                   <div className="flex gap-1  items-center">
-                        {[1,2,3,4,5].map((number, i) => (
+                    <div className="flex gap-1  items-center">
+                        {[1, 2, 3, 4, 5].map((number, i) => (
                             <span key={number}>
-                                <DynamicIcon name="FaStar" 
-                                    className={`text-lg ${i < review.rating ? 'text-yellow-400' : 'text-gray-300'}`}/>
+                                <DynamicIcon name="FaStar"
+                                    className={`text-lg ${i < review.rating ? 'text-yellow-400' : 'text-gray-300'}`} />
                             </span>
                         ))}
                     </div>
@@ -43,7 +46,7 @@ export default function ReviewCard({review}: {readonly review: ReviewDto}){
 
             <p>{review.comment}</p>
 
-                
+
         </div>
 
     )

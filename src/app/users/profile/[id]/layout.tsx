@@ -13,11 +13,11 @@ export default function UserProfileLayout({
   children: React.ReactNode;
 }>) {
   return (
-        <div>
-           <Suspense fallback={<FullPageLoading/>}>
-              <ProfileNavBar/>
-              {children}
-           </Suspense>
-        </div>
+    <div className="bg-gradient-to-b to-surface-ice-200 from-surface-snow via-surface-ice-100">
+      <Suspense fallback={<FullPageLoading />}>
+        <ProfileNavBar />
+        {children}
+      </Suspense>
+    </div>
   );
 }

@@ -30,7 +30,7 @@ export default function PopularProvidersList() {
     if(isLoading){
        return (
             <> 
-              <h1 className="text-gray-900 text-4xl lg:text-6xl text-center my-10">
+              <h1 className="text-[#0A192F] text-4xl lg:text-6xl text-center my-10 font-display font-bold">
                 Popular Providers
               </h1>
               <LoadingPage/>
@@ -39,7 +39,7 @@ export default function PopularProvidersList() {
     }
   return (
     <div className="h-full">
-      <h1 className="text-gray-900 text-4xl lg:text-6xl text-center my-10">
+      <h1 className="text-[#0A192F] text-4xl lg:text-6xl text-center my-10 font-display font-bold">
         Popular Providers
       </h1>
 

@@ -6,17 +6,17 @@ import PerosonalInformationForm from "./personalInformation";
 import { LoadingPage } from "@/components/utill/loadingPage";
 
 
-export default  function ProfileDashboard({user}: {user:UserResponseDto}){
+export default function ProfileDashboard({ user }: { user: UserResponseDto }) {
 
 
-    return(
-        
-        <div className="lg:px-10">
-            <Suspense fallback={<LoadingPage/>}>
+    return (
+
+        <div className="lg:p-5 grid gap-5">
+            <Suspense fallback={<LoadingPage />}>
                 <PerosonalInformationForm user={user} />
             </Suspense>
-            <div className="my-5">
-                <AccountInfo createdDate={user.createdAt} userId={user.id}/>
+            <div>
+                <AccountInfo createdDate={user.createdAt} userId={user.id} />
             </div>
         </div>
 

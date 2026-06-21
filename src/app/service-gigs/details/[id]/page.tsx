@@ -9,24 +9,24 @@ import FullServiceGigsDetails from "@/components/ui/service-gig/fullServiceDetai
 import ServiceGigReviewSection from "@/components/ui/reviews/service-gig-review-section/serviceGigReviewSection";
 
 
- 
 
-export default async function ServiceGigDetails({params}:{readonly params:Promise<{id:string}> }){
-    
+
+export default async function ServiceGigDetails({ params }: { readonly params: Promise<{ id: string }> }) {
+
     const gigId = (await params).id;
-    const gig =  await getGigsById(gigId);
-    
+    const gig = await getGigsById(gigId);
 
-
-    return(
+    return (
 
         <>
-        <NavBar/>
-        <FullServiceGigsDetails gig={gig} />
-        <div className="my-5 ">
-           <ServiceGigReviewSection serviceGigid={gigId} providersId={gig.provider.id} />
-        </div>
+            <NavBar />
+            <div className="bg-gradient-to-b from-[#d9edee] via-[#e6f3f3] to-[#ebf7f7]">
+                <FullServiceGigsDetails gig={gig} />
+                <div className="py-5 px-5">
+                    <ServiceGigReviewSection serviceGigid={gigId} providersId={gig.provider.id} />
+                </div>
+            </div>
         </>
-        
+
     );
 }

@@ -1,7 +1,7 @@
 import { UUID } from "crypto";
 import { UserDto } from "./UserDto";
 
-export interface ReviewDto{
+export interface ReviewDto {
     id: string;
 
     rating: number;
@@ -11,13 +11,15 @@ export interface ReviewDto{
     providerResponse: string;
 
     reviewsClient: UserDto;
+
+    createdAt: Date;
 }
 
-export interface ReviewRequestDto{
+export interface ReviewRequestDto {
     rating: number;
 
     comment: string;
-    
+
     serviceGigId?: string;
 
     providerId: string;

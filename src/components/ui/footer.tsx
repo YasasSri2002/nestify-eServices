@@ -8,27 +8,27 @@ const currentYear = new Date().getFullYear();
 export default function Footer(){
     return(
         <>
-        <div className="flex flex-col md:flex-row bg-[#121212e1] text-[hsla(0,0%,90%,1)] ">
+        <div className="flex flex-col md:flex-row bg-[#0A192F] text-[#94A3B8] ">
             <div className="basis-full md:basis-1/3">
                 <h1 className="text-center sm:text-1.5xl my-3 font-bold text-white">Nestify</h1>
                 <p className="m-4 text-[0.9em]">Connecting homeowners with trusted service providers for all household needs.</p>
                 <div className="social-icons space-x-20 flex justify-center m-4">
-                    <button><a href="https://www.facebook.com"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-facebook-icon lucide-facebook "><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></button>
+                    <button><a href="https://www.facebook.com"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-facebook-icon lucide-facebook hover:stroke-[#3B82F6] transition-colors duration-200"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></button>
 
                     <button><a href="https://www.x.com">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 251 256" fill= "#afafaf" strokeWidth="1"><path d="M149.079 108.399L242.33 0h-22.098l-80.97 94.12L74.59 0H0l97.796 142.328L0 256h22.1l85.507-99.395L175.905 256h74.59L149.073 108.399zM118.81 143.58l-9.909-14.172l-78.84-112.773h33.943l63.625 91.011l9.909 14.173l82.705 118.3H186.3l-67.49-96.533z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 251 256" fill= "#94A3B8" strokeWidth="1" className="hover:fill-[#3B82F6] transition-colors duration-200"><path d="M149.079 108.399L242.33 0h-22.098l-80.97 94.12L74.59 0H0l97.796 142.328L0 256h22.1l85.507-99.395L175.905 256h74.59L149.073 108.399zM118.81 143.58l-9.909-14.172l-78.84-112.773h33.943l63.625 91.011l9.909 14.173l82.705 118.3H186.3l-67.49-96.533z"/></svg>
                         </a></button>
 
-                    <button><a href="https://www.linkedin.com"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin-icon lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a></button>
+                    <button><a href="https://www.linkedin.com"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin-icon lucide-linkedin hover:stroke-[#3B82F6] transition-colors duration-200"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a></button>
                 </div>
             </div>
             <div className="basis-full md:basis-1/3 sm:ml-20">
             <h1 className="my-3 text-center font-semibold text-white">Quick links</h1>
             <ul className="flex-col ml-4 sm:ml-10">
-                <li className="my-2"><Link href="/about/#how-we-work">How it Works</Link></li>
-                <li className="my-2"><Link href="/service-gigs">Browse Services</Link></li>
-                <li className="my-2"><Link href="/register">Join as Provider</Link></li>
-                <li className="my-2"><Link href="/about">Safety & Trust</Link></li>
+                <li className="my-2 hover:text-[#3B82F6] transition-colors duration-200"><Link href="/about/#how-we-work">How it Works</Link></li>
+                <li className="my-2 hover:text-[#3B82F6] transition-colors duration-200"><Link href="/service-gigs">Browse Services</Link></li>
+                <li className="my-2 hover:text-[#3B82F6] transition-colors duration-200"><Link href="/register">Join as Provider</Link></li>
+                <li className="my-2 hover:text-[#3B82F6] transition-colors duration-200"><Link href="/about">Safety & Trust</Link></li>
             </ul>
             </div>
             <div className="basis-full md:basis-1/3 ">
@@ -49,10 +49,9 @@ export default function Footer(){
             </div>
             </div>
         </div>
-        <div className="md:text-1xl bg-[#121212e1] px-5 py-10 flex">
-                <div className="w-[99.9%] border-t border-white flex items-center justify-center pt-10"> 
-                              
-                        <p className="text-[hsla(0,0%,90%,1)]">&copy; 
+        <div className="md:text-1xl bg-[#0A192F] px-5 py-10 flex">
+                <div className="w-[99.9%] border-t border-[#233554] flex items-center justify-center pt-10">                
+                        <p className="text-[#94A3B8]">&copy; 
                             {<Suspense fallback={<span>2026</span>}> {currentYear}</Suspense>} Nestify. All rights reserved.
                         </p>
                     

@@ -13,6 +13,7 @@ export default function AllActiveGigsPage(){
      const[gigs,setGigs] = useState<ServiceGigResponseDto[]>([]);
     
         const[isLoading,setIsLoading] =useState(true);
+        const[error,setError] = useState<string|null>(null);
     
         
     
@@ -25,6 +26,8 @@ export default function AllActiveGigsPage(){
                     
                 }catch(err:any){
                     console.log(err);
+                    setError(err?.message ?? 'Failed to load gigs. Please check your connection or try again later.');
+                    setIsLoading(false);
                 }
             }
             fetchData();
@@ -42,6 +45,15 @@ export default function AllActiveGigsPage(){
         if(isLoading){
             return(
                  <FullPageLoading/>
+            )
+        }
+
+        if(error){
+            return(
+                <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
+                    <p className="text-red-500 text-lg font-semibold">Something went wrong</p>
+                    <p className="text-gray-500 text-sm">{error}</p>
+                </div>
             )
         }
 

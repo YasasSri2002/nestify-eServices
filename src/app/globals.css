@@ -1,14 +1,44 @@
-@import "tailwindcss"; 
+@import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap'); */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FAFBFC;
+  --foreground: #1E293B;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --my-border-width: 75vw;
 
+  /* Deep Blue & Sapphire Palette */
+  --primary-900: #0A192F;
+  --primary-800: #112240;
+  --primary-700: #233554;
+  --primary-600: #495670;
+
+  --accent-600: #1D4ED8;
+  --accent-500: #2563EB;
+  --accent-400: #3B82F6;
+  --accent-100: #DBEAFE;
+
+  --surface-snow: #FFFFFF;
+  --surface-ice-100: #F4F7F7;
+  --surface-ice-200: #EAF2F1;
+  --surface-aqua-pale: #D1E3E2;
+  --surface-aqua-muted: #B9D5D3;
+
+  --neutral-800: #1E293B;
+  --neutral-600: #475569;
+  --neutral-400: #94A3B8;
+  --neutral-200: #E2E8F0;
+
+  --success: #059669;
+  --success-bg: #D1FAE5;
+  --warning: #D97706;
+  --warning-bg: #FEF3C7;
+  --error: #DC2626;
+  --error-bg: #FEE2E2;
+  --rating: #F59E0B;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -18,10 +48,43 @@
   }
 } */
 
+@theme {
+  --color-primary-900: #0A192F;
+  --color-primary-800: #112240;
+  --color-primary-700: #233554;
+  --color-primary-600: #495670;
 
+  --color-accent-600: #1D4ED8;
+  --color-accent-500: #2563EB;
+  --color-accent-400: #3B82F6;
+  --color-accent-100: #DBEAFE;
+
+  --color-surface-snow: #FFFFFF;
+  --color-surface-ice-100: #F4F7F7;
+  --color-surface-ice-200: #EAF2F1;
+  --color-surface-aqua-pale: #D1E3E2;
+  --color-surface-aqua-muted: #B9D5D3;
+
+  --color-neutral-800: #1E293B;
+  --color-neutral-600: #475569;
+  --color-neutral-400: #94A3B8;
+  --color-neutral-200: #E2E8F0;
+
+  --color-success: #059669;
+  --color-success-bg: #D1FAE5;
+  --color-warning: #D97706;
+  --color-warning-bg: #FEF3C7;
+  --color-error: #DC2626;
+  --color-error-bg: #FEE2E2;
+  --color-rating: #F59E0B;
+}
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
 }

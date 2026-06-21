@@ -47,7 +47,7 @@ export default function ToggleButton({
         transition-colors duration-300 ease-in-out
         focus:outline-none  focus:ring-offset-2 focus:ring-slate-500
         ${sizes.track}
-        ${checked ? "bg-slate-900" : "bg-gray-300"}
+        ${checked ? "bg-accent-600" : "bg-gray-300"}
         ${disabled ? "opacity-50 cursor-not-allowed" : ""}
       `}
     >

@@ -20,9 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CategoryProvider>
-        {children}
+          {children}
         </CategoryProvider>
-        </body>
+      </body>
     </html>
   );
 }

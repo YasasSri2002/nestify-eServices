@@ -6,25 +6,30 @@ import JourneySection from "./journey";
 import HowWeWork from './howWeWork'
 import ChooseUs from "./choosingUs";
 
-export default function AboutPage(){
-    return(
+export default function AboutPage() {
+    return (
         <>
-        <NavBar/>
-        <div>
-            <AboutHeroSction/> 
-        </div> 
-        <div className="z-50">
-            <MissionPage/>
-        </div>
-    
-        <JourneySection/>
+            <NavBar />
+            <div>
+                <AboutHeroSction />
+            </div>
+            <div className="z-50  py-5 bg-surface-snow">
+                <MissionPage />
+            </div>
 
-        <div id="how-we-work">
-            <HowWeWork/>
-        </div>
+            <div className="bg-gradient-to-b to-surface-ice-200 from-surface-snow via-surface-ice-100">
+                <JourneySection />
+            </div>
 
-        <ChooseUs/>
-        <Footer/>
+            <div id="how-we-work" className="bg-surface-snow py-5">
+                <HowWeWork />
+            </div>
+
+            <div className="bg-gradient-to-b to-surface-ice-100 from-surface-ice-200">
+                <ChooseUs />
+            </div>
+
+            <Footer />
         </>
     );
 }
