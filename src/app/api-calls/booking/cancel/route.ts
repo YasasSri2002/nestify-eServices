@@ -1,11 +1,8 @@
 "use server"
 
-import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { IsExpired } from "../../auth/token-functions/is-expired/route";
 import { refreshKeycloakToken } from "../../auth/token-functions/refresh-token/route";
-
-
 
 const BACKEND_URL = process.env.SPRING_BOOT_API_URL || 'http://localhost:8080';
 
@@ -15,13 +12,13 @@ export async function cancelBooking(id: string){
       let token = cookieStore.get('auth-token')?.value;
     
       if (!token) {
-        redirect(`/`);
+        throw new Error('Authentication required.');
       }
     
       if (await IsExpired(token)) {
         const newToken = await refreshKeycloakToken();
         if (!newToken) {
-          redirect(`/`);
+          throw new Error('Session expired. Please log in again.');
         }
         token = newToken!;
       }

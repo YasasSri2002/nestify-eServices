@@ -1,13 +1,14 @@
 
-import GigForm from "./gigsForm";
 
-export default function ProviderDashboard(){
+import MyBookingPage from "./my-bookings";
 
-   
+export default function ProviderDashboard() {
 
-    return(
+
+
+    return (
         <div className=" p-5">
-            <GigForm/>
+            <MyBookingPage />
         </div>
     );
 }

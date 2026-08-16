@@ -162,6 +162,14 @@ export default function GigForm(){
                         onChange={handleImageUpload}
                         />
                     </div>
+                    <div>
+                        <button className=" rounded-lg border border-accent-600 py-2 px-5 
+                    hover:bg-accent-500 bg-accent-600 w-30 transition-all duration-200 active:scale-95
+                    text-white shadow-md shadow-accent-400
+                    " type="submit">
+                        Submit
+                        </button>
+                    </div>
                     
                 </div>
             </form>
