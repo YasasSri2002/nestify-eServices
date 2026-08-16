@@ -1,34 +1,17 @@
-'use client'
-import { getAllCategories } from "@/app/api-calls/category/all/route";
-import { CategoryResponseDto } from "@/dto/CategoryDto";
-import { CategoryContextType } from "@/types/category";
-import { createContext, useContext, useEffect, useState } from "react";
+'use client';
 
-
+import React, { createContext, useContext } from 'react';
+import { CategoryResponseDto } from '@/dto/CategoryDto';
+import { CategoryContextType } from '@/types/category';
+import { useCategories as useCategoriesQuery } from '@/hooks/queries/useCategories';
 
 const CategoryContext = createContext<CategoryContextType | null>(null);
 
 export const CategoryProvider = ({ children }: { children: React.ReactNode }) => {
-  const [categories, setCategories] = useState<CategoryResponseDto[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const data = await getAllCategories();
-        setCategories(data);
-      } catch (err) {
-        console.error("Failed to load categories");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchCategories();
-  }, []);
+  const { data = [], isLoading } = useCategoriesQuery();
 
   return (
-    <CategoryContext.Provider value={{ categories, loading }}>
+    <CategoryContext.Provider value={{ categories: data, loading: isLoading }}>
       {children}
     </CategoryContext.Provider>
   );
@@ -36,6 +19,6 @@ export const CategoryProvider = ({ children }: { children: React.ReactNode }) =>
 
 export const useCategories = () => {
   const context = useContext(CategoryContext);
-  if (!context) throw new Error("useCategories must be used inside provider");
+  if (!context) throw new Error('useCategories must be used inside CategoryProvider');
   return context;
 };

@@ -5,23 +5,16 @@ import { useState, useEffect, FormEvent } from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { LiaWindowCloseSolid } from "react-icons/lia";
 import { ProviderRegisterFormErrors, providerRegisterSchema } from "../../lib/schema/providerRegisterSchema";
-import { PersistProvider } from "../api-calls/provider/persist/route";
+import { useRegisterProvider } from "@/hooks/queries/useProviders";
 import { ProviderRegistrationDto } from "@/dto/ProviderDto";
-import { title } from "process";
-
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
-
-
-
-
-
 
 export default function ProviderForm() {
 
   const router = useRouter();
-
   const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+  const registerProviderMutation = useRegisterProvider();
 
   // Use state to force remount when switching
   const [animationKey, setAnimationKey] = useState(Date.now());
@@ -81,7 +74,7 @@ export default function ProviderForm() {
 
     try {
 
-      await PersistProvider(providerData);
+      await registerProviderMutation.mutateAsync(providerData);
       Swal.close()
 
       Swal.fire({

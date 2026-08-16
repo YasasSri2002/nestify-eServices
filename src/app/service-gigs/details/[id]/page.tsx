@@ -1,5 +1,5 @@
 
-import { getGigsById } from "@/app/api-calls/gig/by-id/route";
+import { getGigsById } from "@/services/gig.service";
 
 import NavBar from "@/components/ui/navbar";
 import FullServiceGigsDetails from "@/components/ui/service-gig/fullServiceDetails";

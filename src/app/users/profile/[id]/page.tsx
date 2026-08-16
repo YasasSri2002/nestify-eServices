@@ -1,39 +1,16 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from "react";
+import ProfileDashboard from './dashboard/dashboard';
+import { useCurrentUser } from '@/hooks/queries/useUsers';
+import { UserResponseDto } from '@/dto/UserDto';
+import { FullPageLoading } from '@/components/utill/loadingPage';
 
-import ProfileDashboard from "./dashboard/dashboard";
-import { useParams } from "next/navigation";
-import { getUserById } from "@/app/api-calls/users/by-id/route";
-import { UserResponseDto } from "@/dto/UserDto";
+export default function UserProfile() {
+  const { data: user, isLoading } = useCurrentUser();
 
+  if (isLoading || !user) {
+    return <FullPageLoading />;
+  }
 
-export default function UserProfile(){
-    
-    const params = useParams();
-    const userId = params.id as string;
-    const[user,setUser] = useState<UserResponseDto>({} as UserResponseDto);
-
-    useEffect(()=>{
-        async function getUserData(){
-            try{
-                const response = await getUserById();
-                setUser(response);
-                console.log(user,"from get user profile")
-            }catch(err:unknown){
-                console.log(err);
-            }
-        }
-        getUserData();
-    },[])
-
-    console.log(userId)
-
-
-
-    return(
-
-            <ProfileDashboard user={user}/>
-
-    );
+  return <ProfileDashboard user={user} />;
 }

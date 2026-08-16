@@ -5,15 +5,16 @@ import { FormEvent, useState } from "react"
 
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import { UserUpdateData } from "@/types/user";
-import { updateUserData } from "@/app/api-calls/users/update-user-data/route";
+import { useUpdateUser } from "@/hooks/queries/useUsers";
 import Swal from "sweetalert2";
 import { ProviderPersonalInformation } from "@/types/provider";
-import { useCategories } from "@/context/categoryContext";
+import { useCategories } from "@/hooks/queries/useCategories";
 
 export default function ProviderPerosonalInformationForm({provider}:{provider:ProviderPersonalInformation}){
 
     const[isEditing,setIsEditing] = useState(false);
-    const { categories, loading } = useCategories();
+    const { data: categories = [], isLoading: loading } = useCategories();
+    const updateUserMutation = useUpdateUser();
 
     function handleEditProfile(){
         setIsEditing(!isEditing);
@@ -34,13 +35,13 @@ export default function ProviderPerosonalInformationForm({provider}:{provider:Pr
         } 
 
         try{
-           
-            Swal.fire({
-                    title: "Updated Successfully!",
-                    text: `data has beeen updated`,
-                    icon: "success",
-                })
-            window.location.reload();
+            await updateUserMutation.mutateAsync(userData);
+            await Swal.fire({
+                title: "Updated Successfully!",
+                text: `Data has been updated`,
+                icon: "success",
+            });
+            setIsEditing(false);
 
         }catch(err:unknown){
             if(err instanceof Error){

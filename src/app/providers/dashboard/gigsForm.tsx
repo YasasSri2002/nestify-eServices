@@ -1,5 +1,5 @@
-'use client'
-import { useCategories } from "@/context/categoryContext";
+'use client';
+import { useCategories } from "@/hooks/queries/useCategories";
 import { FormEvent, useState, useRef } from "react";
 import DynamicIcon from "@/components/utill/DynamicIcons";
 export default function GigForm(){
@@ -7,7 +7,7 @@ export default function GigForm(){
     const fileRef = useRef<HTMLInputElement>(null);
     const [images, setImages] = useState<string[]>([]);
     const [fullDescription, setFullDescription] = useState("");
-    const {categories,loading} = useCategories();
+    const { data: categories = [], isLoading: loading } = useCategories();
     const serviceLocation = ["Akkaraipattu","Akuressa","Aluthgama","Ambalangoda","Ampara", "Anuradhapura","Athurugiriya",
         "Avissawella","Badulla", "Balangoda","Bandarawela","Batticaloa","Bentota","Beruwala","Boralesgamuwa","Chavakachcheri",
         "Chilaw","Colombo","Dambulla","Dehiwala","Deniyaya","Ella","Embilipitiya","Eravur","Galle","Gampaha","Gampola","Hambantota",

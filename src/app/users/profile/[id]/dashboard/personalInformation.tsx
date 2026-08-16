@@ -3,15 +3,16 @@
 import Image from "next/image"
 import { FormEvent, useState } from "react"
 
-import { UserRequestDto, UserResponseDto } from "@/dto/UserDto"
+import { UserRequestDto, UserResponseDto } from "@/dto/UserDto";
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import { UserUpdateData } from "@/types/user";
-import { updateUserData } from "@/app/api-calls/users/update-user-data/route";
+import { useUpdateUser } from "@/hooks/queries/useUsers";
 import Swal from "sweetalert2";
 
 export default function PerosonalInformationForm({ user }: { user: UserResponseDto }) {
 
     const [isEditing, setIsEditing] = useState(false);
+    const updateUserMutation = useUpdateUser();
 
     function handleEditProfile() {
         setIsEditing(!isEditing);
@@ -32,13 +33,13 @@ export default function PerosonalInformationForm({ user }: { user: UserResponseD
         }
 
         try {
-            const response = await updateUserData(userData);
-            Swal.fire({
+            await updateUserMutation.mutateAsync(userData);
+            await Swal.fire({
                 title: "Updated Successfully!",
-                text: `data has beeen updated`,
+                text: `Data has been updated`,
                 icon: "success",
-            })
-            window.location.reload();
+            });
+            setIsEditing(false);
 
         } catch (err: unknown) {
             if (err instanceof Error) {

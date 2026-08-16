@@ -4,11 +4,8 @@ import { useRef, useState, useEffect } from 'react';
 
 import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
 import DynamicIcon from '@/components/utill/DynamicIcons';
-import  { useRouter } from 'next/navigation';
-import { getRatingOfGigById } from '@/app/api-calls/gig/average-rating/route';
-
-
-
+import { useRouter } from 'next/navigation';
+import { useGigAverageRating } from '@/hooks/queries/useGigs';
 
 export default function ServiceGigCard(
     { serviceGig, isEdit }: { readonly serviceGig: ServiceGigResponseDto , isEdit? : boolean }
@@ -16,25 +13,12 @@ export default function ServiceGigCard(
 
     const router = useRouter(); 
 
-    const[activeMenu,setActiveMenu] =useState<string | null>();
-    const[averageRating,setAverageRating] =useState('');
-    const[totalReviews,setTotalReviews]= useState('')
+    const [activeMenu, setActiveMenu] = useState<string | null>();
     const menuRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(()=>{
-                async function fetchData(){
-                    try{
-                        const response = await getRatingOfGigById(serviceGig.id);
-                        setAverageRating(response['average']);
-                        setTotalReviews(response['total reviews'])
-                        
-                        
-                    }catch(err:any){
-                        console.log(err);
-                    }
-                }
-                fetchData();
-            },[])
+    const { data: ratingData } = useGigAverageRating(serviceGig.id);
+    const averageRating = ratingData?.['average'] ?? '';
+    const totalReviews = ratingData?.['total reviews'] ?? '';
 
 
     useEffect(() => {

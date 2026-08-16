@@ -3,18 +3,18 @@
 import { useParams, useRouter } from "next/navigation"
 import { useState } from "react"
 
-import DynamicIcon from "@/components/utill/DynamicIcons"
-import { LogoutUser } from "@/app/api-calls/auth/logout/route";
+import DynamicIcon from "@/components/utill/DynamicIcons";
+import { useLogout } from "@/hooks/queries/useAuth";
 
-import Swal from "sweetalert2"
-
+import Swal from "sweetalert2";
 
 export function ProfileNavBar(){
     const params = useParams();
     const userId = params.id as string;
     const router = useRouter();
     
-    const[showMobileMenue,setShowMobileMenue] = useState(false);
+    const [showMobileMenue, setShowMobileMenue] = useState(false);
+    const logoutMutation = useLogout();
 
     async function handleLogOut(){
             
@@ -31,10 +31,9 @@ export function ProfileNavBar(){
     
            try{
     
-                const response = await LogoutUser(userId);
-                window.location.replace("/")
-                console.log("logout user" + response);
-    
+                await logoutMutation.mutateAsync(userId);
+                window.location.replace("/");
+
                 Swal.close();
     
                 Swal.fire({

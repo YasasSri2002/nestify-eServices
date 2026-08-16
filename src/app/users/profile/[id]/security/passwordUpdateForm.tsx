@@ -2,20 +2,20 @@
 
 import { FormEvent, useState } from "react";
 
-import DynamicIcon from "@/components/utill/DynamicIcons"
+import DynamicIcon from "@/components/utill/DynamicIcons";
 import { PasswordSchemaFormErrors } from "@/lib/schema/PasswordSchema";
 import { passwordSchema } from "@/lib/schema/PasswordSchema";
-import { ResetPassword } from "@/app/api-calls/auth/reset-password/route";
+import { useResetPassword } from "@/hooks/queries/useAuth";
 import { useParams } from "next/navigation";
 import Swal from "sweetalert2";
 
 export default function PasswordUpdateFrom() {
 
     const params = useParams();
-
     const id = params.id as string;
 
     const [errors, setErrors] = useState<PasswordSchemaFormErrors>();
+    const resetPasswordMutation = useResetPassword();
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -37,25 +37,27 @@ export default function PasswordUpdateFrom() {
         setErrors({})
 
         try {
-
-            console.log("from the form page--->", safeData.data.newPassword)
-            const result = await ResetPassword(id, safeData.data.newPassword);
+            const result = await resetPasswordMutation.mutateAsync({
+                id,
+                password: safeData.data.newPassword,
+            });
             form.reset();
 
             Swal.fire({
-                title: "reset successfull",
+                title: "Reset Successful",
                 icon: "success",
                 timer: 3000,
                 timerProgressBar: true,
-                text: result["success"]
-
+                text: result?.["success"] ?? "Password updated successfully",
             });
 
-
-
-
         } catch (err: unknown) {
-            console.log(err)
+            const msg = err instanceof Error ? err.message : 'Failed to reset password.';
+            Swal.fire({
+                title: "Error",
+                icon: "error",
+                text: msg,
+            });
         }
 
 

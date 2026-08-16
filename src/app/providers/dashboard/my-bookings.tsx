@@ -1,14 +1,16 @@
-'use client'
+'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { getBookingsByProviderId } from '@/app/api-calls/booking/by-provider-id/route';
 import { ProviderBookingResponseDto } from '@/dto/ProviderBookingDto';
 import { LoadingPage } from '@/components/utill/loadingPage';
 import DynamicIcon from '@/components/utill/DynamicIcons';
 import Swal from 'sweetalert2';
-import { cancelBooking } from '@/app/api-calls/booking/cancel/route';
-import { markBookingComplete } from '@/app/api-calls/booking/mark-complete/route';
+import {
+  useProviderBookings,
+  useCancelBooking,
+  useCompleteBooking,
+} from '@/hooks/queries/useBookings';
 
 /* ─────────────────────────── helpers ─────────────────────────── */
 
@@ -39,17 +41,17 @@ const STATUS_META: Record<
 };
 
 function getStatusMeta(status: string) {
-  return STATUS_META[(status as BookingStatus)] ?? STATUS_META.pending;
+  return STATUS_META[status as BookingStatus] ?? STATUS_META.pending;
 }
 
 /* ─────────────────────────── BookingRow ─────────────────────────── */
 
-function BookingRow({ booking, onStatusChange }: {
-  booking: ProviderBookingResponseDto;
-  onStatusChange: (id: string, status: BookingStatus) => void;
-}) {
+function BookingRow({ booking }: { booking: ProviderBookingResponseDto }) {
   const [localStatus, setLocalStatus] = useState<string>(booking.status);
   const meta = getStatusMeta(localStatus);
+
+  const cancelMutation = useCancelBooking();
+  const completeMutation = useCompleteBooking();
 
   async function handleCancel() {
     const result = await Swal.fire({
@@ -66,9 +68,8 @@ function BookingRow({ booking, onStatusChange }: {
     if (!result.isConfirmed) return;
 
     try {
-      await cancelBooking(booking.id);
+      await cancelMutation.mutateAsync(booking.id);
       setLocalStatus('cancelled');
-      onStatusChange(booking.id, 'cancelled');
       await Swal.fire({
         title: 'Cancelled',
         text: `${booking.name}'s booking has been cancelled.`,
@@ -96,9 +97,8 @@ function BookingRow({ booking, onStatusChange }: {
     if (!result.isConfirmed) return;
 
     try {
-      await markBookingComplete(booking.id);
+      await completeMutation.mutateAsync(booking.id);
       setLocalStatus('completed');
-      onStatusChange(booking.id, 'completed');
       await Swal.fire({
         title: 'Done!',
         text: 'Booking marked as completed.',
@@ -116,7 +116,7 @@ function BookingRow({ booking, onStatusChange }: {
 
   return (
     <article className="group relative flex rounded-xl overflow-hidden bg-surface-snow shadow-[0_2px_12px_rgba(10,25,47,0.07)] hover:shadow-[0_6px_24px_rgba(10,25,47,0.13)] transition-shadow duration-300">
-      {/* Status rail — the signature element */}
+      {/* Status rail */}
       <span
         className={`w-1.5 shrink-0 ${meta.rail} transition-colors duration-300`}
         aria-hidden="true"
@@ -124,7 +124,6 @@ function BookingRow({ booking, onStatusChange }: {
 
       {/* Card body */}
       <div className="flex flex-col sm:flex-row flex-1 gap-4 p-5 sm:p-6">
-
         {/* ── Left: service + client ── */}
         <div className="flex-1 min-w-0 space-y-3">
           <div>
@@ -160,14 +159,13 @@ function BookingRow({ booking, onStatusChange }: {
 
           {booking.additionalInformation && (
             <p className="text-sm text-neutral-400 italic border-l-2 border-neutral-200 pl-3 leading-relaxed">
-              "{booking.additionalInformation}"
+              &ldquo;{booking.additionalInformation}&rdquo;
             </p>
           )}
         </div>
 
         {/* ── Right: schedule + status + actions ── */}
         <div className="flex flex-col justify-between gap-4 sm:items-end sm:min-w-[180px]">
-
           {/* Date / Time */}
           <div className="flex sm:flex-col gap-4 sm:gap-1.5 sm:items-end">
             <div className="flex items-center gap-2 text-sm text-neutral-600 font-medium">
@@ -193,23 +191,25 @@ function BookingRow({ booking, onStatusChange }: {
             <div className="flex gap-2 flex-wrap sm:justify-end">
               <button
                 id={`complete-booking-${booking.id}`}
+                disabled={completeMutation.isPending}
                 onClick={handleComplete}
                 title="Mark as completed"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-success border border-success
-                  hover:bg-success hover:text-white active:scale-95 transition-all duration-150"
+                  hover:bg-success hover:text-white active:scale-95 disabled:opacity-50 transition-all duration-150"
               >
                 <DynamicIcon name="IoCheckmarkDoneOutline" />
-                Complete
+                {completeMutation.isPending ? 'Saving…' : 'Complete'}
               </button>
               <button
                 id={`cancel-booking-${booking.id}`}
+                disabled={cancelMutation.isPending}
                 onClick={handleCancel}
                 title="Cancel booking"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-error border border-error
-                  hover:bg-error hover:text-white active:scale-95 transition-all duration-150"
+                  hover:bg-error hover:text-white active:scale-95 disabled:opacity-50 transition-all duration-150"
               >
                 <DynamicIcon name="MdClose" />
-                Cancel
+                {cancelMutation.isPending ? 'Cancelling…' : 'Cancel'}
               </button>
             </div>
           )}
@@ -332,7 +332,7 @@ function EmptyState({ filtered }: { filtered: boolean }) {
 
 /* ─────────────────────────── Page ─────────────────────────── */
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 10;
 
 export default function MyBookingPage() {
   const router = useRouter();
@@ -342,45 +342,23 @@ export default function MyBookingPage() {
   const pageParam = Math.max(0, Number(searchParams.get('page') ?? '0'));
   const statusParam = searchParams.get('status') ?? '';
 
-  const [bookings, setBookings] = useState<ProviderBookingResponseDto[]>([]);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalElements, setTotalElements] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  // Clean Architecture: TanStack Query Hook
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useProviderBookings(pageParam, PAGE_SIZE);
 
-  // Derived filter on the client (on top of server pagination)
+  const bookings = data?.content ?? [];
+  const totalPages = data?.totalPages ?? 1;
+  const totalElements = data?.totalElements ?? 0;
+
+  // Client-side status filter over current page results
   const filtered = statusParam
     ? bookings.filter((b) => b.status === statusParam)
     : bookings;
-
-  const fetchBookings = useCallback(async (page: number) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const data = await getBookingsByProviderId(page, PAGE_SIZE);
-      if (data && Array.isArray(data.content)) {
-        setBookings(data.content);
-        setTotalPages(data.totalPages ?? 1);
-        setTotalElements(data.totalElements ?? 0);
-      } else {
-        setBookings([]);
-        setTotalPages(1);
-        setTotalElements(0);
-      }
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Failed to load bookings.';
-      setError(msg);
-      setBookings([]);
-      setTotalPages(1);
-      setTotalElements(0);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchBookings(pageParam);
-  }, [pageParam, fetchBookings]);
 
   function updateParams(updates: Record<string, string>) {
     const params = new URLSearchParams(searchParams.toString());
@@ -397,12 +375,6 @@ export default function MyBookingPage() {
 
   function handleStatusChange(v: string) {
     updateParams({ status: v, page: '0' });
-  }
-
-  function handleStatusMutation(id: string, newStatus: BookingStatus) {
-    setBookings((prev) =>
-      prev.map((b) => (b.id === id ? { ...b, status: newStatus } : b))
-    );
   }
 
   return (
@@ -439,15 +411,17 @@ export default function MyBookingPage() {
         <div className="flex justify-center items-center py-20">
           <LoadingPage />
         </div>
-      ) : error ? (
+      ) : isError ? (
         <div className="flex flex-col items-center justify-center py-20 gap-3">
           <span className="text-4xl text-error">
             <DynamicIcon name="MdErrorOutline" />
           </span>
-          <p className="text-neutral-600 font-medium">{error}</p>
+          <p className="text-neutral-600 font-medium">
+            {error?.message || 'Failed to load bookings.'}
+          </p>
           <button
             id="retry-bookings"
-            onClick={() => fetchBookings(pageParam)}
+            onClick={() => refetch()}
             className="mt-2 px-5 py-2 rounded-lg bg-accent-500 text-white text-sm font-medium hover:bg-accent-600 active:scale-95 transition-all"
           >
             Try again
@@ -457,16 +431,9 @@ export default function MyBookingPage() {
         <EmptyState filtered={!!statusParam} />
       ) : (
         <>
-          <section
-            aria-label="Booking list"
-            className="grid gap-4"
-          >
+          <section aria-label="Booking list" className="grid gap-4">
             {filtered.map((booking) => (
-              <BookingRow
-                key={booking.id}
-                booking={booking}
-                onStatusChange={handleStatusMutation}
-              />
+              <BookingRow key={booking.id} booking={booking} />
             ))}
           </section>
 

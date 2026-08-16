@@ -6,10 +6,8 @@ import DynamicIcon from "@/components/utill/DynamicIcons";
 import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
 import { useState } from "react";
 import BookingForm from "../booking/bookingForm";
-import Swal from "sweetalert2";
-import { isTokenExsist } from "@/app/api-calls/auth/token-functions/check-if-exsist/route";
-import { BookingData } from "@/types/booking";
-import { addBooking } from "@/app/api-calls/booking/persist/route";
+import { isTokenExsist } from "@/services/auth.service";
+import { useAddBooking } from "@/hooks/queries/useBookings";
 import { BookingRequestDto } from "@/dto/BookingDto";
 import { Star } from "lucide-react";
 import ImageSlider from "@/components/imageSlider";
@@ -25,6 +23,7 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
 
     const [showBookingForm, setShowBookingForm] = useState(false);
     const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+    const addBookingMutation = useAddBooking();
 
 
     const showForm = async () => {
@@ -68,15 +67,13 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
                 startingTime: data.startingTime,
                 contactNo: data.contactNo
             }
-            const response = await addBooking(bookingRequestDto);
-            if (response.ok) {
-                Swal.fire({
-                    title: "Booking Completed",
-                    text: "Successfully booked",
-                    icon: "success"
-                })
-            }
-            setShowBookingForm(!showBookingForm);
+            await addBookingMutation.mutateAsync(bookingRequestDto);
+            Swal.fire({
+                title: "Booking Completed",
+                text: "Successfully booked",
+                icon: "success"
+            });
+            setShowBookingForm(false);
         } catch (err: any) {
             console.log(err)
 

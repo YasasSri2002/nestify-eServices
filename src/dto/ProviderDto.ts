@@ -18,30 +18,28 @@ export interface ProviderDto {
   shortDescription: string;
 }
 
-export interface ProviderWithAllDetails{
+export interface PaginatedProviderResponse {
+  content: ProviderDto[];
+  pageNumber: number;
+  pageSize: number;
+  totalElements: number;
+  totalPages: number;
+  isLastPage: boolean;
+}
 
+export interface ProviderWithAllDetails{
   providerDto: ProviderDto;
   gigs : ServiceGigDto[];
   bookingDto: BookingDto[];
   reviewDto: ReviewDto[];
   categoryDto: CategoryResponseDto[];
-
-  
 }
 
 export interface ProviderRegistrationDto{
-  
-     email: string;
-
-     userName: string;
-
-     firstName: string;
-
-     lastName: string;
-
-     password: string;
-
-     contactNo: string;
-
-
+  email: string;
+  userName: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  contactNo: string;
 }

@@ -1,54 +1,34 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DynamicIcon from "../utill/DynamicIcons";
 
-import { AlignJustify, X } from 'lucide-react'
-import { LogoutUser } from "@/app/api-calls/auth/logout/route";
-
+import { AlignJustify, X } from 'lucide-react';
+import { useSessionUser, useLogout } from "@/hooks/queries/useAuth";
 import Swal from "sweetalert2";
-
 
 export default function NavBar() {
 
-  const [userEmail, setUserEmail] = useState('');
-  const [userId, setUserId] = useState('');
-  const [roles, setRoles] = useState(['notLogin']);
+  const { data: session } = useSessionUser();
+  const logoutMutation = useLogout();
   const [toggleSideMenu, setToggleSideMenu] = useState(false);
 
-  const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+  const userEmail = session?.userEmail ?? '';
+  const userId = session?.userId ?? '';
+  let roles: string[] = ['notLogin'];
+  if (session?.roles) {
+    try {
+      roles = JSON.parse(session.roles);
+    } catch {
+      roles = ['notLogin'];
+    }
+  }
 
+  const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
   const registrationUrl = "/register";
 
-
-  useEffect(() => {
-
-    const getUserData = async () => {
-
-      const response = await fetch('/api-calls/users/data');
-
-      if (!response.ok) {
-        console.log("not log in")
-        return null
-      }
-
-      const data = await response.json()
-
-
-      setUserEmail(data.userEmail);
-
-      if (data.roles) {
-        const rolesList = JSON.parse(data.roles)
-        setRoles(rolesList);
-      }
-
-      setUserId(data.userId);
-    }
-    getUserData()
-  }, []);
-
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
 
     Swal.fire({
       title: "Please wait till login out...",
@@ -61,8 +41,7 @@ export default function NavBar() {
     })
 
     try {
-
-      const response = LogoutUser(userId);
+      await logoutMutation.mutateAsync(userId);
       console.log(response);
       setRoles(['notLogin'])
 

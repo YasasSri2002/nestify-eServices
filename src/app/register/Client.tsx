@@ -4,19 +4,17 @@ import { useRouter } from 'next/navigation';
 
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { LiaWindowCloseSolid } from "react-icons/lia";
-import { registerUser } from "../api-calls/users/register/route";
-
-
+import { useRegisterUser } from "@/hooks/queries/useUsers";
 import Swal from "sweetalert2";
 import { clientRegisterSchema } from "../../lib/schema/clientRegisterSchema";
 import { ClientRegisterFormErrors } from "../../lib/schema/clientRegisterSchema";
 import { UserData } from "@/types/user";
 
-
 export default function ClientForm() {
 
   const router = useRouter();
   const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+  const registerUserMutation = useRegisterUser();
 
   // Use state to force remount when switching
   const [animationKey, setAnimationKey] = useState(Date.now());
@@ -72,7 +70,7 @@ export default function ClientForm() {
     });
 
     try {
-      const response = await registerUser(userData)
+      await registerUserMutation.mutateAsync(userData);
 
       Swal.close();
 
