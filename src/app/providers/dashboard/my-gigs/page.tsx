@@ -7,15 +7,17 @@ import PaginationControls from '@/components/utill/paginationControls';
 import ServiceGigCard from '@/components/ui/service-gig/serviceGigCard';
 
 export default function ProviderGigsPage() {
-  const { data: gigs = [], isLoading } = useActiveGigs();
-
   const searchParams = useSearchParams();
   const page = searchParams.get('page') ?? '1';
-  const per_page = searchParams.get('per_page') ?? '8';
+  const pageIndex = Math.max(0, Number(page) - 1);
+  const pageSize = 10;
 
-  const start = (Number(page) - 1) * Number(per_page);
-  const end = start + Number(per_page);
-  const entries = gigs.slice(start, end);
+  const { data, isLoading } = useActiveGigs(pageIndex, pageSize);
+
+  const gigs = data?.content ?? [];
+  const totalElements = data?.totalElements ?? 0;
+  const totalPages = data?.totalPages ?? 1;
+  const isLastPage = data?.isLastPage ?? true;
 
   if (isLoading) {
     return <FullPageLoading />;
@@ -23,22 +25,31 @@ export default function ProviderGigsPage() {
 
   return (
     <div>
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-5 my-10 lg:m-5">
-        {entries.map((gig) => (
-          <div key={gig.id}>
-            <ServiceGigCard serviceGig={gig} isEdit={true} />
-          </div>
-        ))}
-      </div>
-      <div className="grid justify-items-center">
-        <PaginationControls
-          hasNextPage={end < gigs.length}
-          hasPrevPage={start > 0}
-          endPage={gigs.length}
-          perPageNumber="8"
-          routerPath="service-gigs"
-        />
-      </div>
+      {gigs.length === 0 ? (
+        <div className="text-center py-16 text-neutral-500">
+          <p className="text-xl">No active gigs found.</p>
+        </div>
+      ) : (
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-5 my-10 lg:m-5">
+          {gigs.map((gig) => (
+            <div key={gig.id}>
+              <ServiceGigCard serviceGig={gig} isEdit={true} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {totalElements > 0 && (
+        <div className="grid justify-items-center my-6">
+          <PaginationControls
+            hasNextPage={!isLastPage && Number(page) < totalPages}
+            hasPrevPage={Number(page) > 1}
+            endPage={totalElements}
+            perPageNumber="10"
+            routerPath="providers/dashboard/my-gigs"
+          />
+        </div>
+      )}
     </div>
   );
 }

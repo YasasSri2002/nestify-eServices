@@ -20,7 +20,7 @@ interface KeycloakTokenResponse {
 const protectedRoutes = [
   '/site-admin',
   '/users/profile/',
-  '/provider/profile',
+  '/providers/dashboard',
 ];
 
 function encodeState(obj: any) {
@@ -59,7 +59,7 @@ function authorizationForRoutes(pathname: string, decodedToken: DecodedToken | n
   if (pathname.startsWith('/site-admin')) {
     return hasRole(decodedToken, ['admin']);
   }
-  if (pathname.startsWith('/provider/profile')) {
+  if (pathname.startsWith('/providers/dashboard')) {
     return hasRole(decodedToken, ['provider', 'admin']);
   }
   return true;

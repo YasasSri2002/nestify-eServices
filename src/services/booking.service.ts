@@ -1,7 +1,7 @@
 'use server';
 
-import { BookingResponseDto } from '@/dto/BookingDto';
-import { BookingData } from '@/types/booking';
+import { BookingResponseDto, BookingRequestDto } from '@/dto/BookingDto';
+import { ProviderBookingPage } from '@/dto/ProviderBookingDto';
 import { getValidAuthToken } from './auth.service';
 
 const BACKEND_URL = process.env.SPRING_BOOT_API_URL || 'http://localhost:8080';
@@ -12,7 +12,7 @@ const BACKEND_URL = process.env.SPRING_BOOT_API_URL || 'http://localhost:8080';
 export async function getBookingsByProviderId(
   page: number = 0,
   size: number = 10
-): Promise<BookingResponseDto[]> {
+): Promise<ProviderBookingPage | any> {
   const token = await getValidAuthToken();
 
   if (!token) {
@@ -23,6 +23,7 @@ export async function getBookingsByProviderId(
     `${BACKEND_URL}/api/v1/booking/by-provider-id?page=${page}&size=${size}`,
     {
       method: 'GET',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -41,20 +42,27 @@ export async function getBookingsByProviderId(
 /**
  * Fetch all bookings for current client user.
  */
-export async function getBookingDataByClientId(): Promise<BookingResponseDto[]> {
+export async function getBookingDataByClientId(
+  page: number = 0,
+  size: number = 10
+): Promise<any> {
   const token = await getValidAuthToken();
 
   if (!token) {
     throw new Error('Not authenticated — please log in');
   }
 
-  const response = await fetch(`${BACKEND_URL}/api/v1/booking/by-client-id`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await fetch(
+    `${BACKEND_URL}/api/v1/booking/by-client-id?page=${page}&size=${size}`,
+    {
+      method: 'GET',
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   if (!response.ok) {
     const errorText = await response.text();
@@ -67,7 +75,7 @@ export async function getBookingDataByClientId(): Promise<BookingResponseDto[]> 
 /**
  * Create a new service booking.
  */
-export async function addBooking(bookingData: BookingData): Promise<BookingResponseDto> {
+export async function addBooking(bookingData: BookingRequestDto): Promise<BookingResponseDto> {
   const token = await getValidAuthToken();
 
   if (!token) {
@@ -76,6 +84,7 @@ export async function addBooking(bookingData: BookingData): Promise<BookingRespo
 
   const response = await fetch(`${BACKEND_URL}/api/v1/booking`, {
     method: 'POST',
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -103,6 +112,7 @@ export async function cancelBooking(taskId: string): Promise<Record<string, any>
 
   const response = await fetch(`${BACKEND_URL}/api/v1/booking/cancel?taskId=${taskId}`, {
     method: 'PUT',
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -129,6 +139,7 @@ export async function markBookingComplete(id: string): Promise<Record<string, an
 
   const response = await fetch(`${BACKEND_URL}/api/v1/booking/completed?id=${id}`, {
     method: 'PATCH',
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -161,6 +172,7 @@ export async function rescheduleTheBooking(
     `${BACKEND_URL}/api/v1/booking/reschedule?id=${taskId}&rescheduleDate=${rescheduleDate}&rescheduleTime=${reschduleTime}`,
     {
       method: 'PUT',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,

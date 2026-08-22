@@ -77,19 +77,15 @@ export async function refreshKeycloakToken(): Promise<string | null> {
 }
 
 /**
- * Server action to gate authenticated flows and redirect to Keycloak if unauthenticated.
+ * Server action to check if a valid token or refreshable session exists.
  */
-export async function isTokenExsist(currentPath: string) {
+export async function isTokenExsist(currentPath?: string): Promise<boolean> {
   const cookieStore = await cookies();
   const token = cookieStore.get('auth-token')?.value;
   const refreshToken = cookieStore.get('refresh-token')?.value;
 
   if (!token && !refreshToken) {
-    const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL!;
-    const state = btoa(JSON.stringify({ redirect: currentPath }));
-    const url = new URL(loginUrl);
-    url.searchParams.set('state', state);
-    redirect(url.toString());
+    return false;
   }
 
   if (token && !(await IsExpired(token))) {
@@ -101,11 +97,7 @@ export async function isTokenExsist(currentPath: string) {
     if (newToken) return true;
   }
 
-  const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL!;
-  const state = btoa(JSON.stringify({ redirect: currentPath }));
-  const url = new URL(loginUrl);
-  url.searchParams.set('state', state);
-  redirect(url.toString());
+  return false;
 }
 
 /**

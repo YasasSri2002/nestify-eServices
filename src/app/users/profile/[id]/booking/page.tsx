@@ -6,49 +6,50 @@ import { LoadingPage } from "@/components/utill/loadingPage";
 import PaginationControls from "@/components/utill/paginationControls";
 import { BookingStatus } from "@/types/booking";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useRef, useState, useCallback, useEffect } from "react";
+import { useState } from "react";
+import { BookingResponseDto } from "@/dto/BookingDto";
 
 export default function BookingList() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const page = Number(searchParams.get('page') ?? '1');
-  const perPage = Number(searchParams.get('perPage') ?? '5');
-  const isFirstRenderRef = useRef(true);
-  const searchParamsRef = useRef(searchParams);
+  const pageIndex = Math.max(0, page - 1);
+  const pageSize = 10;
 
-  const { data: bookingList = [], isLoading } = useClientBookings();
   const [statusFilter, setStatusFilter] = useState<BookingStatus>('' as BookingStatus);
 
-  const resetPage = useCallback(() => {
-    if (isFirstRenderRef.current) {
-      isFirstRenderRef.current = false;
-      return;
-    }
-    const params = new URLSearchParams(searchParamsRef.current.toString());
+  const { data: rawBookingData, isLoading } = useClientBookings(pageIndex, pageSize);
+
+  // Directly consume backend pagination response
+  const isPaginated = !Array.isArray(rawBookingData) && rawBookingData?.content !== undefined;
+  const rawList: BookingResponseDto[] = isPaginated
+    ? rawBookingData.content
+    : (Array.isArray(rawBookingData) ? rawBookingData : []);
+
+  const totalElements: number = isPaginated
+    ? rawBookingData.totalElements
+    : rawList.length;
+
+  const totalPages: number = isPaginated
+    ? rawBookingData.totalPages
+    : Math.ceil(rawList.length / pageSize);
+
+  const isLastPage: boolean = isPaginated
+    ? rawBookingData.isLastPage
+    : page >= totalPages;
+
+  // Filter if status filter is selected
+  const bookingList = statusFilter
+    ? rawList.filter((b) => b.status === statusFilter)
+    : rawList;
+
+  function handleStatusChange(status: BookingStatus) {
+    setStatusFilter(status);
+    const params = new URLSearchParams(searchParams.toString());
     params.set('page', '1');
     router.replace(`${pathname}?${params.toString()}`);
-  }, [pathname, router]);
-
-  useEffect(() => {
-    resetPage();
-  }, [statusFilter, resetPage]);
-
-  const filteredBookingList = useMemo(() => {
-    let resultData = [...bookingList];
-
-    if (statusFilter) {
-      const matched = resultData.filter((b) => b.status === statusFilter);
-      const others = resultData.filter((b) => b.status !== statusFilter);
-      resultData = [...matched, ...others];
-    }
-
-    return resultData;
-  }, [bookingList, statusFilter]);
-
-  const paginateBookings = useMemo(() => {
-    return filteredBookingList.slice((page - 1) * perPage, page * perPage);
-  }, [filteredBookingList, page, perPage]);
+  }
 
   if (isLoading) {
     return (
@@ -71,7 +72,7 @@ export default function BookingList() {
         <div>
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as BookingStatus)}
+            onChange={(e) => handleStatusChange(e.target.value as BookingStatus)}
             className="shadow-md rounded p-2"
           >
             <option value="">All Status</option>
@@ -83,23 +84,26 @@ export default function BookingList() {
       </div>
 
       <div className="m-5 grid justify-items-center gap-4 max:h-4xl">
-        {filteredBookingList.length === 0 ? (
-          <p>No bookings found.</p>
+        {bookingList.length === 0 ? (
+          <p className="text-neutral-500 py-10">No bookings found.</p>
         ) : (
-          paginateBookings.map((entity) => (
+          bookingList.map((entity) => (
             <BookingCard key={entity.id} bookingData={entity} />
           ))
         )}
       </div>
-      <div className="flex justify-center">
-        <PaginationControls
-          hasNextPage={page * perPage < bookingList.length}
-          hasPrevPage={page > 1}
-          endPage={bookingList.length}
-          perPageNumber={String(perPage)}
-          routerPath={pathname.replace(/^\//, '')}
-        />
-      </div>
+
+      {totalElements > 0 && (
+        <div className="flex justify-center my-6">
+          <PaginationControls
+            hasNextPage={!isLastPage && page < totalPages}
+            hasPrevPage={page > 1}
+            endPage={totalElements}
+            perPageNumber={String(pageSize)}
+            routerPath={pathname.replace(/^\//, '')}
+          />
+        </div>
+      )}
     </div>
   );
 }

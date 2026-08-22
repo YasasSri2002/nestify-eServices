@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DynamicIcon from "../utill/DynamicIcons";
 
@@ -9,7 +10,7 @@ import { useSessionUser, useLogout } from "@/hooks/queries/useAuth";
 import Swal from "sweetalert2";
 
 export default function NavBar() {
-
+  const router = useRouter();
   const { data: session } = useSessionUser();
   const logoutMutation = useLogout();
   const [toggleSideMenu, setToggleSideMenu] = useState(false);
@@ -29,41 +30,40 @@ export default function NavBar() {
   const registrationUrl = "/register";
 
   const handleLogOut = async () => {
-
     Swal.fire({
-      title: "Please wait till login out...",
+      title: "Please wait while logging out...",
       color: "#1E293B",
       background: "#fff",
       allowOutsideClick: false,
       didOpen: () => {
-        Swal.showLoading()
+        Swal.showLoading();
       }
-    })
+    });
 
     try {
-      await logoutMutation.mutateAsync(userId);
-      console.log(response);
-      setRoles(['notLogin'])
+      const res = await logoutMutation.mutateAsync(userId);
+      console.log("Logout result:", res);
 
-      Swal.close()
+      Swal.close();
 
-      Swal.fire({
+      await Swal.fire({
         icon: 'success',
         title: "Successfully Logged out",
         color: "#1E293B",
         background: "#fff",
         confirmButtonColor: '#1D4ED8',
-        confirmButtonText: 'Go to Login',
-        timer: 2500,
+        confirmButtonText: 'OK',
+        timer: 2000,
         timerProgressBar: true,
         customClass: {
           popup: 'border border-[#EAF2F1]'
         }
+      });
 
-      })
-
+      router.push("/");
+      router.refresh();
     } catch (err: unknown) {
-      console.log(err)
+      console.error("Logout failed:", err);
 
       Swal.fire({
         icon: 'error',
@@ -77,186 +77,183 @@ export default function NavBar() {
         }
       });
     }
-
-
-  }
+  };
 
   const dashboardRenderingDesktop = () => {
-
     if (roles.some(role => role === "user")) {
       return (
-        <div className="hidden xl:flex">
-          <button
-            className="mb-2 md:m-2 lg:m-2 rounded-lg border border-[#1D4ED8] text-[#1D4ED8] w-30 py-2 px-5 
-                    hover:bg-[#DBEAFE]  active:scale-95 transition-all duration-200"
+        <div className="hidden xl:flex items-center">
+          <Link
+            href={userId ? `/users/profile/${userId}` : '/'}
+            className="mb-2 md:m-2 lg:m-2 inline-flex items-center justify-center rounded-lg border border-[#1D4ED8] text-[#1D4ED8] w-30 py-2 px-5 hover:bg-[#DBEAFE] active:scale-95 transition-all duration-200"
           >
-            <Link href={`/users/profile/${userId}`}>Dashboard</Link>
-          </button>
+            Dashboard
+          </Link>
           <button
-            className="lg:m-2 md:m-2 rounded-lg bg-[#1D4ED8] w-30 py-2 px-5
-                    hover:bg-[#2563EB] active:scale-95 text-white flex justify-center items-center gap-2 transition-all duration-200"
+            className="lg:m-2 md:m-2 rounded-lg bg-[#1D4ED8] w-30 py-2 px-5 hover:bg-[#2563EB] active:scale-95 text-white flex justify-center items-center gap-2 transition-all duration-200 cursor-pointer"
             onClick={handleLogOut}
           >
-            <DynamicIcon name='CiLogout'></DynamicIcon>
+            <DynamicIcon name='CiLogout' />
             Log out
           </button>
         </div>
-      )
+      );
     }
 
     if (roles.some(role => role === "provider")) {
       return (
-        <div className="hidden xl:flex">
-          <button
-            className="mb-2 md:m-2 lg:m-2 rounded-lg border border-[#1D4ED8] w-30 py-2 px-5 
-                    hover:bg-[#DBEAFE]  active:scale-95 text-[#1D4ED8] flex justify-center items-center gap-2 transition-all duration-200"
+        <div className="hidden xl:flex items-center">
+          <Link
+            href="/providers/dashboard"
+            className="mb-2 md:m-2 lg:m-2 inline-flex items-center justify-center rounded-lg border border-[#1D4ED8] text-[#1D4ED8] w-30 py-2 px-5 hover:bg-[#DBEAFE] active:scale-95 transition-all duration-200"
           >
-            <Link href={`/providers/profile/${userId}`}>Dashboard</Link>
-          </button>
+            Dashboard
+          </Link>
           <button
-            className="lg:m-2 md:m-2 rounded-lg bg-[#1D4ED8] w-30 py-2 px-5
-                    hover:bg-[#2563EB] active:scale-95 text-white transition-all duration-200"
+            className="lg:m-2 md:m-2 rounded-lg bg-[#1D4ED8] w-30 py-2 px-5 hover:bg-[#2563EB] active:scale-95 text-white flex justify-center items-center gap-2 transition-all duration-200 cursor-pointer"
             onClick={handleLogOut}
           >
-            <DynamicIcon name='CiLogout'></DynamicIcon>
+            <DynamicIcon name='CiLogout' />
             Log out
           </button>
         </div>
-      )
+      );
     }
 
     if (roles.some(role => role === "admin")) {
       return (
-        <div className="hidden xl:flex">
-          <button
-            className="mb-2 md:m-2 lg:m-2 rounded-lg border border-[#1D4ED8] w-30 py-2 px-5 
-                    hover:bg-[#DBEAFE]  active:scale-95 text-[#1D4ED8] transition-all duration-200"
+        <div className="hidden xl:flex items-center">
+          <Link
+            href="/site-admin"
+            className="mb-2 md:m-2 lg:m-2 inline-flex items-center justify-center rounded-lg border border-[#1D4ED8] text-[#1D4ED8] w-30 py-2 px-5 hover:bg-[#DBEAFE] active:scale-95 transition-all duration-200"
           >
-            <Link href={`/site-admin/${userId}`}>Dashboard</Link>
-          </button>
+            Dashboard
+          </Link>
           <button
-            className="lg:m-2 md:m-2 rounded-lg bg-[#1D4ED8] w-30 py-2 px-5
-                    hover:bg-[#2563EB] active:scale-95 text-white flex justify-center items-center gap-2 transition-all duration-200"
+            className="lg:m-2 md:m-2 rounded-lg bg-[#1D4ED8] w-30 py-2 px-5 hover:bg-[#2563EB] active:scale-95 text-white flex justify-center items-center gap-2 transition-all duration-200 cursor-pointer"
             onClick={handleLogOut}
           >
-            <DynamicIcon name='CiLogout'></DynamicIcon>
+            <DynamicIcon name='CiLogout' />
             Log out
           </button>
         </div>
-      )
+      );
     }
 
-    if (roles.some(role => role == 'notLogin')) {
+    if (roles.some(role => role === 'notLogin')) {
       return (
-        <div className="xl:flex hidden">
-          <button
-            className="mb-2 md:m-2 lg:m-2 rounded-lg border border-[#1D4ED8] text-[#1D4ED8] w-25 py-2 px-5 
-                  hover:bg-[#DBEAFE] active:scale-95 transition-all duration-200"
+        <div className="xl:flex hidden items-center">
+          <Link
+            href={loginUrl ?? "/login"}
+            className="mb-2 md:m-2 lg:m-2 inline-flex items-center justify-center rounded-lg border border-[#1D4ED8] text-[#1D4ED8] w-25 py-2 px-5 hover:bg-[#DBEAFE] active:scale-95 transition-all duration-200"
           >
-            <Link href={loginUrl!}>Log in</Link>
-          </button>
-          <button
-            className="lg:m-2 md:m-2 rounded-lg text-white bg-[#1D4ED8] w-25 py-2 px-5
-                  hover:bg-[#2563EB] active:scale-95 transition-all duration-200"
+            Log in
+          </Link>
+          <Link
+            href={registrationUrl}
+            className="lg:m-2 md:m-2 inline-flex items-center justify-center rounded-lg text-white bg-[#1D4ED8] w-25 py-2 px-5 hover:bg-[#2563EB] active:scale-95 transition-all duration-200"
           >
-            <Link href={registrationUrl!}>Register</Link>
-          </button>
+            Register
+          </Link>
         </div>
-      )
+      );
     }
-  }
+  };
 
   const dashboardRenderingMobile = () => {
-
     if (roles.some(role => role === "user")) {
       return (
-        <div className=" grid  justify-items-center h-full
-                     md:h-1/2  content-end text-black ">
-          <button
-            className="mb-2 md:m-2 lg:m-2 rounded-lg border border-[#1D4ED8] text-[#1D4ED8]  py-2 px-5 
-                    hover:bg-[#DBEAFE] w-30 transition-all duration-200"
+        <div className="grid justify-items-center h-full md:h-1/2 content-end text-black gap-2">
+          <Link
+            href={userId ? `/users/profile/${userId}` : '/'}
+            onClick={() => setToggleSideMenu(false)}
+            className="inline-flex items-center justify-center rounded-lg border border-[#1D4ED8] text-[#1D4ED8] py-2 px-5 hover:bg-[#DBEAFE] w-30 transition-all duration-200"
           >
-            <Link href={`/users/profile/${userId}`}>Dashboard</Link>
-          </button>
+            Dashboard
+          </Link>
           <button
-            className="lg:m-2 md:m-2 rounded-lg bg-[#1D4ED8] py-2 px-5
-                    hover:bg-[#2563EB] w-30 flex justify-center items-center gap-2 text-white transition-all duration-200"
-            onClick={handleLogOut}
+            className="rounded-lg bg-[#1D4ED8] py-2 px-5 hover:bg-[#2563EB] w-30 flex justify-center items-center gap-2 text-white transition-all duration-200 cursor-pointer"
+            onClick={() => {
+              setToggleSideMenu(false);
+              handleLogOut();
+            }}
           >
-            <DynamicIcon name='CiLogout'></DynamicIcon>
+            <DynamicIcon name='CiLogout' />
             Log out
           </button>
         </div>
-      )
+      );
     }
 
     if (roles.some(role => role === "provider")) {
       return (
-        <div className=" grid  justify-items-center h-full
-                     md:h-1/2  content-end text-black ">
-          <button
-            className="mb-2 md:m-2 lg:m-2 rounded-lg border border-[#1D4ED8] text-[#1D4ED8]  py-2 px-5 
-                    hover:bg-[#DBEAFE] w-30 transition-all duration-200"
+        <div className="grid justify-items-center h-full md:h-1/2 content-end text-black gap-2">
+          <Link
+            href="/providers/dashboard"
+            onClick={() => setToggleSideMenu(false)}
+            className="inline-flex items-center justify-center rounded-lg border border-[#1D4ED8] text-[#1D4ED8] py-2 px-5 hover:bg-[#DBEAFE] w-30 transition-all duration-200"
           >
-            <Link href={`/providers/profile/${userId}`}>Dashboard</Link>
-          </button>
+            Dashboard
+          </Link>
           <button
-            className="lg:m-2 md:m-2 rounded-lg bg-[#1D4ED8] py-2 px-5
-                    hover:bg-[#2563EB] w-30 flex justify-center items-center gap-2 text-white transition-all duration-200"
-            onClick={handleLogOut}
+            className="rounded-lg bg-[#1D4ED8] py-2 px-5 hover:bg-[#2563EB] w-30 flex justify-center items-center gap-2 text-white transition-all duration-200 cursor-pointer"
+            onClick={() => {
+              setToggleSideMenu(false);
+              handleLogOut();
+            }}
           >
-            <DynamicIcon name='CiLogout'></DynamicIcon>
+            <DynamicIcon name='CiLogout' />
             Log out
           </button>
         </div>
-      )
+      );
     }
 
     if (roles.some(role => role === "admin")) {
       return (
-        <div className="  justify-items-center h-full
-                     md:h-1/2  content-end text-black ">
-          <button
-            className="mb-2 md:m-2 lg:m-2 rounded-lg border border-[#1D4ED8] text-[#1D4ED8]  py-2 px-5 
-                    hover:bg-[#DBEAFE] w-30 transition-all duration-200"
+        <div className="grid justify-items-center h-full md:h-1/2 content-end text-black gap-2">
+          <Link
+            href="/site-admin"
+            onClick={() => setToggleSideMenu(false)}
+            className="inline-flex items-center justify-center rounded-lg border border-[#1D4ED8] text-[#1D4ED8] py-2 px-5 hover:bg-[#DBEAFE] w-30 transition-all duration-200"
           >
-            <Link href={`/site-admin/${userId}`}>Dashboard</Link>
-          </button>
+            Dashboard
+          </Link>
           <button
-            className="lg:m-2 md:m-2 rounded-lg bg-[#1D4ED8] py-2 px-5
-                    hover:bg-[#2563EB] w-30 flex justify-center items-center gap-2 text-white transition-all duration-200"
-            onClick={handleLogOut}
+            className="rounded-lg bg-[#1D4ED8] py-2 px-5 hover:bg-[#2563EB] w-30 flex justify-center items-center gap-2 text-white transition-all duration-200 cursor-pointer"
+            onClick={() => {
+              setToggleSideMenu(false);
+              handleLogOut();
+            }}
           >
-            <DynamicIcon name='CiLogout'></DynamicIcon>
+            <DynamicIcon name='CiLogout' />
             Log out
           </button>
         </div>
-      )
+      );
     }
 
-    if (roles.some(role => role == 'notLogin')) {
+    if (roles.some(role => role === 'notLogin')) {
       return (
-        <div className="grid  justify-items-center h-full
-                     md:h-1/2  content-end text-black">
-          <button
-            className="mb-2 md:m-2 lg:m-2 rounded-lg border border-[#1D4ED8] text-[#1D4ED8] py-2 px-5 
-                  hover:bg-[#DBEAFE] w-25 active:scale-95 transition-all duration-200"
+        <div className="grid justify-items-center h-full md:h-1/2 content-end text-black gap-2">
+          <Link
+            href={loginUrl ?? "/login"}
+            onClick={() => setToggleSideMenu(false)}
+            className="inline-flex items-center justify-center rounded-lg border border-[#1D4ED8] text-[#1D4ED8] py-2 px-5 hover:bg-[#DBEAFE] w-25 active:scale-95 transition-all duration-200"
           >
-            <Link href={loginUrl!}>Log in</Link>
-          </button>
-          <button
-            className="lg:m-2 md:m-2 rounded-lg bg-[#1D4ED8] py-2 px-5
-                    hover:bg-[#2563EB] w-25 active:scale-95 text-white transition-all duration-200"
+            Log in
+          </Link>
+          <Link
+            href={registrationUrl}
+            onClick={() => setToggleSideMenu(false)}
+            className="inline-flex items-center justify-center rounded-lg bg-[#1D4ED8] py-2 px-5 hover:bg-[#2563EB] w-25 active:scale-95 text-white transition-all duration-200"
           >
-            <Link href={registrationUrl!}>Register</Link>
-          </button>
+            Register
+          </Link>
         </div>
-      )
+      );
     }
-  }
-
-
-
+  };
 
   return (
     <>
@@ -266,7 +263,7 @@ export default function NavBar() {
               bg-white border-b border-[#EAF2F1] 
               shadow-[0_1px_3px_rgba(10,25,47,0.06)] sm:px-6 lg:px-8 w-full h-20 "
       >
-        <div id="logo" onClick={() => window.location.href = "/"}>
+        <Link id="logo" href="/" className="cursor-pointer">
           <Image
             src="/logo.png"
             alt="Logo"
@@ -274,26 +271,26 @@ export default function NavBar() {
             height={10}
             className="mx-0 w-auto h-auto max-h-28"
           />
-        </div>
+        </Link>
 
         <ul className="hidden xl:flex gap-4 text-[#475569]">
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/" className="hover:text-[#1D4ED8] transition-colors">Home</Link>
           </li>
           <li>
-            <Link href="/service-gigs">Services</Link>
+            <Link href="/service-gigs" className="hover:text-[#1D4ED8] transition-colors">Services</Link>
           </li>
           <li>
-            <Link href="/providers">Service providers</Link>
+            <Link href="/providers" className="hover:text-[#1D4ED8] transition-colors">Service providers</Link>
           </li>
           <li>
-            <Link href="/about">About Us</Link>
+            <Link href="/about" className="hover:text-[#1D4ED8] transition-colors">About Us</Link>
           </li>
         </ul>
         {
           dashboardRenderingDesktop()
         }
-        <button onClick={() => setToggleSideMenu(!toggleSideMenu)} className="xl:hidden">
+        <button onClick={() => setToggleSideMenu(!toggleSideMenu)} className="xl:hidden cursor-pointer" aria-label="Toggle menu">
           <AlignJustify size={34} stroke="#1E293B" />
         </button>
       </div>
@@ -304,23 +301,23 @@ export default function NavBar() {
       >
         <div className="bg-white drop-shadow-2xl rounded-l-2xl grid w-50 h-dvh shadow-[0_12px_32px_rgba(10,25,47,0.12)]">
           <div className="justify-self-end max-h-5 mt-5 relative right-5">
-            <button onClick={() => setToggleSideMenu(!toggleSideMenu)}>
+            <button onClick={() => setToggleSideMenu(false)} className="cursor-pointer" aria-label="Close menu">
               <X size={24} stroke="#1E293B" />
             </button>
           </div>
           <div className="absolute mt-20 ml-5">
-            <ul className="mt-0">
+            <ul className="mt-0 text-[#475569]">
               <li className="pb-2">
-                <Link href="/">Home</Link>
+                <Link href="/" onClick={() => setToggleSideMenu(false)}>Home</Link>
               </li>
               <li className="py-2">
-                <Link href="/service-gigs">Services</Link>
+                <Link href="/service-gigs" onClick={() => setToggleSideMenu(false)}>Services</Link>
               </li>
               <li className="py-2">
-                <Link href="/providers">Service providers</Link>
+                <Link href="/providers" onClick={() => setToggleSideMenu(false)}>Service providers</Link>
               </li>
               <li className="py-2">
-                <Link href="/about">About us</Link>
+                <Link href="/about" onClick={() => setToggleSideMenu(false)}>About us</Link>
               </li>
             </ul>
           </div>

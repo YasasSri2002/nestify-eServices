@@ -31,13 +31,13 @@ export default function AdminNavBar() {
         </Link>
         <ul className="hidden xl:flex gap-4 text-black items-center">
           <li>
-            <Link href="/site-admin/users">users</Link>
+            <Link href="/site-admin/users">Users</Link>
           </li>
           <li>
-            <Link href="/site-admin/providers">providers</Link>
+            <Link href="/site-admin/providers">Providers</Link>
           </li>
           <li>
-            <Link href="/site-admin/payments">payments</Link>
+            <Link href="/site-admin/booking">Bookings</Link>
           </li>
           {(userName || userEmail) && (
             <div className="flex border-2 rounded-2xl space-x-5 p-2 ">
@@ -65,16 +65,16 @@ export default function AdminNavBar() {
             <ul className="mt-0 grid h-full content-between">
               <div>
                 <li className="pb-2">
-                  <Link href="/site-admin">admin Dashboard</Link>
+                  <Link href="/site-admin">Admin Dashboard</Link>
                 </li>
                 <li className="py-2">
                   <Link href="/site-admin/users">Users</Link>
                 </li>
                 <li className="py-2">
-                  <Link href="/site-admin/providers">providers</Link>
+                  <Link href="/site-admin/providers">Providers</Link>
                 </li>
                 <li className="py-2">
-                  <Link href="/site-admin/payments">payment</Link>
+                  <Link href="/site-admin/booking">Bookings</Link>
                 </li>
               </div>
               {(userName || userEmail) && (

@@ -62,8 +62,8 @@ export default function BookingForm(
                                 className="border-[0.5px] h-8 rounded-sm outline-none pl-2 " />
                         </div>
                         <div className="grid flex-1 min-w-0">
-                            <label htmlFor="contact">Contact number</label>
-                            <input type="text" name="contact" placeholder="Enter your contact number"
+                            <label htmlFor="contactNo">Contact number</label>
+                            <input type="text" name="contactNo" id="contactNo" placeholder="Enter your contact number"
                                 className="border-[0.5px] h-8 rounded-sm outline-none pl-2 " />
                         </div>
                     </div>

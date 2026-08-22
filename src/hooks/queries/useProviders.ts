@@ -23,13 +23,17 @@ import {
 import { ProviderWithCategory } from '@/dto/response/ProviderWithCategoryDto';
 
 /**
- * Clean Architecture Query Hook: Fetch paginated providers (Default: 10 per page)
+ * Clean Architecture Query Hook: Fetch paginated providers matching Spring Boot backend (pageNumber, pageSize, keyword)
  */
-export function useAllProviders(page: number = 0, size: number = 10) {
+export function useAllProviders(
+  pageNumber: number = 0,
+  pageSize: number = 10,
+  keyword?: string
+) {
   return useQuery<PaginatedProviderResponse, Error>({
-    queryKey: queryKeys.providers.all(page, size),
+    queryKey: queryKeys.providers.all(pageNumber, pageSize, keyword),
     queryFn: async () => {
-      return await getAllProviders(page, size);
+      return await getAllProviders(pageNumber, pageSize, keyword);
     },
     placeholderData: keepPreviousData,
     staleTime: 1000 * 60 * 5, // 5 minutes

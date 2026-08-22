@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query/keys';
 import {
   getActiveGigs,
@@ -8,17 +8,21 @@ import {
   getRatingOfGigById,
   getCountOfActiveGigs,
 } from '@/services/gig.service';
-import { ServiceGigResponseDto } from '@/dto/response/ServiceGigResponseDto';
+import {
+  ServiceGigResponseDto,
+  PaginatedServiceGigResponse,
+} from '@/dto/response/ServiceGigResponseDto';
 
 /**
- * Clean Architecture Query Hook: Fetch all active service gigs
+ * Clean Architecture Query Hook: Fetch paginated active service gigs (Default: 10 per page)
  */
-export function useActiveGigs() {
-  return useQuery<ServiceGigResponseDto[], Error>({
-    queryKey: queryKeys.gigs.active,
+export function useActiveGigs(page: number = 0, size: number = 10) {
+  return useQuery<PaginatedServiceGigResponse, Error>({
+    queryKey: queryKeys.gigs.active(page, size),
     queryFn: async () => {
-      return await getActiveGigs();
+      return await getActiveGigs(page, size);
     },
+    placeholderData: keepPreviousData,
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 }

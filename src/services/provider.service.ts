@@ -12,15 +12,27 @@ import { getValidAuthToken } from './auth.service';
 const BACKEND_URL = process.env.SPRING_BOOT_API_URL || 'http://localhost:8080';
 
 /**
- * Fetch paginated providers from Spring Boot backend.
- * Page is 0-indexed on the server, default size is 10.
+ * Fetch paginated providers from Spring Boot backend matching:
+ * @RequestParam(defaultValue = "10") Integer pageSize,
+ * @RequestParam(defaultValue = "0") Integer pageNumber,
+ * @RequestParam(required = false) String keyword
  */
 export async function getAllProviders(
-  page: number = 0,
-  size: number = 10
+  pageNumber: number = 0,
+  pageSize: number = 10,
+  keyword?: string
 ): Promise<PaginatedProviderResponse> {
+  const params = new URLSearchParams({
+    pageNumber: String(pageNumber),
+    pageSize: String(pageSize),
+  });
+
+  if (keyword && keyword.trim() !== '' && keyword !== 'all') {
+    params.set('keyword', keyword.trim());
+  }
+
   const response = await fetch(
-    `${BACKEND_URL}/api/v1/providers/all?page=${page}&size=${size}`,
+    `${BACKEND_URL}/api/v1/providers/all?${params.toString()}`,
     {
       cache: 'no-store',
     }

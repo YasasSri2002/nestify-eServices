@@ -1,57 +1,53 @@
-'use client'
+'use client';
 
 import Image from "next/image";
+import { useState } from "react";
+import Swal from "sweetalert2";
+import { Star } from "lucide-react";
 
 import DynamicIcon from "@/components/utill/DynamicIcons";
-import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
-import { useState } from "react";
+import ImageSlider from "@/components/imageSlider";
 import BookingForm from "../booking/bookingForm";
+import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
+import { BookingRequestDto } from "@/dto/BookingDto";
+import { BookingData } from "@/types/booking";
 import { isTokenExsist } from "@/services/auth.service";
 import { useAddBooking } from "@/hooks/queries/useBookings";
-import { BookingRequestDto } from "@/dto/BookingDto";
-import { Star } from "lucide-react";
-import ImageSlider from "@/components/imageSlider";
-
 
 function showProviderDetails() {
     const providerDetailsPanel = document.getElementById(`providerDetails`);
-    providerDetailsPanel?.classList.toggle('sr-only')
+    providerDetailsPanel?.classList.toggle('sr-only');
 }
 
 export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceGigResponseDto }) {
-
-
     const [showBookingForm, setShowBookingForm] = useState(false);
     const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
     const addBookingMutation = useAddBooking();
 
-
     const showForm = async () => {
-
         const tokenExsist = await isTokenExsist(`/service-gigs/details/${gig.id}`);
 
         if (!tokenExsist) {
             Swal.fire({
                 title: "Login Required",
-                html: " <p class=\"text-gray-600\"> You need to log in or create an account to book this service.</p>",
+                html: "<p class=\"text-gray-600\">You need to log in or create an account to book this service.</p>",
                 showConfirmButton: true,
                 confirmButtonText: "Sign in",
-                footer: "Don't have an account?<a href=\"/register\" class=\"text-blue-600 ml-2\" autofocus>Sign up</a>",
+                footer: "Don't have an account?<a href=\"/register\" class=\"text-blue-600 ml-2\">Sign up</a>",
                 reverseButtons: true,
                 buttonsStyling: false,
                 customClass: {
                     confirmButton: "bg-black rounded-md px-4 py-2 text-white active:scale-95 transition-all duration-300 hover:bg-gray-600/10 hover:backdrop-blur-md hover:border hover:border-white/20 hover:shadow-lg hover:text-black",
-
                 }
             }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.replace(loginUrl!);
+                if (result.isConfirmed && loginUrl) {
+                    window.location.replace(loginUrl);
                 }
             });
-            return null
+            return;
         }
-        setShowBookingForm(!showBookingForm);
-    }
+        setShowBookingForm(true);
+    };
 
     async function handleSubmit(data: BookingData) {
         try {
@@ -66,21 +62,20 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
                 startingDate: data.startingDate,
                 startingTime: data.startingTime,
                 contactNo: data.contactNo
-            }
+            };
             await addBookingMutation.mutateAsync(bookingRequestDto);
             Swal.fire({
                 title: "Booking Completed",
-                text: "Successfully booked",
+                text: "Successfully booked the service.",
                 icon: "success"
             });
             setShowBookingForm(false);
-        } catch (err: any) {
-            console.log(err)
-
+        } catch (err: unknown) {
+            console.error("Booking error:", err);
 
             Swal.fire({
                 title: "Error",
-                text: err.message,
+                text: err instanceof Error ? err.message : "Failed to create booking",
                 icon: "error"
             });
         }
@@ -89,18 +84,7 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
     return (
         <>
             <main className="py-5 px-5">
-                {/* <div id="breadcrumb">
-                    <ul className="flex gap-2">
-                        <li><a href="">Home</a></li>
-                        <li>&gt;</li>
-                        <li><a href="/service-gigs">service gigs</a>
-                        </li>
-                        <li>&gt;</li>
-                        <li><a href={`/service-gigs/details/${gig.id}`}>{gig.title}</a></li>
-
-                    </ul>
-                </div> */}
-                <div className="grid grid-cols-6 grid gap-10">
+                <div className="grid grid-cols-6 gap-10">
                     {/* mobile-menue */}
                     <div className="h-full sm:hidden bg-gray-300 grid justify-items-center content-between py-2">
                         <button onClick={showProviderDetails}>
@@ -115,11 +99,10 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
                     </div>
 
                     {/* left-side */}
-
-                    <div className="w-full min-h-screen h-full col-span-2 grid  relative order-2">
+                    <div className="w-full min-h-screen h-full col-span-2 grid relative order-2">
                         <div id="providerDetails" className="grid justify-items-center
                             absolute z-50 sr-only sm:not-sr-only gap-5 sm:p-4 
-                            bg-[#F4F7F7] shadow-2xl sm:mt-6  rounded-2xl h-full sm:h-fit 
+                            bg-[#F4F7F7] shadow-2xl sm:mt-6 rounded-2xl h-full sm:h-fit 
                             ">
                             <div className="w-full flex justify-end sm:sr-only ">
                                 <button onClick={showProviderDetails}>
@@ -155,19 +138,19 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
                             </div>
                             <div className="grid xl:grid-cols-2 ">
                                 <div className="xl:col-1">
-                                    <h1>Experience:{gig.provider.experience}</h1>
+                                    <h1>Experience: {gig.provider.experience}</h1>
                                     <h1>Main Category: {gig.provider.expertise}</h1>
                                     <h1>Other Categories: </h1>
                                 </div>
                                 <div className="xl:col-2 gap-2 grid">
-                                    <h1>Up to date {gig.provider.jobCount} jobs has successfully compeleted</h1>
+                                    <h1>Up to date {gig.provider.jobCount} jobs have been successfully completed</h1>
 
                                     <div className="grid justify-items-center w-fit gap-2">
                                         <h1>Contacts</h1>
-                                        <div className="flex justify-between w-full lg:">
+                                        <div className="flex justify-between w-full">
                                             <h1>Phone:</h1> <h1>{gig.provider.contactNo}</h1>
                                         </div>
-                                        <div className="flex justify-between w-full lg:">
+                                        <div className="flex justify-between w-full">
                                             <h1>Email:</h1> <h1>{gig.provider.email}</h1>
                                         </div>
                                     </div>
@@ -197,7 +180,7 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
                             <h1 className="bg-blue-200 text-blue-950 border-blue-600 border
                              rounded-xl px-4 py-1">{gig.category.name}</h1>
                             <div className="flex space-x-5 items-center">
-                                <div className="flex gap-1  items-center">
+                                <div className="flex gap-1 items-center">
                                     {[1, 2, 3, 4, 5].map((number, i) => (
                                         <span key={number}>
                                             <DynamicIcon name="FaStar"
@@ -214,7 +197,7 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
                         </div>
 
                         <div className="grid gap-5 my-10">
-                            <div className=" grid gap-4 ">
+                            <div className="grid gap-4 ">
                                 <div className="grid gap-2">
                                     <h1 className="lg:text-2xl ">About this gig</h1>
                                     <p className="text-gray-600 md:text-lg">{gig.description}</p>
@@ -226,7 +209,7 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
 
                         <div className="grid">
                             <div className="bg-white p-5 rounded-2xl my-10">
-                                <h1 className="lg:text-2xl">Abour Prices</h1>
+                                <h1 className="lg:text-2xl">About Prices</h1>
                                 <div className="ml-3">
                                     <h1>The base price: {gig.basePrice} {gig.currency}</h1>
                                     <h1>per: <span className="capitalize"> {gig.priceType} </span></h1>

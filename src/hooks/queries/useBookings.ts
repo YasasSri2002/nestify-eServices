@@ -16,14 +16,14 @@ import {
   addBooking,
 } from '@/services/booking.service';
 import { getBookingCountWithUserId } from '@/services/user.service';
-import { BookingResponseDto } from '@/dto/BookingDto';
+import { BookingResponseDto, BookingRequestDto } from '@/dto/BookingDto';
 import { BookingData } from '@/types/booking';
 
 /**
  * Clean Architecture Query Hook: Fetch paginated provider bookings (Default: 10 per page)
  */
 export function useProviderBookings(page: number = 0, size: number = 10) {
-  return useQuery<BookingResponseDto[], Error>({
+  return useQuery<any, Error>({
     queryKey: queryKeys.bookings.byProvider(page, size),
     queryFn: async () => {
       return await getBookingsByProviderId(page, size);
@@ -34,14 +34,15 @@ export function useProviderBookings(page: number = 0, size: number = 10) {
 }
 
 /**
- * Clean Architecture Query Hook: Fetch all client bookings
+ * Clean Architecture Query Hook: Fetch paginated client bookings (Default: 10 per page)
  */
-export function useClientBookings() {
-  return useQuery<BookingResponseDto[], Error>({
-    queryKey: queryKeys.bookings.byClient('current'),
+export function useClientBookings(page: number = 0, size: number = 10) {
+  return useQuery<any, Error>({
+    queryKey: queryKeys.bookings.byClient(page, size),
     queryFn: async () => {
-      return await getBookingDataByClientId();
+      return await getBookingDataByClientId(page, size);
     },
+    placeholderData: keepPreviousData,
     staleTime: 1000 * 60 * 2,
   });
 }
@@ -66,11 +67,11 @@ export function useAddBooking() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (bookingData: BookingData) => {
+    mutationFn: async (bookingData: BookingRequestDto) => {
       return await addBooking(bookingData);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.bookings.all });
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
     },
   });
 }
@@ -86,7 +87,7 @@ export function useCancelBooking() {
       return await cancelBooking(taskId);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.bookings.all });
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
     },
   });
 }
@@ -102,7 +103,7 @@ export function useCompleteBooking() {
       return await markBookingComplete(id);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.bookings.all });
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
     },
   });
 }
@@ -126,7 +127,7 @@ export function useRescheduleBooking() {
       return await rescheduleTheBooking(taskId, rescheduleDate, rescheduleTime);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.bookings.all });
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
     },
   });
 }

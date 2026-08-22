@@ -56,7 +56,8 @@ export function useLogout() {
       return await LogoutUser(userId);
     },
     onSuccess: () => {
-      queryClient.clear();
+      queryClient.setQueryData(queryKeys.users.current, { roles: '["notLogin"]' });
+      queryClient.invalidateQueries({ queryKey: queryKeys.users.current });
     },
   });
 }

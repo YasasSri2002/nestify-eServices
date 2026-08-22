@@ -1,20 +1,29 @@
 'use server';
 
-import { ServiceGigResponseDto } from '@/dto/response/ServiceGigResponseDto';
+import {
+  ServiceGigResponseDto,
+  PaginatedServiceGigResponse,
+} from '@/dto/response/ServiceGigResponseDto';
 
 const BACKEND_URL = process.env.SPRING_BOOT_API_URL || 'http://localhost:8080';
 
 /**
- * Fetch all active gigs.
- * Next.js caching removed — caching is managed by TanStack Query.
+ * Fetch paginated active service gigs from Spring Boot backend.
+ * Page is 0-indexed on the server, default size is 10.
  */
-export async function getActiveGigs(): Promise<ServiceGigResponseDto[]> {
-  const response = await fetch(`${BACKEND_URL}/api/v1/gig/active-posters`, {
-    cache: 'no-store',
-  });
+export async function getActiveGigs(
+  page: number = 0,
+  size: number = 10
+): Promise<PaginatedServiceGigResponse> {
+  const response = await fetch(
+    `${BACKEND_URL}/api/v1/gig/active-posters?page=${page}&size=${size}`,
+    {
+      cache: 'no-store',
+    }
+  );
 
   if (!response.ok) {
-    throw new Error('Failed to fetch active gigs');
+    throw new Error(`Failed to fetch active gigs: ${response.status}`);
   }
 
   return response.json();
