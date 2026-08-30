@@ -1,9 +1,10 @@
 'use client';
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 
 import DynamicIcon from "@/components/utill/DynamicIcons";
 import ImageSlider from "@/components/imageSlider";
@@ -158,11 +159,14 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
 
                             </div>
 
-                            <div>
-                                <button className="px-4 border-accent-400 border-2 bg-surface-ice-100 text-accent-600
-                                     hover:bg-accent-500 hover:text-white active:bg-accent-500 active:scale-95 rounded-md py-2 ">
-                                    Message <span className="capitalize">{gig.provider.firstName}</span>
-                                </button>
+                            <div className="border-t border-neutral-200 pt-4">
+                                <Link
+                                    href={`/providers/details/${gig.provider.id}`}
+                                    className="group inline-flex items-center gap-2 rounded-sm text-sm font-semibold text-primary-700 transition-colors hover:text-accent-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-600"
+                                >
+                                    View <span className="capitalize">{gig.provider.firstName}</span>&apos;s profile
+                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 motion-reduce:transform-none" />
+                                </Link>
                             </div>
 
                         </div>

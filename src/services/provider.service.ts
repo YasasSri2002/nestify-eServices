@@ -69,6 +69,9 @@ export async function getProviderById(id: string): Promise<ProviderWithAllDetail
   const response = await fetch(`${BACKEND_URL}/api/v1/providers/by-id?id=${id}`, {
     method: 'GET',
     cache: 'no-store',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 
   if (!response.ok) {
