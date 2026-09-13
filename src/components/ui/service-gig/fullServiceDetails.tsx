@@ -4,42 +4,54 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { ArrowRight, Star } from "lucide-react";
+import {
+    ArrowRight,
+    BadgeCheck,
+    BriefcaseBusiness,
+    CalendarCheck2,
+    Check,
+    MapPin,
+    ShieldCheck,
+    Sparkles,
+    Wrench,
+} from "lucide-react";
 
-import DynamicIcon from "@/components/utill/DynamicIcons";
 import ImageSlider from "@/components/imageSlider";
-import BookingForm from "../booking/bookingForm";
-import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
+import BookingForm from "@/components/ui/booking/bookingForm";
 import { BookingRequestDto } from "@/dto/BookingDto";
-import { BookingData } from "@/types/booking";
-import { isTokenExsist } from "@/services/auth.service";
+import { ServiceGigResponseDto } from "@/dto/response/ServiceGigResponseDto";
 import { useAddBooking } from "@/hooks/queries/useBookings";
+import { isTokenExsist } from "@/services/auth.service";
+import { BookingData } from "@/types/booking";
 
-function showProviderDetails() {
-    const providerDetailsPanel = document.getElementById(`providerDetails`);
-    providerDetailsPanel?.classList.toggle('sr-only');
+interface FullServiceGigsDetailsProps {
+    readonly gig: ServiceGigResponseDto;
 }
 
-export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceGigResponseDto }) {
+export default function FullServiceGigsDetails({ gig }: FullServiceGigsDetailsProps) {
     const [showBookingForm, setShowBookingForm] = useState(false);
     const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
     const addBookingMutation = useAddBooking();
+    const providerName =
+        [gig.provider.firstName, gig.provider.lastName].filter(Boolean).join(" ") ||
+        gig.provider.userName;
+    const formattedPrice = new Intl.NumberFormat("en-LK").format(gig.basePrice ?? 0);
 
     const showForm = async () => {
-        const tokenExsist = await isTokenExsist(`/service-gigs/details/${gig.id}`);
+        const tokenExists = await isTokenExsist(`/service-gigs/details/${gig.id}`);
 
-        if (!tokenExsist) {
+        if (!tokenExists) {
             Swal.fire({
-                title: "Login Required",
-                html: "<p class=\"text-gray-600\">You need to log in or create an account to book this service.</p>",
+                title: "Sign in to book",
+                html: '<p class="text-neutral-600">Sign in or create an account to reserve this service.</p>',
                 showConfirmButton: true,
                 confirmButtonText: "Sign in",
-                footer: "Don't have an account?<a href=\"/register\" class=\"text-blue-600 ml-2\">Sign up</a>",
-                reverseButtons: true,
+                footer: 'New to Nestify? <a href="/register" class="ml-2 text-accent-600">Create an account</a>',
                 buttonsStyling: false,
                 customClass: {
-                    confirmButton: "bg-black rounded-md px-4 py-2 text-white active:scale-95 transition-all duration-300 hover:bg-gray-600/10 hover:backdrop-blur-md hover:border hover:border-white/20 hover:shadow-lg hover:text-black",
-                }
+                    confirmButton:
+                        "rounded-xl bg-accent-600 px-5 py-2.5 font-semibold text-white transition-colors hover:bg-accent-500",
+                },
             }).then((result) => {
                 if (result.isConfirmed && loginUrl) {
                     window.location.replace(loginUrl);
@@ -47,6 +59,7 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
             });
             return;
         }
+
         setShowBookingForm(true);
     };
 
@@ -62,188 +75,271 @@ export default function FullServiceGigsDetails({ gig }: { readonly gig: ServiceG
                 status: "pending",
                 startingDate: data.startingDate,
                 startingTime: data.startingTime,
-                contactNo: data.contactNo
+                contactNo: data.contactNo,
             };
+
             await addBookingMutation.mutateAsync(bookingRequestDto);
             Swal.fire({
-                title: "Booking Completed",
-                text: "Successfully booked the service.",
-                icon: "success"
+                title: "Booking requested",
+                text: "Your service request was sent successfully.",
+                icon: "success",
             });
             setShowBookingForm(false);
         } catch (err: unknown) {
             console.error("Booking error:", err);
-
             Swal.fire({
-                title: "Error",
-                text: err instanceof Error ? err.message : "Failed to create booking",
-                icon: "error"
+                title: "Booking failed",
+                text: err instanceof Error ? err.message : "The booking could not be created.",
+                icon: "error",
             });
         }
     }
 
     return (
         <>
-            <main className="py-5 px-5">
-                <div className="grid grid-cols-6 gap-10">
-                    {/* mobile-menue */}
-                    <div className="h-full sm:hidden bg-gray-300 grid justify-items-center content-between py-2">
-                        <button onClick={showProviderDetails}>
-                            <DynamicIcon name="BiMenu" className="text-3xl" />
-                        </button>
-                        <div className="w-10 h-10 rounded-full">
-                            <Image src={"https://avatar.iran.liara.run/public/boy"}
-                                width={100}
-                                height={100}
-                                alt="provider's profile picture" />
-                        </div>
-                    </div>
+            <main className="relative overflow-hidden bg-surface-ice-100">
+                <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -right-32 top-20 h-96 w-96 rounded-full border-[72px] border-accent-100/50"
+                />
 
-                    {/* left-side */}
-                    <div className="w-full min-h-screen h-full col-span-2 grid relative order-2">
-                        <div id="providerDetails" className="grid justify-items-center
-                            absolute z-50 sr-only sm:not-sr-only gap-5 sm:p-4 
-                            bg-[#F4F7F7] shadow-2xl sm:mt-6 rounded-2xl h-full sm:h-fit 
-                            ">
-                            <div className="w-full flex justify-end sm:sr-only ">
-                                <button onClick={showProviderDetails}>
-                                    <DynamicIcon name="IoMdClose" className="text-xl" />
-                                </button>
-                            </div>
-                            <div className="w-30 h-30 rounded-full">
-                                <Image src={"/user.jpg"}
-                                    width={100}
-                                    height={100}
-                                    alt="provider's profile picture" className="rounded-full w-full h-full" />
-                            </div>
-                            <div className="grid gap-2">
-                                <div className="flex space-x-4 justify-center">
-                                    <h1 className="md:text-xl">
-                                        Get to know<span className="capitalize"> {gig.provider.userName}</span>
-                                    </h1>
-                                    {
-                                        gig.provider.isVerified ?
-                                            <DynamicIcon name="BiBadgeCheck" className="text-green-400 text-2xl" /> : ""
-                                    }
-                                </div>
-                                <div className="grid justify-items-center mb-5">
-                                    <div className="flex space-x-2 items-center">
-                                        <Star fill="#F59E0B" stroke="#F59E0B" width={16} />
-                                        <h2 className="font-bold text-[0.8em] text-[#1E293B]">{0}</h2>
-                                        <h6 className="text-[0.8em] text-[#94A3B8]">({0} reviews)</h6>
-                                    </div>
-                                    <h1>Member since {gig.provider.expertise}</h1>
-                                </div>
+                <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+                    <nav
+                        aria-label="Breadcrumb"
+                        className="mb-7 flex min-w-0 items-center gap-2 text-sm text-neutral-600"
+                    >
+                        <Link
+                            href="/service-gigs"
+                            className="shrink-0 rounded-sm font-medium transition-colors hover:text-accent-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-600"
+                        >
+                            Services
+                        </Link>
+                        <span aria-hidden="true" className="text-neutral-400">/</span>
+                        <span className="shrink-0 capitalize text-neutral-600">
+                            {gig.category?.name ?? "Household service"}
+                        </span>
+                        <span aria-hidden="true" className="text-neutral-400">/</span>
+                        <span className="truncate text-neutral-800">{gig.title}</span>
+                    </nav>
 
-                                <p>{gig.provider.shortDescription}</p>
-                            </div>
-                            <div className="grid xl:grid-cols-2 ">
-                                <div className="xl:col-1">
-                                    <h1>Experience: {gig.provider.experience}</h1>
-                                    <h1>Main Category: {gig.provider.expertise}</h1>
-                                    <h1>Other Categories: </h1>
-                                </div>
-                                <div className="xl:col-2 gap-2 grid">
-                                    <h1>Up to date {gig.provider.jobCount} jobs have been successfully completed</h1>
-
-                                    <div className="grid justify-items-center w-fit gap-2">
-                                        <h1>Contacts</h1>
-                                        <div className="flex justify-between w-full">
-                                            <h1>Phone:</h1> <h1>{gig.provider.contactNo}</h1>
-                                        </div>
-                                        <div className="flex justify-between w-full">
-                                            <h1>Email:</h1> <h1>{gig.provider.email}</h1>
-                                        </div>
-                                    </div>
-                                </div>
-
+                    <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] xl:gap-12">
+                        <div className="min-w-0">
+                            <div className="overflow-hidden rounded-[2rem] border border-neutral-200 bg-surface-snow p-2 shadow-[0_20px_60px_rgba(10,25,47,0.10)] sm:p-3">
+                                <ImageSlider images={["/cleaning-poster.jpg", "/user.jpg"]} />
                             </div>
 
-                            <div className="border-t border-neutral-200 pt-4">
-                                <Link
-                                    href={`/providers/details/${gig.provider.id}`}
-                                    className="group inline-flex items-center gap-2 rounded-sm text-sm font-semibold text-primary-700 transition-colors hover:text-accent-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-600"
-                                >
-                                    View <span className="capitalize">{gig.provider.firstName}</span>&apos;s profile
-                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 motion-reduce:transform-none" />
-                                </Link>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    {/* right-side */}
-                    <div className="col-span-5 sm:col-span-4 py-5 ">
-
-                        <div>
-                            <ImageSlider images={["/cleaning-poster.jpg", "/user.jpg"]} />
-                        </div>
-
-                        <h1 className="md:text-2xl capitalize my-3 ">{gig.title}</h1>
-                        <div className="flex space-x-5 w-full items-center">
-                            <h1 className="bg-blue-200 text-blue-950 border-blue-600 border
-                             rounded-xl px-4 py-1">{gig.category.name}</h1>
-                            <div className="flex space-x-5 items-center">
-                                <div className="flex gap-1 items-center">
-                                    {[1, 2, 3, 4, 5].map((number, i) => (
-                                        <span key={number}>
-                                            <DynamicIcon name="FaStar"
-                                                className={`text-lg ${i < 1 ?
-                                                    'text-yellow-400' : 'text-gray-300'}`} />
+                            <header className="border-b border-neutral-200 py-8 sm:py-10">
+                                <div className="mb-5 flex flex-wrap items-center gap-3">
+                                    <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-100 px-3 py-1.5 text-xs font-semibold capitalize text-accent-600">
+                                        <Wrench className="h-4 w-4" />
+                                        {gig.category?.name ?? "Household service"}
+                                    </span>
+                                    {gig.serviceLocation && (
+                                        <span className="inline-flex items-center gap-2 text-sm text-neutral-600">
+                                            <MapPin className="h-4 w-4 text-neutral-400" />
+                                            {gig.serviceLocation}
                                         </span>
-                                    ))}
+                                    )}
+                                    <span
+                                        className={`inline-flex items-center gap-1.5 text-sm font-medium ${
+                                            gig.isActive ? "text-success" : "text-neutral-400"
+                                        }`}
+                                    >
+                                        <span
+                                            aria-hidden="true"
+                                            className={`h-2 w-2 rounded-full ${
+                                                gig.isActive ? "bg-success" : "bg-neutral-400"
+                                            }`}
+                                        />
+                                        {gig.isActive ? "Available" : "Currently unavailable"}
+                                    </span>
                                 </div>
-                                <div className="flex space-x-1">
-                                    <h1>{1}</h1>
-                                    <h2>(1 reviews)</h2>
+
+                                <h1 className="max-w-4xl font-display text-4xl font-semibold leading-[1.08] capitalize text-primary-900 sm:text-5xl lg:text-6xl">
+                                    {gig.title}
+                                </h1>
+                                <p className="mt-5 max-w-3xl text-base leading-7 text-neutral-600 sm:text-lg">
+                                    {gig.description ||
+                                        "Professional household support, arranged around your home and schedule."}
+                                </p>
+                            </header>
+
+                            <section className="py-8 sm:py-10" aria-labelledby="service-includes-heading">
+                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
+                                    Service overview
+                                </p>
+                                <h2
+                                    id="service-includes-heading"
+                                    className="mt-2 font-display text-3xl font-semibold text-primary-900"
+                                >
+                                    What to expect
+                                </h2>
+
+                                <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                                    <div className="rounded-2xl border border-neutral-200 bg-surface-snow p-5">
+                                        <ShieldCheck className="h-5 w-5 text-accent-600" />
+                                        <p className="mt-4 font-semibold text-neutral-800">Verified professional</p>
+                                        <p className="mt-1 text-sm leading-6 text-neutral-600">
+                                            Provider details and identity are visible before you book.
+                                        </p>
+                                    </div>
+                                    <div className="rounded-2xl border border-neutral-200 bg-surface-snow p-5">
+                                        <CalendarCheck2 className="h-5 w-5 text-accent-600" />
+                                        <p className="mt-4 font-semibold text-neutral-800">Choose your time</p>
+                                        <p className="mt-1 text-sm leading-6 text-neutral-600">
+                                            Request a date and starting time that works for your household.
+                                        </p>
+                                    </div>
+                                    <div className="rounded-2xl border border-neutral-200 bg-surface-snow p-5">
+                                        <Sparkles className="h-5 w-5 text-accent-600" />
+                                        <p className="mt-4 font-semibold text-neutral-800">Clear starting price</p>
+                                        <p className="mt-1 text-sm leading-6 text-neutral-600">
+                                            Review the base rate before sending your booking request.
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </section>
 
-                        <div className="grid gap-5 my-10">
-                            <div className="grid gap-4 ">
-                                <div className="grid gap-2">
-                                    <h1 className="lg:text-2xl ">About this gig</h1>
-                                    <p className="text-gray-600 md:text-lg">{gig.description}</p>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div className="grid">
-                            <div className="bg-white p-5 rounded-2xl my-10">
-                                <h1 className="lg:text-2xl">About Prices</h1>
-                                <div className="ml-3">
-                                    <h1>The base price: {gig.basePrice} {gig.currency}</h1>
-                                    <h1>per: <span className="capitalize"> {gig.priceType} </span></h1>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="flex justify-end w-full">
-                            <button className=" bg-[#1D4ED8] py-2 px-5 hover:bg-[#F4F7F7] w-25 
-                                active:scale-95 text-white hover:text-black border-1 border-[#2563EB]
-                                 active:text-black transition-all duration-200 rounded-lg"
-                                onClick={showForm}
+                            <section
+                                aria-labelledby="provider-heading"
+                                className="rounded-[2rem] border border-neutral-200 bg-surface-snow p-6 shadow-[0_4px_14px_rgba(10,25,47,0.05)] sm:p-8"
                             >
-                                Book
-                            </button>
+                                <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+                                    <div className="relative h-20 w-20 shrink-0">
+                                        <div className="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-2xl bg-accent-400" />
+                                        <Image
+                                            src="/user.jpg"
+                                            width={80}
+                                            height={80}
+                                            alt={`${providerName}'s profile picture`}
+                                            className="relative h-20 w-20 rounded-2xl border-4 border-surface-snow object-cover"
+                                        />
+                                    </div>
+
+                                    <div className="min-w-0 flex-1">
+                                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
+                                            Your service provider
+                                        </p>
+                                        <div className="mt-2 flex items-center gap-2">
+                                            <h2
+                                                id="provider-heading"
+                                                className="font-display text-2xl font-semibold capitalize text-primary-900 sm:text-3xl"
+                                            >
+                                                {providerName}
+                                            </h2>
+                                            {gig.provider.isVerified && (
+                                                <BadgeCheck
+                                                    aria-label="Verified provider"
+                                                    className="h-5 w-5 shrink-0 text-success"
+                                                />
+                                            )}
+                                        </div>
+                                        <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600">
+                                            {gig.provider.shortDescription ||
+                                                `${providerName} provides professional ${gig.category?.name?.toLowerCase() ?? "household"} services through Nestify.`}
+                                        </p>
+
+                                        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm text-neutral-600">
+                                            {gig.provider.experience && (
+                                                <span className="inline-flex items-center gap-2">
+                                                    <BriefcaseBusiness className="h-4 w-4 text-neutral-400" />
+                                                    <strong className="font-semibold text-neutral-800">Experience</strong>
+                                                    <span aria-hidden="true">·</span>
+                                                    {gig.provider.experience}
+                                                </span>
+                                            )}
+                                            <span className="inline-flex items-center gap-2">
+                                                <Check className="h-4 w-4 text-success" />
+                                                {gig.provider.jobCount ?? 0} jobs completed
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <Link
+                                        href={`/providers/details/${gig.provider.id}`}
+                                        className="group inline-flex shrink-0 items-center gap-2 rounded-sm text-sm font-semibold text-primary-700 transition-colors hover:text-accent-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-600"
+                                    >
+                                        View profile
+                                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 motion-reduce:transform-none" />
+                                    </Link>
+                                </div>
+                            </section>
                         </div>
+
+                        <aside className="overflow-hidden rounded-[2rem] bg-primary-900 text-white shadow-[0_24px_70px_rgba(10,25,47,0.18)] lg:sticky lg:top-8">
+                            <div className="relative border-b border-white/10 px-7 pb-7 pt-8">
+                                <div
+                                    aria-hidden="true"
+                                    className="absolute -right-12 -top-14 h-40 w-40 rounded-full border-[28px] border-accent-400/20"
+                                />
+                                <p className="relative text-xs font-semibold uppercase tracking-[0.18em] text-accent-400">
+                                    Starting price
+                                </p>
+                                <p className="relative mt-3 flex flex-wrap items-baseline gap-x-2">
+                                    <span className="text-sm font-semibold text-neutral-400">
+                                        {gig.currency ?? "LKR"}
+                                    </span>
+                                    <span className="font-display text-5xl font-semibold tracking-tight">
+                                        {formattedPrice}
+                                    </span>
+                                </p>
+                                <p className="relative mt-2 text-sm text-neutral-400">
+                                    per <span className="capitalize">{gig.priceType || "job"}</span>
+                                </p>
+                            </div>
+
+                            <div className="space-y-4 px-7 py-7 text-sm">
+                                <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
+                                    <span className="text-neutral-400">Provided by</span>
+                                    <span className="text-right font-medium capitalize text-white">
+                                        {providerName}
+                                    </span>
+                                </div>
+                                <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
+                                    <span className="text-neutral-400">Service area</span>
+                                    <span className="text-right font-medium text-white">
+                                        {gig.serviceLocation || "Ask provider"}
+                                    </span>
+                                </div>
+                                <div className="flex items-start justify-between gap-4">
+                                    <span className="text-neutral-400">Bookings</span>
+                                    <span className="font-medium text-white">
+                                        {gig.totalBookingCount ?? 0} total
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="px-7 pb-8">
+                                <button
+                                    type="button"
+                                    onClick={showForm}
+                                    disabled={!gig.isActive || addBookingMutation.isPending}
+                                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent-500 px-5 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-400 active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-primary-700 disabled:text-neutral-400 motion-reduce:transform-none"
+                                >
+                                    {addBookingMutation.isPending
+                                        ? "Sending request…"
+                                        : gig.isActive
+                                          ? "Request this service"
+                                          : "Currently unavailable"}
+                                    {gig.isActive && !addBookingMutation.isPending && (
+                                        <ArrowRight className="h-4 w-4" />
+                                    )}
+                                </button>
+                                <p className="mt-3 text-center text-xs leading-5 text-neutral-400">
+                                    Choose your preferred date and time in the next step.
+                                </p>
+                            </div>
+                        </aside>
                     </div>
                 </div>
-
             </main>
-            {
-                showBookingForm &&
-                <BookingForm onClose={() => setShowBookingForm(!showBookingForm)}
+
+            {showBookingForm && (
+                <BookingForm
+                    onClose={() => setShowBookingForm(false)}
                     onSubmit={handleSubmit}
                 />
-            }
-
-
+            )}
         </>
-
-
-    )
+    );
 }
