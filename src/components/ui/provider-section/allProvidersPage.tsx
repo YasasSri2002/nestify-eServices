@@ -99,10 +99,11 @@ export default function AllProvidersPage() {
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
       {/* Hero & Search Header */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0A192F] via-[#112240] to-[#1E293B] text-white pt-14 pb-16 px-4 sm:px-6 lg:px-8">
-        {/* Ambient background glow */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative overflow-hidden bg-primary-900 px-4 pb-16 pt-14 text-white sm:px-6 lg:px-8">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border-[48px] border-accent-400/20"
+        />
 
         <div className="relative max-w-5xl mx-auto text-center space-y-6">
 
