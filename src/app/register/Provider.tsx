@@ -3,13 +3,14 @@
 import { FormEvent, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import Swal from "sweetalert2";
+import DynamicIcon from "@/components/utill/DynamicIcons";
 
 import { ProviderRegistrationDto } from "@/dto/ProviderDto";
 import { useRegisterProvider } from "@/hooks/queries/useProviders";
 import { providerRegisterSchema, ProviderRegisterFormErrors } from "@/lib/schema/providerRegisterSchema";
 
 const inputClassName =
-  "mt-2 h-12 w-full rounded-xl border border-neutral-200 bg-surface-snow px-4 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 hover:border-surface-aqua-muted focus:border-accent-500 focus:ring-4 focus:ring-accent-100";
+  "h-12 w-full rounded-xl border border-neutral-200 bg-surface-snow px-4 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 hover:border-surface-aqua-muted focus:border-accent-500 focus:ring-4 focus:ring-accent-100";
 
 export default function ProviderForm() {
   const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
@@ -158,42 +159,61 @@ function Field({
   error,
   maxLength,
 }: FieldProps) {
+  const [showPassword, setShowPassword] = useState(false);
   const errorId = `${name}-error`;
   const hintId = `${name}-hint`;
+  const isPassword = type === "password";
+  const inputType = isPassword ? (showPassword ? "text" : "password") : type;
 
   return (
     <div>
       <label htmlFor={name} className="text-sm font-semibold text-neutral-800">
         {label}
       </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        autoComplete={autoComplete}
-        maxLength={maxLength}
-        inputMode={type === "tel" ? "numeric" : undefined}
-        aria-invalid={Boolean(error)}
-        aria-describedby={error ? errorId : hint ? hintId : undefined}
-        className={inputClassName}
-        placeholder={label}
-        onInput={
-          type === "tel"
-            ? (e) => {
-                const target = e.currentTarget;
-                const cleaned = target.value.replace(/\D/g, "");
-                target.value = maxLength ? cleaned.slice(0, maxLength) : cleaned;
-              }
-            : maxLength
-            ? (e) => {
-                const target = e.currentTarget;
-                if (target.value.length > maxLength) {
-                  target.value = target.value.slice(0, maxLength);
+      <div className="relative mt-2">
+        <input
+          id={name}
+          name={name}
+          type={inputType}
+          autoComplete={autoComplete}
+          maxLength={maxLength}
+          inputMode={type === "tel" ? "numeric" : undefined}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? errorId : hint ? hintId : undefined}
+          className={`${inputClassName} ${isPassword ? "pr-11" : ""}`}
+          placeholder={label}
+          onInput={
+            type === "tel"
+              ? (e) => {
+                  const target = e.currentTarget;
+                  const cleaned = target.value.replace(/\D/g, "");
+                  target.value = maxLength ? cleaned.slice(0, maxLength) : cleaned;
                 }
-              }
-            : undefined
-        }
-      />
+              : maxLength
+              ? (e) => {
+                  const target = e.currentTarget;
+                  if (target.value.length > maxLength) {
+                    target.value = target.value.slice(0, maxLength);
+                  }
+                }
+              : undefined
+          }
+        />
+        {isPassword && (
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 rounded-md p-1 text-neutral-400 transition-colors hover:text-neutral-700 focus-visible:outline-2 focus-visible:outline-accent-500"
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? (
+              <DynamicIcon name="FiEye" className="h-4 w-4" aria-hidden="true" />
+            ) : (
+              <DynamicIcon name="FiEyeOff" className="h-4 w-4" aria-hidden="true" />
+            )}
+          </button>
+        )}
+      </div>
       {error ? (
         <p id={errorId} className="mt-1.5 text-xs font-medium text-error">
           {error}
