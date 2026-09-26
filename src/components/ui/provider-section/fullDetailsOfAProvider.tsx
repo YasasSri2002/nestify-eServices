@@ -171,10 +171,13 @@ export default function FullDetailsOfAProvider({
                 )}
               </div>
 
-              <p className="max-w-3xl font-display text-3xl leading-tight text-primary-900 sm:text-4xl lg:text-5xl">
-                Reliable help for the work that makes a house feel cared for.
-              </p>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg">
+              <h1 className="max-w-3xl font-display text-3xl font-bold leading-tight text-primary-900 sm:text-4xl lg:text-5xl">
+                {provider.expertise
+                  ? `Expert ${provider.expertise.toLowerCase()} services${provider.address ? ` in ${provider.address}` : ""}`
+                  : `Trusted household services by ${displayName}`}
+              </h1>
+
+              <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg">
                 {provider.shortDescription ||
                   `${displayName} offers practical, professional household services through Nestify.`}
               </p>

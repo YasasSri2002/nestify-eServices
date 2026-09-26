@@ -1,54 +1,41 @@
 "use client";
-import { useState, useEffect, FormEvent } from "react";
-import { useRouter } from 'next/navigation';
 
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import { LiaWindowCloseSolid } from "react-icons/lia";
-import { useRegisterUser } from "@/hooks/queries/useUsers";
+import { FormEvent, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import Swal from "sweetalert2";
-import { clientRegisterSchema } from "../../lib/schema/clientRegisterSchema";
-import { ClientRegisterFormErrors } from "../../lib/schema/clientRegisterSchema";
+
+import { useRegisterUser } from "@/hooks/queries/useUsers";
+import { clientRegisterSchema, ClientRegisterFormErrors } from "@/lib/schema/clientRegisterSchema";
 import { UserData } from "@/types/user";
 
-export default function ClientForm() {
+const inputClassName =
+  "mt-2 h-12 w-full rounded-xl border border-neutral-200 bg-surface-snow px-4 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 hover:border-surface-aqua-muted focus:border-accent-500 focus:ring-4 focus:ring-accent-100";
 
-  const router = useRouter();
+export default function ClientForm() {
   const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
   const registerUserMutation = useRegisterUser();
-
-  // Use state to force remount when switching
-  const [animationKey, setAnimationKey] = useState(Date.now());
   const [errors, setErrors] = useState<ClientRegisterFormErrors>({});
-
-  // Reset animation when component mounts
-  useEffect(() => {
-    return () => {
-      // Trigger re-render with new key when component unmounts
-      setAnimationKey(Date.now());
-    };
-  }, []);
 
   async function handleFormData(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget)
-    console.log("client register form data --->", data)
-
+    const data = new FormData(event.currentTarget);
     const formValues = {
       firstName: data.get("firstName") as string,
       lastName: data.get("lastName") as string,
       username: data.get("username") as string,
       email: data.get("email") as string,
       password: data.get("password") as string,
+      confirmPass: data.get("confirmPass") as string,
     };
 
-    const result = clientRegisterSchema.safeParse(formValues)
+    const result = clientRegisterSchema.safeParse(formValues);
 
     if (!result.success) {
       setErrors(result.error.flatten().fieldErrors);
-      return; // Stop here, don't call the API
+      return;
     }
 
-    setErrors({})
+    setErrors({});
 
     const userData: UserData = {
       firstName: result.data.firstName,
@@ -59,147 +46,133 @@ export default function ClientForm() {
     };
 
     Swal.fire({
-      title: 'Registering...',
-      text: 'Please wait while we process your registration',
+      title: "Creating your account",
+      text: "This will only take a moment.",
       allowOutsideClick: false,
-      background: '#fff',
-      color: '#000000',
-      didOpen: () => {
-        Swal.showLoading();
-      }
+      color: "#1E293B",
+      didOpen: () => Swal.showLoading(),
     });
 
     try {
       await registerUserMutation.mutateAsync(userData);
-
       Swal.close();
 
-      // Show success (adjust this based on your API response)
       await Swal.fire({
-        icon: 'success',
-        title: 'Registration Successful!',
-        text: 'Welcome to our Nestify community. Redirecting to login...',
-        background: '#fff',
-        color: '#000000',
-        confirmButtonColor: '#dc2626',
-        confirmButtonText: 'Go to Login',
-        timer: 2500,
-        timerProgressBar: true,
-        customClass: {
-          popup: 'border border-gray-700'
-        }
+        icon: "success",
+        title: "Account created",
+        text: "Your Nestify account is ready. Sign in to get started.",
+        color: "#1E293B",
+        confirmButtonColor: "#1D4ED8",
+        confirmButtonText: "Continue to sign in",
       });
 
-      router.push(loginUrl!);
-
-    } catch (err: unknown) {
-      console.log(err)
+      window.location.assign(loginUrl ?? "/login");
+    } catch (error: unknown) {
       Swal.fire({
-        icon: 'error',
-        title: 'Registration Failed',
-        text: err instanceof Error ? err.message : 'An unexpected error occurred.',
-        background: '#fff',
-        color: '#000000',
-        confirmButtonColor: '#dc2626',
-        customClass: {
-          popup: 'border border-gray-700'
-        }
+        icon: "error",
+        title: "Account not created",
+        text: error instanceof Error ? error.message : "Check your details and try again.",
+        color: "#1E293B",
+        confirmButtonColor: "#1D4ED8",
       });
     }
-
-
   }
 
   return (
-    <div className="w-full max-w-[100vw]">
-      <div className="flex flex-col lg:grid lg:grid-cols-[1fr_1fr] items-center w-full">
-        <div className="w-full flex justify-center p-4">
-          <div className="max-w-full flex flex-col items-center">
-            <h2 className="text-xl font-bold">Register as a client</h2>
-            <div className="w-full max-w-187.5">
-              <DotLottieReact
-                key={animationKey} // Key forces remount
-                src="/animation/real_estate.lottie"
-                loop
-                autoplay
-                className="sm:w-150"
-              />
-            </div>
-            <div className="mt-4 text-center w-full">
-
-              <p className="mt-2">Get things done. Connect with trusted experts instantly.</p>
-            </div>
-          </div>
-        </div>
-        <div className="w-full  rounded-3xl p-4 justify-items-center content-center ">
-          <form onSubmit={handleFormData}>
-            <div className="grid gap-5">
-              <div className="grid sm:flex gap-2  sm:gap-5 w-full">
-                <div className="grid  w-full gap-2 ">
-                  <label htmlFor="firstName" className="pl-1">First name</label>
-                  <input type="text" name="firstName" className="w-full rounded-md h-8 px-2 border focus:border-[#1D4ED8]" placeholder="First name" />
-                  {errors.firstName && <p className="text-red-500 text-sm pl-1">{errors.firstName[0]}</p>}
-                </div>
-                <div className="grid  w-full gap-2">
-                  <label htmlFor="lastName" className="pl-1">Last name</label>
-                  <input type="text" name="lastName" className="w-full  rounded-md h-8 px-2 border focus:border-[#1D4ED8]" placeholder="Last name" />
-                  {errors.lastName && <p className="text-red-500 text-sm pl-1">{errors.lastName[0]}</p>}
-                </div>
-              </div>
-
-              <div className="grid w-full  gap-2">
-                <label htmlFor="username" className="pl-1">Username</label>
-                <input
-                  type="text"
-                  name="username"
-                  className="w-full h-8  rounded-md px-2 border focus:border-[#1D4ED8]"
-                  placeholder="Username"
-                />
-                {errors.username && <p className="text-red-500 text-sm pl-1">{errors.username[0]}</p>}
-              </div>
-              <div className="grid   w-full gap-2 ">
-                <label htmlFor="email" className="pl-1">Email</label>
-                <input
-                  type="text"
-                  name="email"
-                  className="w-full h-8  rounded-md px-2 border focus:border-[#1D4ED8]" placeholder="Email"
-                />
-                {errors.email && <p className="text-red-500 text-sm pl-1">{errors.email[0]}</p>}
-              </div>
-
-
-              <div className="grid sm:flex gap-5 w-full">
-                <div className="grid gap-2 w-full ">
-                  <label htmlFor="password" className="pl-1">Password</label>
-                  <input
-                    type="text"
-                    name="password"
-                    className="w-full h-8  rounded-md px-2 border focus:border-[#1D4ED8]" placeholder="Password"
-                  />
-                  {errors.password && <p className="text-red-500 text-sm pl-1">{errors.password[0]}</p>}
-                </div>
-                <div className="grid  gap-2 w-full">
-                  <label htmlFor="confirmPass" className="pl-1">Confirm Password</label>
-                  <input
-                    type="text"
-                    name="confirmPass"
-                    className="w-full h-8  rounded-md px-2 border focus:border-[#1D4ED8]" placeholder="Confirm Password"
-                  />
-                  {errors.confirmPass && <p className="text-red-500 text-sm pl-1">{errors.confirmPass[0]}</p>}
-                </div>
-              </div>
-              <div className="flex justify-center mb-2 my-8">
-                <button className="bg-[#1D4ED8] hover:bg-[#2563EB] active:bg-[#2563EB]
-                  active:scale-95 text-white rounded-full p-2 w-[80%] " type="submit">
-                  Create Account
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
+    <form onSubmit={handleFormData} noValidate>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="First name" name="firstName" autoComplete="given-name" error={errors.firstName?.[0]} />
+        <Field label="Last name" name="lastName" autoComplete="family-name" error={errors.lastName?.[0]} />
       </div>
+
+      <div className="mt-5">
+        <Field
+          label="Username"
+          name="username"
+          autoComplete="username"
+          hint="Use one word without spaces."
+          error={errors.username?.[0]}
+        />
+      </div>
+
+      <div className="mt-5">
+        <Field label="Email address" name="email" type="email" autoComplete="email" error={errors.email?.[0]} />
+      </div>
+
+      <div className="mt-5 grid gap-5 sm:grid-cols-2">
+        <Field
+          label="Password"
+          name="password"
+          type="password"
+          autoComplete="new-password"
+          hint="At least 8 characters."
+          error={errors.password?.[0]}
+        />
+        <Field
+          label="Confirm password"
+          name="confirmPass"
+          type="password"
+          autoComplete="new-password"
+          error={errors.confirmPass?.[0]}
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={registerUserMutation.isPending}
+        className="mt-8 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-accent-600 px-5 text-sm font-semibold text-white transition-all hover:bg-accent-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-600 active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-neutral-400"
+      >
+        {registerUserMutation.isPending ? "Creating account…" : "Create household account"}
+        {!registerUserMutation.isPending && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
+      </button>
+
+      <p className="mt-5 text-center text-sm text-neutral-600">
+        Already have an account?{" "}
+        <a href={loginUrl ?? "/login"} className="font-semibold text-accent-600 underline-offset-4 hover:underline">
+          Sign in
+        </a>
+      </p>
+    </form>
+  );
+}
+
+interface FieldProps {
+  readonly label: string;
+  readonly name: string;
+  readonly type?: "text" | "email" | "password" | "tel";
+  readonly autoComplete?: string;
+  readonly hint?: string;
+  readonly error?: string;
+}
+
+function Field({ label, name, type = "text", autoComplete, hint, error }: FieldProps) {
+  const errorId = `${name}-error`;
+  const hintId = `${name}-hint`;
+
+  return (
+    <div>
+      <label htmlFor={name} className="text-sm font-semibold text-neutral-800">
+        {label}
+      </label>
+      <input
+        id={name}
+        name={name}
+        type={type}
+        autoComplete={autoComplete}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : hint ? hintId : undefined}
+        className={inputClassName}
+        placeholder={label}
+      />
+      {error ? (
+        <p id={errorId} className="mt-1.5 text-xs font-medium text-error">
+          {error}
+        </p>
+      ) : hint ? (
+        <p id={hintId} className="mt-1.5 text-xs text-neutral-600">
+          {hint}
+        </p>
+      ) : null}
     </div>
-
-
   );
 }
