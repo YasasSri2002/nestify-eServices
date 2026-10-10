@@ -16,7 +16,7 @@ export interface SessionUserData {
  */
 export function useSessionUser() {
   return useQuery<SessionUserData, Error>({
-    queryKey: queryKeys.users.current,
+    queryKey: queryKeys.auth.session,
     queryFn: async () => {
       const response = await fetch('/api-calls/users/data');
       if (!response.ok) {
@@ -56,7 +56,8 @@ export function useLogout() {
       return await LogoutUser(userId);
     },
     onSuccess: () => {
-      queryClient.setQueryData(queryKeys.users.current, { roles: '["notLogin"]' });
+      queryClient.setQueryData(queryKeys.auth.session, { roles: '["notLogin"]' });
+      queryClient.invalidateQueries({ queryKey: queryKeys.auth.session });
       queryClient.invalidateQueries({ queryKey: queryKeys.users.current });
     },
   });

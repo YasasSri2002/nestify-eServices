@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
       maxAge: accessMaxAge,
     });
 
-    response.cookies.set('x-user-name', decodedToken.name || '', {
+    response.cookies.set('x-user-name', decodedToken.name || decodedToken.preferred_username || '', {
       httpOnly: false,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

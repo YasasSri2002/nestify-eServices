@@ -160,5 +160,6 @@ export const config = {
     '/site-admin/:path*',
     '/users/profile/:path*',
     '/provider/profile/:path*',
+    '/providers/dashboard/:path*',
   ],
 };

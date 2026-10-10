@@ -4,6 +4,9 @@
  * Eliminates magic strings and ensures type-safe cache invalidation.
  */
 export const queryKeys = {
+  auth: {
+    session: ['auth', 'session'] as const,
+  },
   categories: {
     all: ['categories'] as const,
   },
