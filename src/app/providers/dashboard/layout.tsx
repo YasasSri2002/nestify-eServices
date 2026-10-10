@@ -10,7 +10,7 @@ export default function ProviderDashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-surface-snow via-surface-ice-100 to-surface-ice-200">
+    <div className="min-h-screen bg-surface-ice-100 text-neutral-800">
       <Suspense fallback={<FullPageLoading />}>
         <ProviderDashboardNavBar />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
